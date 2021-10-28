@@ -1,0 +1,108 @@
+<div class="container">
+    <div class="mb-5" *ngIf="books.length > 0">
+        <h2 class="title">List of items</h2>
+        <div style="overflow-x:auto;" class=" mat-elevation-z8 p-3 rounded">
+            <table>
+                <tr>
+                    <th>Title</th>
+                    <th>Contributor</th>
+                    <th>Publisher</th>
+                    <th>Publication Date</th>
+                    <th>Publication Place</th>
+                    <th>Type document</th>
+                    <th>Multi volume</th>
+                    <th>Volume</th>
+                    <th>Format</th>
+                    <th>Source</th>
+                    <th>Marginalia</th>
+                    <th>Binding</th>
+                    <th>Library</th>
+                    <th>Cote</th>
+                    <th>Provenance</th>
+                    <th>Ferney</th>
+                    <th>External resource</th>
+                    <th>Notes</th>
+                    <th>User</th>
+                    <th>Actions</th>
+                </tr>
+                <tr *ngFor="let book of pageSlice">
+
+                    <td class="">
+                        {{book.title}}
+                    </td>
+                    <td class="">
+                        {{book.contributor}}
+                    </td>
+                    <td class="">
+                        {{book.publisher}}
+                    </td>
+                    <td class="">
+                        {{book.publication_date}}
+                    </td>
+                    <td class="">
+                        {{book.publication_place}}
+                    </td>
+                    <td class="">
+                        {{book.title}}
+                    </td>
+                    <td class="">
+                        {{book.contributor}}
+                    </td>
+                    <td class="">
+                        {{book.publisher}}
+                    </td>
+                    <td class="">
+                        {{book.publication_date}}
+                    </td>
+                    <td class="">
+                        {{book.title}}
+                    </td>
+                    <td class="">
+                        {{book.contributor}}
+                    </td>
+                    <td class="">
+                        {{book.publisher}}
+                    </td>
+                    <td class="">
+                        {{book.publication_date}}
+                    </td>
+                    <td class="">
+                        {{book.publication_place}}
+                    </td>
+                    <td class="">
+                        {{book.title}}
+                    </td>
+                    <td class="">
+                        {{book.contributor}}
+                    </td>
+                    <td class="">
+                        {{book.publisher}}
+                    </td>
+                    <td class="">
+                        {{book.notes | slice:0:20}}...
+                    </td>
+                    <td class="">
+                        {{book.email}}
+                    </td>
+                    <td class="actions">
+                        <mat-icon (click)="showItem(book.id)" color="primary">edit</mat-icon>
+                        <mat-icon (click)="deleteBook(book.id)" color="warn">delete</mat-icon>
+                        <mat-icon (click)="showItem(book.id)" color="warning">visibility</mat-icon>
+                    </td>
+                </tr>
+            </table>
+
+
+        </div>
+
+        <mat-paginator [length]="books.length" [pageSize]="10" [pageSizeOptions]="[10,15]"
+            (page)="onPageChange($event)">
+        </mat-paginator>
+        <div class="msg mat-elevation-z8" *ngIf="onDelete" >
+            <h3 class="">Are you sur to delete this item?</h3>
+            <div class="buttons">
+                <button mat-raised-button color="warn" (click)="confirmDelete()">Yes</button>
+                <button mat-raised-button (click)="cancelDelete()" color="primary">Cancel</button>
+            </div>
+        </div>
+    </div>

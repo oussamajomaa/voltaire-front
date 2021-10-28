@@ -1,0 +1,48 @@
+
+
+	<div style="position: fixed; width:100%">
+		<mat-toolbar color="primary" >
+			<div fxShow="true" fxHide.gt-xs="true">
+				<button mat-icon-button (click)="sidenav.toggle()">
+					<mat-icon>menu</mat-icon>
+				</button>
+			</div>
+			<a mat-button routerLink="/" class="companyName">
+				<img src="assets/img/logo-title.png" width="100" alt="">
+			</a>
+			<span class="example-spacer"></span>
+			<div fxShow="true" fxHide.lt-sm="true">
+				<a routerLink="home" class="menu-h" routerLinkActive="active" >Database</a>
+				<a routerLink="add-item" routerLinkActive="active" class="menu-h">Add Item</a>
+				<a *ngIf="role==='admin'" routerLink="register" routerLinkActive="active" class="menu-h">Add user</a>
+				<a (click)="authService.logout()" routerLink="login" routerLinkActive="active"class="menu-h" >Logout</a>
+				
+			</div>
+		</mat-toolbar>
+		<mat-sidenav-container style="height: 100vh;">
+			<mat-sidenav color="primary" #sidenav fxLayout="column" mode="over" opened="false" fxHide.gt-sm="true">
+				<div fxLayout="column" class="">
+					<div class="menu-v">
+						<mat-icon>home</mat-icon>
+						<a routerLink="home"  routerLinkActive="active1" (click)="sidenav.toggle()" >Database</a>
+					</div>
+					<div class="menu-v">
+						<mat-icon>add</mat-icon>
+						<a routerLink="add-item"  routerLinkActive="active1" (click)="sidenav.toggle()">Add Item</a>
+					</div>
+					<div class="menu-v">
+						<mat-icon>person</mat-icon>
+						<a *ngIf="role==='admin'"  routerLink="register" routerLinkActive="active1" (click)="sidenav.toggle()" >Add user</a>
+					</div>
+					<div class="menu-v">
+						<mat-icon>logout</mat-icon>
+						<a (click)="authService.logout()"  routerLink="login" routerLinkActive="active1" (click)="sidenav.toggle()" >Logout</a>
+					</div>
+				</div>
+			</mat-sidenav>
+			<mat-sidenav-content>
+				<router-outlet></router-outlet>
+			</mat-sidenav-content>
+		</mat-sidenav-container>
+	</div>
+

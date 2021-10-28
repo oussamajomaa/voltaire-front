@@ -1,0 +1,83 @@
+.title{
+    text-align: center;
+    color:#3F52B5;
+}
+
+div.scrollmenu {
+    background-color: #3F52B5;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+div.scrollmenu h3 {
+    display: inline-block;
+    color: white;
+
+    padding: 14px;
+    width: 200px;
+
+  }
+
+div.scrollmenu-items{
+    background-color: #d8d8d8;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+div.scrollmenu-items h3 {
+    display: inline-block;
+    color: rgb(43, 46, 177);
+    width: 200px;
+
+  }
+
+h3{
+    margin: 0%;
+    padding: 0;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+  }
+  
+  th, td {
+    text-align: left;
+    padding: 16px;
+    white-space: nowrap;
+  }
+
+  th{
+      background: #3F52B5;
+      color: white;
+      font-weight: 400;
+
+  }
+  
+  tr:nth-child(even){background-color: #f2f2f2}
+  .actions{
+      display: flex;;
+  }
+
+  .actions .mat-icon{
+      cursor: pointer;
+  }
+
+  .msg{
+    margin-top: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttons{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+
