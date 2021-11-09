@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
 	selector: 'app-register',
@@ -15,13 +16,19 @@ export class RegisterComponent implements OnInit {
 	onDelete = false
 	onUpdate = false
 	user_id: number
+	email:string
 	role: string
+	currentUser:string
 	constructor(
 		private formBuilder: FormBuilder,
-		private authService: AuthService
-	) { }
+		private authService: AuthService,
+		private toastService: ToastrService,
+	) { 
+		
+	}
 
 	ngOnInit(): void {
+		this.currentUser = localStorage.getItem('email')		
 		this.initForm()
 		this.getUser()
 	}
@@ -40,13 +47,26 @@ export class RegisterComponent implements OnInit {
 		const validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 		if (this.form.value.email && this.form.value.password && this.form.value.email.match(validRegex)) {
 			this.authService.register(this.form.value)
-				.subscribe(res => {
-					console.log(res)
-					this.getUser()
-					this.onAddUser = false
-				})
+				.subscribe((res:any) => {
+					if (res.status ==='200'){
+						this.onAddUser = false
+						this.toastService.success(res.message);
+						this.getUser()
+						this.form.reset()
+					}
+					if (res.status ==='409'){
+						this.onAddUser = false
+						this.toastService.error(res.message);
+						this.getUser()
+					}
+					
+				})			
 		}
 
+	}
+
+	cancelAddUser(){
+		this.onAddUser = false
 	}
 
 	getUser() {
@@ -55,14 +75,14 @@ export class RegisterComponent implements OnInit {
 
 	deleteUser(id) {
 		this.user_id = id
-		console.log(this.user_id);
 		this.onDelete = true
 	}
 
 	confirmDelete() {
-		this.authService.deleteUser(this.user_id).subscribe(res => {
-			console.log(res)
+		this.authService.deleteUser(this.user_id).subscribe((res:any) => {
+			this.toastService.warning(res.message);
 			this.getUser()
+			this.onDelete = false
 		})
 	}
 
@@ -74,25 +94,23 @@ export class RegisterComponent implements OnInit {
 		this.onAddUser = true
 	}
 
-	updateUser(id) {
+	updateUser(id,email) {
 		this.user_id = id
-		console.log(this.user_id);
-		
+		this.email = email		
 		this.onUpdate = true
 	}
 
 	confirmUpdate() {
 		if (this.role)
-			this.authService.updateUser(this.role, this.user_id).subscribe(res => {
+			this.authService.updateUser(this.role, this.user_id).subscribe((res:any) => {
 			this.getUser()
+			this.email = ''
+			this.toastService.success(res.message);
 		})
 		this.onUpdate = false
-		console.log(this.role);
 	}
 
-	cancelUpdate(){
-		console.log(this.role);
-		
+	cancelUpdate(){		
 		this.onUpdate = false
 	}
 

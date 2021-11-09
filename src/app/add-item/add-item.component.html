@@ -1,7 +1,7 @@
 <form [formGroup]="form">
-    <div class="add-book container">
+    <h2 class="title">Add an item</h2>
+    <div class="add-book container mat-elevation-z8 p-3 rounded">
 
-        <h2 class="title">Add an item</h2>
         <div>
             <div class="row">
                 <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
@@ -12,10 +12,31 @@
                 </div>
                 <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
                     <mat-form-field class="w-100" appearance="fill">
+                        <mat-label>Choose contibutor</mat-label>
+                        <mat-select [(ngModel)]="contibutorStatus" (selectionChange)="slectChange($event)" [ngModelOptions]="{standalone: true}">
+                            <mat-option value="author">Author</mat-option>
+                            <mat-option value="translator">Translator</mat-option>
+                            <mat-option value="editor">Editor</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+                    <mat-form-field class="w-100" appearance="fill">
+                        <mat-label>Choose contibutor</mat-label>
+                        <mat-select multiple [(ngModel)]="savedContributors" [ngModelOptions]="{standalone: true}" >
+                          <mat-option *ngFor="let contributor of contributors" value="{{contributor.id}}" >{{contributor.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+               
+               <!-- <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+                    <mat-form-field class="w-100" appearance="fill">
                         <mat-label>Contributor</mat-label>
                         <input matInput placeholder="Contributor" formControlName="contributor">
                     </mat-form-field>
-                </div>
+                </div>-->
+            </div>
+            <div class="row">
                 <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
                     <mat-form-field class="w-100" appearance="fill">
                         <mat-label>Publisher</mat-label>
@@ -34,39 +55,37 @@
                         <input matInput placeholder="Publication place" formControlName="publication_place">
                     </mat-form-field>
                 </div>
-                <!--<div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                    <mat-form-field class="w-100" appearance="fill">
-                        <mat-label>Publication date</mat-label>
-                        <input matInput placeholder="Publication date" [matDatepicker]="picker"
-                            formControlName="publication_date">
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
-                    </mat-form-field>
-                </div>-->
+                
                 <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
                     <mat-form-field class="w-100" appearance="fill">
                         <mat-label>Publication date</mat-label>
-                        <input matInput placeholder="Publication date" type="number" min="1000" max="2000" minlength="4" pattern="^0[1-9]|[1-9]\d$"
-                            formControlName="publication_date">
-                        
+                        <input matInput placeholder="Publication date" type="number" min="1000" max="2000" minlength="4"
+                            pattern="^0[1-9]|[1-9]\d$" formControlName="publication_date">
+
                     </mat-form-field>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                    <mat-form-field class="w-100" appearance="fill">
+                    <div class="radio-class">
                         <mat-label>Multi volume</mat-label>
-                        <mat-select placeholder="Multi volume" formControlName="multivolume" >
-                            <mat-option value="1">Yes</mat-option>
-                            <mat-option value="0">No</mat-option>
-                        </mat-select>
-
-                    </mat-form-field>
+                        <div class="radio-select">
+                            <div class="radio-label">
+                                <input id="radioYes" type="radio" value="1" formControlName="multivolume" (click)="onMultivolumeClick($event)">
+                                <label for="radioYes">Yes</label>
+                            </div>
+                            <div class="radio-label">
+                                <input id="radionNo" type="radio" value="0" formControlName="multivolume" (click)="onMultivolumeClick($event)">
+                                <label for="radionNo">No</label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
                     <mat-form-field class="w-100" appearance="fill">
                         <mat-label>Volume</mat-label>
-                        <input matInput type="number" min="1" placeholder="Volume" formControlName="volume">
+                        <input matInput *ngIf="!onMultivolume" readonly type="number" min="1" placeholder="Volume" formControlName="volume">
+                        <input matInput *ngIf="onMultivolume" readonly=false type="number" min="1" placeholder="Volume" formControlName="volume">
                     </mat-form-field>
                 </div>
                 <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
@@ -142,6 +161,6 @@
             </div>
         </div>
 
-        <button mat-raised-button color="primary" (click)="submit()" class="mt-6">Valider</button>
+        <button mat-raised-button color="primary" (click)="submit()" class="mt-6">Submit</button>
     </div>
 </form>

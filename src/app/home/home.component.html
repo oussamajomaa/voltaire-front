@@ -1,7 +1,7 @@
 <div class="container">
     <div class="mb-5" *ngIf="books.length > 0">
-        <h2 class="title">List of items</h2>
-        <div style="overflow-x:auto;" class=" mat-elevation-z8 p-3 rounded">
+        <h2 class="title">List of books</h2>
+        <div style="overflow-x:auto;" class=" mat-elevation-z8 p-3 rounded mb-2">
             <table>
                 <tr>
                     <th>Title</th>
@@ -9,7 +9,7 @@
                     <th>Publisher</th>
                     <th>Publication Date</th>
                     <th>Publication Place</th>
-                    <th>Type document</th>
+                    <!--<th>Type document</th>
                     <th>Multi volume</th>
                     <th>Volume</th>
                     <th>Format</th>
@@ -22,8 +22,8 @@
                     <th>Ferney</th>
                     <th>External resource</th>
                     <th>Notes</th>
-                    <th>User</th>
-                    <th>Actions</th>
+                    <th>User</th>-->
+                    <th *ngIf="role === 'admin' || role === 'supervisor'">Actions</th>
                 </tr>
                 <tr *ngFor="let book of pageSlice">
 
@@ -42,63 +42,65 @@
                     <td class="">
                         {{book.publication_place}}
                     </td>
-                    <td class="">
-                        {{book.title}}
+                    <!--<td class="">
+                        {{book.type_document}}
                     </td>
                     <td class="">
-                        {{book.contributor}}
+                        {{book.multivolume}}
                     </td>
                     <td class="">
-                        {{book.publisher}}
+                        {{book.volume}}
                     </td>
                     <td class="">
-                        {{book.publication_date}}
+                        {{book.format}}
                     </td>
                     <td class="">
-                        {{book.title}}
+                        {{book.source}}
                     </td>
                     <td class="">
-                        {{book.contributor}}
+                        {{book.marginalia}}
                     </td>
                     <td class="">
-                        {{book.publisher}}
+                        {{book.binding}}
                     </td>
                     <td class="">
-                        {{book.publication_date}}
+                        {{book.library}}
                     </td>
                     <td class="">
-                        {{book.publication_place}}
+                        {{book.cote}}
                     </td>
                     <td class="">
-                        {{book.title}}
+                        {{book.provenance}}
                     </td>
                     <td class="">
-                        {{book.contributor}}
+                        {{book.ferney}}
                     </td>
                     <td class="">
-                        {{book.publisher}}
+                        {{book.external_resource}}
                     </td>
                     <td class="">
                         {{book.notes | slice:0:20}}...
                     </td>
                     <td class="">
                         {{book.email}}
-                    </td>
-                    <td class="actions">
-                        <mat-icon (click)="showItem(book.id)" color="primary">edit</mat-icon>
-                        <mat-icon (click)="deleteBook(book.id)" color="warn">delete</mat-icon>
-                        <mat-icon (click)="showItem(book.id)" color="warning">visibility</mat-icon>
+                    </td>-->
+                    <td class="actions" *ngIf="role === 'admin' || role === 'supervisor'">
+                        <mat-icon (click)="updateItem(book.id)" matTooltip="edit" color="primary">edit</mat-icon>
+                        <mat-icon (click)="deleteBook(book.id)" matTooltip="delete" color="warn">delete</mat-icon>
+                        <mat-icon (click)="showItem(book.id)" matTooltip="show" color="warning">visibility</mat-icon>
                     </td>
                 </tr>
             </table>
 
 
+            <div class="">
+                <mat-paginator [length]="books.length" [pageSize]="10" [pageSizeOptions]="[10,15]"
+                    (page)="onPageChange($event)">
+                </mat-paginator>
+            </div>
         </div>
 
-        <mat-paginator [length]="books.length" [pageSize]="10" [pageSizeOptions]="[10,15]"
-            (page)="onPageChange($event)">
-        </mat-paginator>
-        <div class="msg mat-elevation-z8" *ngIf="onDelete" >
+        <div class="msg mat-elevation-z8" *ngIf="onDelete">
             <h3 class="">Are you sur to delete this item?</h3>
             <div class="buttons">
                 <button mat-raised-button color="warn" (click)="confirmDelete()">Yes</button>
@@ -106,3 +108,4 @@
             </div>
         </div>
     </div>
+</div>

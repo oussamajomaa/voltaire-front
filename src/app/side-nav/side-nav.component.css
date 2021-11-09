@@ -58,7 +58,7 @@ body{
   }
   
   .active{
-    color: rgb(255, 238, 0) !important;
+    border-bottom: solid 3px rgb(255, 102, 0);
   }
 
   .active1{
@@ -77,10 +77,25 @@ body{
     margin-right: 10px;
   }
 
-  .menu-h{
-    margin-right: 10px;
-    font-size: 14px;
-    font-weight: 200;
+  .menu-v a{
+    color: #3F52B5;
   }
+
+  .menu-h{
+    margin-right: 30px;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .logout{
+    display: flex;
+    align-items: center;
+  }
+
+.menu{
+  margin:auto;
+  display: flex;
+  align-items: center;
+}
 
 

@@ -12,15 +12,42 @@ export class BookService {
 	) { }
 
 	addBook(book){
-		return this.http.post(`${environment.url_book}/add-book`,book)
-		
+		return this.http.post(`${environment.url}/add-book`,book)	
 	}
 
 	getBooks(){
-		return this.http.get(`${environment.url_book}/show-book`)	
+		return this.http.get(`${environment.url}/show-book`)	
 	}
 
 	deleteBook(id){
 		return this.http.delete(`${environment.url}/deleteBook`,{params:{id:id}})
+	}
+
+	getOneBook(id){
+		return this.http.get(`${environment.url}/get-one-book`,{params:{id:id}})
+	}
+
+	updateBook(book){
+		return this.http.patch(`${environment.url}/edit-book`,book)
+	}
+
+	addContributor(contributor){
+		return this.http.post(`${environment.url}/add-contributor`,contributor)	
+	}
+
+	getContributors(){
+		return this.http.get(`${environment.url}/show-contributor`)	
+	}
+
+	deleteContributors(id){
+		return this.http.delete(`${environment.url}/delete-contributor`,{params:{id:id}})
+	}
+
+	addBookContributor(item){
+		return this.http.post(`${environment.url}/add-book-contibutor`,item)	
+	}
+
+	getBookContributor(id){
+		return this.http.get(`${environment.url}/book-contributor`,{params:{id:id}})
 	}
 }

@@ -40,7 +40,6 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
     width: 100%;
-    border: 1px solid #ddd;
   }
   
   th, td {
@@ -78,6 +77,34 @@ table {
     width: 100%;
     display: flex;
     justify-content: space-around;
+}
+
+.radio-class{
+    display: flex;
+    padding: 5px;
+    padding-left: 12px;
+    background-color: #F0F0F0;
+    border-bottom: rgb(163, 163, 163) 1px solid;
+}
+
+.radio-class:hover{
+    border-bottom: rgb(0, 0, 0) 2px solid;;
+}
+
+.radio-class .radio-select{
+    display: flex;
+    flex-direction: column;
+}
+
+.radio-class mat-label{
+    color: rgba(0,0,0,.6);
+    margin-right: 15px;
+}
+
+
+
+.radio-label label{
+    margin-left: 10px;
 }
 
 

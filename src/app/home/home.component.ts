@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BookService } from '../services/book.service';
 import { PageEvent } from '@angular/material/paginator';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -18,70 +20,39 @@ export class HomeComponent implements OnInit {
 	books: any = []
 	book_id:number
 	onDelete = false
+	onUpdate = false
+
 	pageSlice:any = []
-	// MatPaginator Output
 	pageEvent: PageEvent;
 
+	role:string
+	book:any = {}
+	multivolume:any
+	onMultivolume = false
 	constructor(
 		private formBuilder: FormBuilder,
 		private bookService: BookService,
-		private http: HttpClient
-	) { }
+		private http: HttpClient,
+		private router:Router,
+		private toastService: ToastrService,
+
+	) {
+		this.role = localStorage.getItem('role')
+	 }
 
 	ngOnInit(): void {
-		this.initForm()
+		
 		this.getBooks()
-	}
-
-	initForm() {
-		this.form = this.formBuilder.group(
-			{
-				title: ['', Validators.required],
-				contributor: ['', Validators.required],
-				publisher: ['', Validators.required],
-				type_document: [''],
-				publication_place: [''],
-				publication_date: ['', Validators.required],
-				multivolume: [false],
-				volume: [''],
-				format: [''],
-				source: [''],
-				marginalia: [''],
-				binding: [''],
-				library: [''],
-				cote: [''],
-				provenance: [''],
-				ferney: [''],
-				digital_voltaire: [''],
-				external_resource: [''],
-				notes: [''],
-			}
-		)
-	}
-
-	submit() {
-		if (!this.form.value.volume) this.form.value.volume = 0
-		if (this.form.value.title && this.form.value.contributor && this.form.value.publisher) {
-			this.bookService.addBook(this.form.value)
-				.subscribe(res => {
-					console.log(res)
-					this.getBooks()
-				})
-		}
-		else {
-			console.log('error');
-			
-		}
 	}
 
 	getBooks() {
 		this.bookService.getBooks().subscribe(res => {
-			console.log(res);
 			this.books = res
+			console.log(this.books);
+			
 			this.pageSlice = this.books.slice(0,10)
 		})
 	}
-
 
 	onPageChange(event: PageEvent){
 		const startIndex = event.pageIndex * event.pageSize
@@ -93,8 +64,7 @@ export class HomeComponent implements OnInit {
 	}
 
 	showItem(id){
-		console.log(id);
-		
+		this.router.navigate(['show-item'],{queryParams:{id:id}})
 	}
 
 	deleteBook(id){
@@ -109,7 +79,16 @@ export class HomeComponent implements OnInit {
 
 	confirmDelete(){
 		this.onDelete = false
-		this.bookService.deleteBook(this.book_id).subscribe(res => this.getBooks())
+		this.bookService.deleteBook(this.book_id).subscribe((res:any) => {
+			this.getBooks()
+			this.toastService.warning(res.message);
+		})
 	}
+
+	updateItem(id){
+		this.router.navigate(['edit-item'],{queryParams:{id:id}})
+	}
+
+
 
 }

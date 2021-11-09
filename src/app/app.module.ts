@@ -3,6 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
+// import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -29,7 +32,13 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { AddItemComponent } from './add-item/add-item.component';
 import { AuthInterceptor } from './services/auth.interceptor';
 import { MatTableModule } from '@angular/material/table'  
-
+import { ToastrModule } from 'ngx-toastr';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import { ShowItemComponent } from './show-item/show-item.component';
+import { AboutComponent } from './about/about.component';
+import {MatRadioModule} from '@angular/material/radio';
+import { EditItemComponent } from './edit-item/edit-item.component';
+import { ContributorComponent } from './contributor/contributor.component';
 
 
 
@@ -40,7 +49,11 @@ import { MatTableModule } from '@angular/material/table'
     LoginComponent,
     RegisterComponent,
     SideNavComponent,
-    AddItemComponent
+    AddItemComponent,
+    ShowItemComponent,
+    AboutComponent,
+    EditItemComponent,
+    ContributorComponent
   ],
   imports: [
     BrowserModule,
@@ -62,10 +75,20 @@ import { MatTableModule } from '@angular/material/table'
     MatPaginatorModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatTableModule
+    MatTableModule,
+    MatTooltipModule,
+    MatRadioModule,
+    ToastrModule.forRoot({
+      timeOut: 1500,
+      easing:'ease-in',
+      positionClass:"toast-top-center"
+    })
     
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    // {provide: LocationStrategy, useClass: HashLocationStrategy},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

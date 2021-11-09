@@ -3,8 +3,8 @@
     color:#3F52B5;
 }
 
-.users{
-
+.contributor{
+    
     width: 40%;
     margin: auto;
 }
@@ -29,25 +29,8 @@ table {
   
   tr:nth-child(even){background-color: #f2f2f2}
 
-.head{
-    background: #3F52B5;
-    color: white;
-    padding: 8px;
-}
-
-.actions{
+  .actions{
     cursor: pointer;
-}
-
-h3{
-    margin:0
-}
-
-.register{
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-    width: 40%;
 }
 
 .msg{
@@ -65,29 +48,27 @@ h3{
     justify-content: space-around;
 }
 
-
-
 @media (max-width:1000px){
-    .register,.users{
+    .contributor{
         width: 60%;
     }
 }
 
 @media (max-width:768px){
-    .register,.users{
+    .contributor{
         width: 90%;
     }
 }
 
 
 @media (max-width:1000px){
-    .register,.users{
+    .contributor{
         width: 60%;
     }
 }
 
 @media (max-width:768px){
-    .register,.users{
+    .contributor{
         width: 90%;
     }
 }

@@ -1,0 +1,102 @@
+<div>
+    <h2 class="title">Update an item</h2>
+    <div class="update-book container  mat-elevation-z8 p-3 rounded">
+
+        <div *ngIf="book">
+            <div class="parent-card">
+                <div class="card">
+                    <mat-label>Title</mat-label>
+                    <input matInput [(ngModel)]="title" value={{book.title}}>
+                </div>
+
+                <!--<div class="card" *ngFor="let contributor of contributors, let i = index">
+                        <mat-label>{{contributor.status}} {{i+1}}</mat-label>
+                        <h3>{{contributor.name}}</h3>
+                    </div>-->
+
+
+                <div class=" card">
+                    <mat-label>Publisher</mat-label>
+                    <input matInput [(ngModel)]="publisher" value="{{book.publisher}}">
+                </div>
+                <div class=" card">
+                    <mat-label>Type document</mat-label>
+                    <input matInput [(ngModel)]="type_document" value="{{book.type_document}}">
+                </div>
+                <div class=" card">
+                    <mat-label>Publication place</mat-label>
+                    <input matInput [(ngModel)]="publication_place" value="{{book.publication_place}}">
+                </div>
+
+                <div class=" card">
+                    <mat-label>Publication date</mat-label>
+                    <input matInput [(ngModel)]="publication_date" value="{{book.publication_date}}">
+                </div>
+
+
+                <div class="card">
+                    <mat-label>Multi Volume</mat-label>
+                    <input matInput [(ngModel)]="multivolume" value="{{book.multivolume}}">
+                </div>
+                <div class="card">
+                    <mat-label>Volume</mat-label>
+                    <input matInput [(ngModel)]="volume" value="{{book.volume}}">
+                </div>
+                <div class="card">
+                    <mat-label>Format</mat-label>
+                    <input matInput [(ngModel)]="format" value="{{book.format}}">
+                </div>
+                <div class="card">
+                    <mat-label>Source</mat-label>
+                    <input matInput [(ngModel)]="source" value="{{book.source}}">
+                </div>
+                <div class="card">
+                    <mat-label>Marginalia</mat-label>
+                    <input matInput [(ngModel)]="marginalia" value="{{book.marginalia}}">
+
+                </div>
+                <div class="card">
+                    <mat-label>Binding</mat-label>
+                    <input matInput [(ngModel)]="binding" value="{{book.binding}}">
+                </div>
+
+
+                <div class="card">
+                    <mat-label>Library</mat-label>
+                    <input matInput [(ngModel)]="library" value="{{book.library}}">
+                </div>
+                <div class="card">
+                    <mat-label>Cote</mat-label>
+                    <input matInput [(ngModel)]="cote" value="{{book.cote}}">
+                </div>
+                <div class="card">
+                    <mat-label>Provenance</mat-label>
+                    <input matInput [(ngModel)]="provenance" value="{{book.provenance}}">
+                </div>
+                <div class="card">
+                    <mat-label>Ferney</mat-label>
+                    <input matInput [(ngModel)]="ferney" value="{{book.ferney}}">
+                </div>
+                <div class="card">
+                    <mat-label>Digital Voltaire</mat-label>
+                    <input matInput [(ngModel)]="digital_voltaire" value="{{book.digital_voltaire}}">
+                </div>
+                <div class="card">
+                    <mat-label>External resource</mat-label>
+                    <input matInput [(ngModel)]="external_resource" value="{{book.external_resource}}">
+                </div>
+
+
+                <div class="card card-note">
+                    <mat-label>Notes</mat-label>
+                    <textarea matInput [(ngModel)]="notes" value="{{book.notes}}"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-around">
+            <button mat-raised-button color="primary" (click)="submit()" class="mt-6">Update</button>
+            <button mat-raised-button color="warn" (click)="cancelUpdate()" class="mt-6">Cancel</button>
+        </div>
+    </div>
+</div>

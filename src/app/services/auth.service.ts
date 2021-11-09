@@ -4,6 +4,8 @@ import { environment } from 'src/environments/environment';
 import { BehaviorSubject } from 'rxjs';
 import jwt_decode from 'jwt-decode';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+
 
 
 @Injectable({
@@ -13,7 +15,7 @@ export class AuthService {
 	authState = new BehaviorSubject(false);
 	token: string
 	role: string
-	constructor(private http: HttpClient, private router: Router) {
+	constructor(private http: HttpClient, private router: Router,private toastService: ToastrService,) {
 		this.token = localStorage.getItem('token')
 		if (this.token) {
 		  this.authState.next(true)
@@ -24,9 +26,9 @@ export class AuthService {
 	login(user) {
 		console.log('get user ', user);
 		return this.http.post(`${environment.url}/login`, user)
-		.subscribe(res => {
+		.subscribe((res:any) => {
 			console.log(res);
-			if (res['token']) {
+			if (res.token) {
 				console.log(res)
 				localStorage.setItem('token', res['token']);
 				const payload = jwt_decode(res['token'])
@@ -36,7 +38,9 @@ export class AuthService {
 				localStorage.setItem('email', payload['email']);
 				localStorage.setItem('id', payload['id']);
 				this.router.navigate(['home'])
+				this.toastService.success(res.message);
 			}
+			else this.toastService.error(res.message);
 		})
 	}
 
@@ -52,11 +56,8 @@ export class AuthService {
 		return this.authState.value
 	}
 
-	register(user){
-		console.log(user);
-		
+	register(user){		
 		return this.http.post(`${environment.url}/register`,user)
-		
 	}
 
 	getUsers(){

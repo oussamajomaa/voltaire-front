@@ -10,10 +10,12 @@ import { AuthService } from '../services/auth.service';
 export class SideNavComponent implements OnInit {
 
   role:string
+  email:string
   constructor(public authService:AuthService){}
 
   ngOnInit(): void {
     this.role = localStorage.getItem('role')
+    this.email = localStorage.getItem('email')    
   }
 
 }
