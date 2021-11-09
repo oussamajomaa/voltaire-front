@@ -7,10 +7,25 @@ mat-label{
     color: #3F52B5;
 }
 
-input,textarea{
-    border: 1px #3F52B5 dotted;
+input,textarea, mat-select{
+    border:none;
+    border-bottom: 1px #3F52B5 dotted;
     padding: 10px;
+    box-sizing: border-box;
 }
+input:focus{
+    outline: none;
+}
+
+.book-title{
+    font-style: italic;
+    background: #3F52B5;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    
+}
+
 
 h3{
     font-weight: 400;

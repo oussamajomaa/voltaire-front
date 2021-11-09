@@ -69,8 +69,8 @@ export class AddItemComponent implements OnInit {
 
 	onMultivolumeClick(event){		
 		let value = event.target.value
-		if (value === '1') this.onMultivolume = true
-		if (value === '0') this.onMultivolume = false	
+		if (value === 'yes') this.onMultivolume = true
+		if (value === 'no') this.onMultivolume = false	
 	}
 
 	submit() {	
