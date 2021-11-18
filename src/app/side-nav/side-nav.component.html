@@ -12,11 +12,11 @@
 			</a>
 			
 			<div fxShow="true" fxHide.lt-md="true" class="menu">
-				<a routerLink="home" class="menu-h" routerLinkActive="active" >Database</a>
-				<a routerLink="add-item" routerLinkActive="active" class="menu-h">Books</a>
+				<a routerLink="home" class="menu-h" routerLinkActive="active" >Home</a>
+				<a routerLink="book" routerLinkActive="active" class="menu-h">Books</a>
 				<a routerLink="contributor" routerLinkActive="active" class="menu-h">Contributors</a>
 				<a *ngIf="role==='supervisor'" routerLink="register" routerLinkActive="active" class="menu-h">Users</a>
-				<a routerLink="about" routerLinkActive="active" class="menu-h">About</a>
+				<!--<a routerLink="about" routerLinkActive="active" class="menu-h">About</a>-->
 				
 				
 			</div>
@@ -33,24 +33,24 @@
 				<div fxLayout="column" class="">
 					<div class="menu-v">
 						<mat-icon>home</mat-icon>
-						<a routerLink="home"  routerLinkActive="active1" (click)="sidenav.toggle()" >Database</a>
+						<a routerLink="home"  routerLinkActive="active1" (click)="sidenav.toggle()" >Home</a>
 					</div>
 					<div class="menu-v">
-						<mat-icon>add</mat-icon>
-						<a routerLink="add-item"  routerLinkActive="active1" (click)="sidenav.toggle()">Books</a>
+						<mat-icon>book</mat-icon>
+						<a routerLink="book"  routerLinkActive="active1" (click)="sidenav.toggle()">Books</a>
 					</div>
 					<div class="menu-v">
-						<mat-icon>add</mat-icon>
+						<mat-icon>school</mat-icon>
 						<a routerLink="contributor"  routerLinkActive="active1" (click)="sidenav.toggle()">Contributors</a>
 					</div>
 					<div class="menu-v" *ngIf="role==='supervisor'">
 						<mat-icon>person</mat-icon>
 						<a   routerLink="register" routerLinkActive="active1" (click)="sidenav.toggle()" >Users</a>
 					</div>
-					<div class="menu-v" *ngIf="role==='supervisor'">
+					<!--<div class="menu-v">
 						<mat-icon>info</mat-icon>
 						<a   routerLink="about" routerLinkActive="active1" (click)="sidenav.toggle()" >About</a>
-					</div>
+					</div>-->
 					<div class="menu-v">
 						<mat-icon>logout</mat-icon>
 						<a (click)="authService.logout()"  routerLink="login" routerLinkActive="active1" (click)="sidenav.toggle()" >Logout</a>

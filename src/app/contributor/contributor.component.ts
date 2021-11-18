@@ -20,6 +20,8 @@ export class ContributorComponent implements OnInit {
 	status: string
 	id:number
 
+	contributor:any
+
 	pageSlice:any = []
 	pageEvent: PageEvent;
 
@@ -98,7 +100,7 @@ export class ContributorComponent implements OnInit {
 
 
 	confirmDelete() {
-		this.bookService.deleteContributors(this.id).subscribe((res:any) => {
+		this.bookService.deleteContributor(this.id).subscribe((res:any) => {
 			this.toastService.warning(res.message);
 			this.getContributor()
 		})
@@ -112,6 +114,16 @@ export class ContributorComponent implements OnInit {
 
 
 	confirmUpdate() {
+		this.contributor = {
+			name:this.name,
+			status:this.status,
+			id:this.id
+		}
+		this.bookService.updateContributor(this.contributor).subscribe((res:any) => {
+			this.toastService.warning(res.message);
+			this.getContributor()
+		})
+		
 		this.onUpdate = false
 	}
 

@@ -39,6 +39,7 @@ import { AboutComponent } from './about/about.component';
 import {MatRadioModule} from '@angular/material/radio';
 import { EditItemComponent } from './edit-item/edit-item.component';
 import { ContributorComponent } from './contributor/contributor.component';
+import { BookComponent } from './book/book.component';
 
 
 
@@ -53,7 +54,8 @@ import { ContributorComponent } from './contributor/contributor.component';
     ShowItemComponent,
     AboutComponent,
     EditItemComponent,
-    ContributorComponent
+    ContributorComponent,
+    BookComponent
   ],
   imports: [
     BrowserModule,

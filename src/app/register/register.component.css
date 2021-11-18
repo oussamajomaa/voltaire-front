@@ -1,6 +1,6 @@
 .title{
     text-align: center;
-    color:#3F52B5;
+    color:#002147;
 }
 
 .users{
@@ -22,7 +22,7 @@ table {
   }
 
   th{
-      background: #3F52B5;
+      background: #002147;
       color: white;
       font-weight: 400;
   }
@@ -30,7 +30,7 @@ table {
   tr:nth-child(even){background-color: #f2f2f2}
 
 .head{
-    background: #3F52B5;
+    background: #002147;
     color: white;
     padding: 8px;
 }

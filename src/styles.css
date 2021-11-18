@@ -13,9 +13,19 @@ body { margin: 0;  }
 h1,h2,h3,h4,h5,h6,p,a,span,input,label,textarea,select,button{font-family: 'Montserrat', sans-serif;}
 
 .primary{
-    background-color: #192340;
-    color: #FBBA00;
+    background-color: #002147;
+    color: white;
   }
+
+.primary-btn{
+  color:#002147;
+  background: transparent;
+}
+
+.green-btn{
+  color:#00472f;
+  background: transparent;
+}
 
   .toast-success, .toast-error, .toast-warning {
     margin-top: 65px !important;

@@ -39,7 +39,7 @@ export class BookService {
 		return this.http.get(`${environment.url}/show-contributor`)	
 	}
 
-	deleteContributors(id){
+	deleteContributor(id){
 		return this.http.delete(`${environment.url}/delete-contributor`,{params:{id:id}})
 	}
 
@@ -49,5 +49,9 @@ export class BookService {
 
 	getBookContributor(id){
 		return this.http.get(`${environment.url}/book-contributor`,{params:{id:id}})
+	}
+
+	updateContributor(contributor){
+		return this.http.patch(`${environment.url}/edit-contributor`,contributor)	
 	}
 }

@@ -1,6 +1,6 @@
 .title{
     text-align: center;
-    color:#3F52B5;
+    color:#002147;
 }
 
 .radio-class{
@@ -29,4 +29,58 @@
 
 .radio-label label{
     margin-left: 10px;
+}
+
+
+
+ /* ********************************* */
+
+
+.parent-card{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:space-between
+}
+
+.card{
+    margin: 5px;
+    width: 19%;
+}
+
+.card-note{
+    width: 100%; 
+    padding: 5px;
+    margin: 5px;
+}
+
+input,textarea, mat-select{
+    border:none;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+input:focus, textarea:focus, mat-select:focus{
+    outline: 1px solid #002147;
+}
+
+.stated{
+    border-bottom: 1px solid yellow;
+}
+
+@media (max-width:1000px){
+    .card{
+        width: 30%;
+    }
+}
+
+@media (max-width:768px){
+    .card{
+        width: 47%;
+    }
+}
+
+@media (max-width:460px){
+    .card{
+        width: 99%;
+    }
 }

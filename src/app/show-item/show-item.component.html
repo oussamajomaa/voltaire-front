@@ -4,99 +4,118 @@
 
         <div *ngIf="book">
             <div class="parent-card">
-                <div class="card">
+
+                <div class="card w-100">
                     <mat-label>Title</mat-label>
                     <h3>{{book.title}}</h3>
                 </div>
 
-                    <div class="card" *ngFor="let contributor of contributors, let i = index">
-                        <mat-label>{{contributor.status}} {{i+1}}</mat-label>
-                        <h3>{{contributor.name}}</h3>
-                    </div>
+                <div class="card" *ngFor="let contributor of contributors, let i = index">
+                    <mat-label>{{contributor.status}}</mat-label>
+                    <h3>{{contributor.name | titlecase}}</h3>
+                </div>
 
-                
+
                 <div class=" card">
                     <mat-label>Publisher</mat-label>
-                    <h3>{{book.title}}</h3>
+                    <h3>{{book.publisher | titlecase}}</h3>
                 </div>
+                <div class=" card stated">
+                    <mat-label>Publisher stated</mat-label>
+                    <h3>{{book.publisher_stated | titlecase}}</h3>
+                </div>
+
+                <div class=" card">
+                    <mat-label>Publication place</mat-label>
+                    <h3>{{book.publication_place | titlecase}}</h3>
+                </div>
+                <div class=" card stated">
+                    <mat-label>Publication place stated</mat-label>
+                    <h3>{{book.publication_place_stated | titlecase}}</h3>
+                </div>
+                
+                <div class=" card">
+                    <mat-label>Publication date</mat-label>
+                    <h3>{{book.publication_date}}</h3>
+                </div>
+                <div class=" card stated">
+                    <mat-label>Publication date stated</mat-label>
+                    <h3>{{book.publication_date_stated}}</h3>
+                </div>
+                
                 <div class=" card">
                     <mat-label>Type document</mat-label>
                     <h3>{{book.type_document}}</h3>
                 </div>
-                <div class=" card">
-                    <mat-label>Publication place</mat-label>
-                    <h3>{{book.title}}</h3>
-                </div>
-
-                <div class=" card">
-                    <mat-label>Publication date</mat-label>
-                    <h3>{{book.title}}</h3>
-                </div>
-
 
                 <div class="card">
                     <mat-label>Multi Volume</mat-label>
-                    <h3>{{book.title}}</h3>
+                    <h3>{{book.multivolume}}</h3>
                 </div>
                 <div class="card">
                     <mat-label>Volume</mat-label>
-                    <h3>{{book.title}}</h3>
+                    <h3>{{book.volume}}</h3>
                 </div>
                 <div class="card">
                     <mat-label>Format</mat-label>
-                    <h3>{{book.title}}</h3>
+                    <h3>{{book.format}}</h3>
                 </div>
                 <div class="card">
                     <mat-label>Source</mat-label>
-                    <h3>{{book.title}}</h3>
+                    <h3>{{book.source}}</h3>
                 </div>
                 <div class="card">
                     <mat-label>Marginalia</mat-label>
-                    <h3>{{book.title}}</h3>
+                    <h3>{{book.marginalia}}</h3>
 
                 </div>
                 <div class="card">
                     <mat-label>Binding</mat-label>
-                    <h3>{{book.title}}</h3>
+                    <h3>{{book.binding}}</h3>
                 </div>
 
 
                 <div class="card">
                     <mat-label>Library</mat-label>
-                    <h3>{{book.title}}</h3>
+                    <h3>{{book.library}}</h3>
                 </div>
                 <div class="card">
                     <mat-label>Cote</mat-label>
-                    <h3>{{book.title}}</h3>
+                    <h3>{{book.cote}}</h3>
                 </div>
                 <div class="card">
                     <mat-label>Provenance</mat-label>
-                    <h3>{{book.title}}</h3>
+                    <h3>{{book.provenance}}</h3>
                 </div>
                 <div class="card">
                     <mat-label>Ferney</mat-label>
-                    <h3>{{book.title}}</h3>
+                    <h3>{{book.ferney}}</h3>
                 </div>
                 <div class="card">
                     <mat-label>Digital Voltaire</mat-label>
-                    <h3>{{book.title}}</h3>
+                    <h3>{{book.digital_voltaire}}</h3>
                 </div>
                 <div class="card">
                     <mat-label>External resource</mat-label>
-                    <h3>{{book.title}}</h3>
+                    <h3>{{book.external_resource}}</h3>
+                </div>
+
+                <div class="card">
+                    <mat-label>User</mat-label>
+                    <h3>{{book.email}}</h3>
                 </div>
 
 
                 <div class="card card-note">
                     <mat-label>Notes</mat-label>
-                    <h3>{{book.title}}</h3>
+                    <h3>{{book.notes}}</h3>
                 </div>
             </div>
         </div>
 
 
-        <button mat-raised-button color="primary" (click)="retunToHome()">
-            <mat-icon>arrow_back_ios</mat-icon>Back Home
+        <button mat-raised-button class="primary" (click)="retunToHome()">
+            <mat-icon>arrow_back_ios</mat-icon>Back
         </button>
 
     </div>

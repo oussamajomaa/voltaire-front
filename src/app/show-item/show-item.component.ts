@@ -23,7 +23,7 @@ export class ShowItemComponent implements OnInit {
 	ngOnInit(): void {
 		this.id = this.route.snapshot.queryParams.id
 		this.getOneBook()
-		this.getBokkContributor()
+		this.getBookContributor()
 	}
 
 	getOneBook() {
@@ -33,13 +33,13 @@ export class ShowItemComponent implements OnInit {
 		})
 	}
 
-	getBokkContributor(){
+	getBookContributor(){
 		this.bookService.getBookContributor(this.id)
 		.subscribe((res:any) => this.contributors = res)
 	}
 
 	retunToHome(){
-		this.router.navigateByUrl('home')
+		this.router.navigateByUrl('book')
 	}
 
 }

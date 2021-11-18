@@ -1,166 +1,229 @@
-<form [formGroup]="form">
-    <h2 class="title">Add an item</h2>
+ <!--<form [formGroup]="form">-->
+     <div>
+    <h2 class="title">Add a book</h2>
     <div class="add-book container mat-elevation-z8 p-3 rounded">
 
-        <div>
-            <div class="row">
-                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                    <mat-form-field class="w-100" appearance="fill">
-                        <mat-label>Titre</mat-label>
-                        <input matInput placeholder="Titre" formControlName="title">
-                    </mat-form-field>
-                </div>
-                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                    <mat-form-field class="w-100" appearance="fill">
-                        <mat-label>Choose contibutor</mat-label>
-                        <mat-select [(ngModel)]="contibutorStatus" (selectionChange)="slectChange($event)" [ngModelOptions]="{standalone: true}">
-                            <mat-option value="author">Author</mat-option>
-                            <mat-option value="translator">Translator</mat-option>
-                            <mat-option value="editor">Editor</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                    <mat-form-field class="w-100" appearance="fill">
-                        <mat-label>Choose contibutor</mat-label>
-                        <mat-select multiple [(ngModel)]="savedContributors" [ngModelOptions]="{standalone: true}" >
-                          <mat-option *ngFor="let contributor of contributors" value="{{contributor.id}}" >{{contributor.name}}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-               
-               <!-- <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                    <mat-form-field class="w-100" appearance="fill">
-                        <mat-label>Contributor</mat-label>
-                        <input matInput placeholder="Contributor" formControlName="contributor">
-                    </mat-form-field>
-                </div>-->
+        <div class="parent-card">
+            <!--<div class="card">
+                <input matInput placeholder="Title" formControlName="title">
             </div>
-            <div class="row">
-                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                    <mat-form-field class="w-100" appearance="fill">
-                        <mat-label>Publisher</mat-label>
-                        <input matInput placeholder="Publisher" formControlName="publisher">
-                    </mat-form-field>
-                </div>
-                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                    <mat-form-field class="w-100" appearance="fill">
-                        <mat-label>Type document</mat-label>
-                        <input matInput placeholder="Type document" formControlName="type_document">
-                    </mat-form-field>
-                </div>
-                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                    <mat-form-field class="w-100" appearance="fill">
-                        <mat-label>Publication place</mat-label>
-                        <input matInput placeholder="Publication place" formControlName="publication_place">
-                    </mat-form-field>
-                </div>
-                
-                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                    <mat-form-field class="w-100" appearance="fill">
-                        <mat-label>Publication date</mat-label>
-                        <input matInput placeholder="Publication date" type="number" min="1000" max="2000" minlength="4"
-                            pattern="^0[1-9]|[1-9]\d$" formControlName="publication_date">
 
-                    </mat-form-field>
-                </div>
+            <div class="card">
+                <mat-select multiple placeholder="Choose author" [(ngModel)]="selectedAuthors"
+                    [ngModelOptions]="{standalone: true}">
+                    <mat-option *ngFor="let contributor of authors" value="{{contributor.id}}">{{contributor.name}}
+                    </mat-option>
+                </mat-select>
             </div>
-            <div class="row">
-                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                    <div class="radio-class">
-                        <mat-label>Multi volume</mat-label>
-                        <div class="radio-select">
-                            <div class="radio-label">
-                                <input id="radioYes" type="radio" value="yes" formControlName="multivolume" (click)="onMultivolumeClick($event)">
-                                <label for="radioYes">Yes</label>
-                            </div>
-                            <div class="radio-label">
-                                <input id="radionNo" type="radio" value="no" formControlName="multivolume" (click)="onMultivolumeClick($event)">
-                                <label for="radionNo">No</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                    <mat-form-field class="w-100" appearance="fill">
-                        <mat-label>Volume</mat-label>
-                        <input matInput *ngIf="!onMultivolume" readonly type="number" min="1" placeholder="Volume" formControlName="volume">
-                        <input matInput *ngIf="onMultivolume" readonly=false type="number" min="1" placeholder="Volume" formControlName="volume">
-                    </mat-form-field>
-                </div>
-                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                    <mat-form-field class="w-100" appearance="fill">
-                        <mat-label>Format</mat-label>
-                        <input matInput placeholder="Format" formControlName="format">
-                    </mat-form-field>
-                </div>
-                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                    <mat-form-field class="w-100" appearance="fill">
-                        <mat-label>Source</mat-label>
-                        <input matInput placeholder="Source" formControlName="source">
-                    </mat-form-field>
-                </div>
-                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                    <mat-form-field class="w-100" appearance="fill">
-                        <mat-label>Marginalia</mat-label>
-                        <input matInput placeholder="Marginalia" formControlName="marginalia">
-                    </mat-form-field>
-                </div>
-                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                    <mat-form-field class="w-100" appearance="fill">
-                        <mat-label>Binding</mat-label>
-                        <input matInput placeholder="Binding" formControlName="binding">
-                    </mat-form-field>
-                </div>
+            <div class="card">
+                <mat-select placeholder="Choose translator" multiple [(ngModel)]="selectedTranslators"
+                    [ngModelOptions]="{standalone: true}">
+                    <mat-option *ngFor="let contributor of translators" value="{{contributor.id}}">{{contributor.name}}
+                    </mat-option>
+                </mat-select>
             </div>
-            <div class="row">
-                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                    <mat-form-field class="w-100" appearance="fill">
-                        <mat-label>Library</mat-label>
-                        <input matInput placeholder="Library" formControlName="library">
-                    </mat-form-field>
-                </div>
-                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                    <mat-form-field class="w-100" appearance="fill">
-                        <mat-label>Cote</mat-label>
-                        <input matInput placeholder="Cote" formControlName="cote">
-                    </mat-form-field>
-                </div>
-                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                    <mat-form-field class="w-100" appearance="fill">
-                        <mat-label>Provenance</mat-label>
-                        <input matInput placeholder="Provenance" formControlName="provenance">
-                    </mat-form-field>
-                </div>
-                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                    <mat-form-field class="w-100" appearance="fill">
-                        <mat-label>Ferney</mat-label>
-                        <input matInput placeholder="Ferney" formControlName="ferney">
-                    </mat-form-field>
-                </div>
-                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                    <mat-form-field class="w-100" appearance="fill">
-                        <mat-label>Digital Voltaire</mat-label>
-                        <input matInput placeholder="Digital Voltaire" formControlName="digital_voltaire">
-                    </mat-form-field>
-                </div>
-                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                    <mat-form-field class="w-100" appearance="fill">
-                        <mat-label>External resource</mat-label>
-                        <input matInput placeholder="External resource" formControlName="external_resource">
-                    </mat-form-field>
-                </div>
+
+
+            <div class="card">
+                <input matInput placeholder="Publisher" formControlName="publisher">
             </div>
-            <div class="row">
-                <div class="col">
-                    <mat-form-field class="w-100" appearance="fill">
-                        <mat-label>Notes</mat-label>
-                        <textarea matInput placeholder="Notes" rows="5" formControlName="notes"></textarea>
-                    </mat-form-field>
-                </div>
+
+            <div class="card stated">
+                <input matInput placeholder="Publisher stated" formControlName="publisher_stated">
+            </div>
+
+            <div class="card">
+                <input matInput placeholder="Publication place" formControlName="publication_place">
+            </div>
+
+            <div class="card stated">
+                <input matInput placeholder="Publication place stated" formControlName="publication_place_stated">
+            </div>
+
+            <div class="card">
+                <input matInput placeholder="Publication date" type="number"
+                    oninput="javascript: if (this.value.length > 4) this.value = this.value.slice(0, 4);"
+                    formControlName="publication_date">
+            </div>
+
+            <div class="card stated">
+                <input matInput placeholder="Publication date stated" type="number"
+                    oninput="javascript: if (this.value.length > 4) this.value = this.value.slice(0, 4);"
+                    formControlName="publication_date_stated">
+            </div>
+
+
+
+            <div class="card">
+                <input matInput placeholder="Type document" formControlName="type_document">
+            </div>
+
+            <div class="card">
+                <mat-select placeholder="Multi volume">
+                    <mat-option value="yes">Yes</mat-option>
+                    <mat-option value="no">No</mat-option>
+                </mat-select>
+            </div>
+            <div class="card">
+                <input matInput type="number" min="1" placeholder="Volume" formControlName="volume">
+            </div>
+
+            <div class="card">
+                <input matInput placeholder="Format" formControlName="format">
+            </div>
+
+            <div class="card">
+                <input matInput placeholder="Source" formControlName="source">
+            </div>
+
+            <div class="card">
+                <input matInput placeholder="Marginalia" formControlName="marginalia">
+            </div>
+
+            <div class="card">
+                <input matInput placeholder="Binding" formControlName="binding">
+            </div>
+
+            <div class="card">
+                <input matInput placeholder="Library" formControlName="library">
+            </div>
+
+            <div class="card">
+                <input matInput placeholder="Cote" formControlName="cote">
+            </div>
+
+            <div class="card">
+                <input matInput placeholder="Provenance" formControlName="provenance">
+            </div>
+
+            <div class="card">
+                <input matInput placeholder="Ferney" formControlName="ferney">
+            </div>
+
+            <div class="card">
+                <input matInput placeholder="Digital Voltaire" formControlName="digital_voltaire">
+            </div>
+
+            <div class="card">
+                <input matInput placeholder="External resource" formControlName="external_resource">
+            </div>
+
+            <div class="card card-note w-100">
+                <textarea matInput placeholder="Notes" rows="5" formControlName="notes"></textarea>
+            </div>-->
+
+            <div class="card card-note w-100">
+                <input matInput placeholder="Title" [(ngModel)]="title">
+            </div>
+
+            <div class="card">
+                <mat-select multiple placeholder="Choose author" [(ngModel)]="selectedAuthors"
+                    [ngModelOptions]="{standalone: true}">
+                    <mat-option *ngFor="let contributor of authors" value="{{contributor.id}}">{{contributor.name}}
+                    </mat-option>
+                </mat-select>
+            </div>
+            <div class="card">
+                <mat-select placeholder="Choose translator" multiple [(ngModel)]="selectedTranslators"
+                    [ngModelOptions]="{standalone: true}">
+                    <mat-option *ngFor="let contributor of translators" value="{{contributor.id}}">{{contributor.name}}
+                    </mat-option>
+                </mat-select>
+            </div>
+
+
+            <div class="card">
+                <input matInput placeholder="Publisher" [(ngModel)]="publisher">
+            </div>
+
+            <div class="card stated">
+                <input matInput placeholder="Publisher stated" [(ngModel)]="publisher_stated">
+            </div>
+
+            <div class="card">
+                <input matInput placeholder="Publication place" [(ngModel)]="publication_place">
+            </div>
+
+            <div class="card stated">
+                <input matInput placeholder="Publication place stated" [(ngModel)]="publication_place_stated">
+            </div>
+
+            <div class="card">
+                <input matInput placeholder="Publication date" type="number"
+                    oninput="javascript: if (this.value.length > 4) this.value = this.value.slice(0, 4);"
+                    [(ngModel)]="publication_date">
+            </div>
+
+            <div class="card stated">
+                <input matInput placeholder="Publication date stated" type="number"
+                    oninput="javascript: if (this.value.length > 4) this.value = this.value.slice(0, 4);"
+                    [(ngModel)]="publication_date_stated">
+            </div>
+
+
+
+            <div class="card">
+                <input matInput placeholder="Type document" [(ngModel)]="type_document">
+            </div>
+
+            <div class="card">
+                <mat-select placeholder="Multi volume">
+                    <mat-option value="yes">Yes</mat-option>
+                    <mat-option value="no">No</mat-option>
+                </mat-select>
+            </div>
+            <div class="card">
+                <input matInput type="number" min="1" placeholder="Volume" [(ngModel)]="volume">
+            </div>
+
+            <div class="card">
+                <input matInput placeholder="Format" [(ngModel)]="format">
+            </div>
+
+            <div class="card">
+                <input matInput placeholder="Source" [(ngModel)]="source">
+            </div>
+
+            <div class="card">
+                <input matInput placeholder="Marginalia" [(ngModel)]="marginalia">
+            </div>
+
+            <div class="card">
+                <input matInput placeholder="Binding" [(ngModel)]="binding">
+            </div>
+
+            <div class="card">
+                <input matInput placeholder="Library" [(ngModel)]="library">
+            </div>
+
+            <div class="card">
+                <input matInput placeholder="Cote" [(ngModel)]="cote">
+            </div>
+
+            <div class="card">
+                <input matInput placeholder="Provenance" [(ngModel)]="provenance">
+            </div>
+
+            <div class="card">
+                <input matInput placeholder="Ferney" [(ngModel)]="ferney">
+            </div>
+
+            <div class="card">
+                <input matInput placeholder="Digital Voltaire" [(ngModel)]="digital_voltaire">
+            </div>
+
+            <div class="card">
+                <input matInput placeholder="External resource" [(ngModel)]="external_resource">
+            </div>
+
+            <div class="card card-note w-100">
+                <textarea matInput placeholder="Notes" rows="5" [(ngModel)]="notes"></textarea>
             </div>
         </div>
-
-        <button mat-raised-button color="primary" (click)="submit()" class="mt-6">Submit</button>
+        <div class="d-flex justify-content-around">
+            <button mat-raised-button type="submit" (click)="submit()" class="m-2 primary">Submit</button>
+            <button mat-raised-button color="warn" routerLink="/book" class="m-2">Cancel</button>
+        </div>
     </div>
-</form>
+<!--</form>-->
+</div>
