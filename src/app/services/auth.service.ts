@@ -24,10 +24,13 @@ export class AuthService {
 	}
 
 	login(user) {
+		
+
 		console.log('get user ', user);
 		return this.http.post(`${environment.url}/login`, user)
 		.subscribe((res:any) => {
 			console.log(res);
+			
 			if (res.token) {
 				console.log(res)
 				localStorage.setItem('token', res['token']);
