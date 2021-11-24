@@ -1,4 +1,5 @@
-<div class="container">
+<div *ngIf="pageSlice.length === 0" class="spinner"></div>
+<div class="container" *ngIf="pageSlice.length != 0">
     <div class="mb-5" >
         <h2 class="title">List of books</h2>
         <!--<div class="card">

@@ -1,3 +1,23 @@
+
+.spinner{
+    border: 10px solid rgb(255, 167, 4);
+    border-top: 10px solid #002147;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 700ms linear infinite;
+    top:50%;
+    left: 50%;
+    position: absolute;
+    z-index: 100;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg)}
+    100% { transform: rotate(-360deg);}
+}
+
+
 .title{
     text-align: center;
     color:#002147;
