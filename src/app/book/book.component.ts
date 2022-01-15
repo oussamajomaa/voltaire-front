@@ -17,104 +17,140 @@ export class BookComponent implements OnInit {
 
 	form: any = FormGroup
 	books: any = []
-	book_id:number
+	book_id: number
 	onDelete = false
 	onUpdate = false
 
-	pageSlice:any = []
+	pageSlice: any = []
 	pageEvent: PageEvent;
+	localPageIndex:number = 0
+	pageIndex: number = 0
+	pageSize: number = 50
+	role: string
+	book: any = {}
 
-	role:string
-	book:any = {}
 
-	
 
 	yes = "yes"
 	savedContributors = []
 	contributors = []
-	contibutorStatus:string
+	contibutorStatus: string
 	translators = []
 	authors = []
 	selectedTranslators = []
 	selectedAuthors = []
 	onAdd = false
 
-	
+
 
 	constructor(
 		private formBuilder: FormBuilder,
 		private bookService: BookService,
 		private http: HttpClient,
-		private router:Router,
+		private router: Router,
 		private toastService: ToastrService,
 
 	) {
 		this.role = localStorage.getItem('role')
-	 }
+	}
 
 	ngOnInit(): void {
 		this.getBooks()
-		// this.getVoltaire()
+		if (localStorage.getItem('pageIndex')) {
+			this.pageIndex = parseInt(localStorage.getItem('pageIndex'))
+			this.localPageIndex = parseInt(localStorage.getItem('pageIndex'))
+		}
+		localStorage.removeItem('pageIndex')
+		if (localStorage.getItem('pageSize')) this.pageSize = parseInt(localStorage.getItem('pageSize'))
+		localStorage.removeItem('pageSize')
 	}
 
 	getBooks() {
 		this.bookService.getBooks().subscribe(res => {
 			this.books = res
 			console.log(this.books);
+			this.pageSlice = this.books.slice(0, 50)
+			if (this.pageIndex > 0 ){
+				console.log('page index ',this.pageIndex, 'page size ',this.pageSize);
+				const startIndex = this.pageIndex * this.pageSize
+				
+				console.log("start index", startIndex);
+				
+				let endIndex = startIndex + this.pageSize
+				// if (endIndex > this.books.length) {
+				// 	endIndex = this.books.length
+				// }
+				this.pageSlice = this.books.slice(startIndex, endIndex)
 			
-			this.pageSlice = this.books.slice(0,50)
+			}
+			
+			// else this.pageSlice = this.books.slice(0, 50)
 		})
 	}
-	pageSize=50
-	onPageChange(event: PageEvent){
-		console.log(event.pageSize);
+
+	onPageChange(event: PageEvent) {
+		
+		console.log('page index ',this.pageIndex, 'page size ',this.pageSize);
+		this.pageIndex = event.pageIndex + this.localPageIndex
 		this.pageSize = event.pageSize
-		console.log(event.pageIndex);
-		const startIndex = event.pageIndex * event.pageSize
-		let endIndex = startIndex + event.pageSize
-		if (endIndex > this.books.length){
+		
+		let startIndex = this.pageIndex * this.pageSize
+		console.log('page index ',this.pageIndex, 'page size ',this.pageSize, "startIndex ",startIndex);
+		if (startIndex >= this.books.length) {
+			console.log('start index plus grand ', startIndex);
+			this.localPageIndex = 0
+			this.pageIndex = 1
+			startIndex = this.pageIndex * this.pageSize
+			console.log('après start index plus grand ', startIndex);
+		}
+		let endIndex = startIndex + this.pageSize
+		if (endIndex > this.books.length) {
 			endIndex = this.books.length
 		}
-		this.pageSlice = this.books.slice(startIndex,endIndex)
+		this.pageSlice = this.books.slice(startIndex, endIndex)
 	}
 
-	lastRecord(e){
+	lastRecord(e) {
 		console.log(this.pageSize)
-		this.pageSlice = this.books.slice(this.books.length-this.pageSize,this.books.length)
+		this.pageSlice = this.books.slice(this.books.length - this.pageSize, this.books.length)
 	}
 
-	firstRecord(e){
+	firstRecord(e) {
 		console.log(this.pageSize)
-		this.pageSlice = this.books.slice(0,this.pageSize)
+		this.pageSlice = this.books.slice(0, this.pageSize)
 	}
 
-	showItem(id){
-		this.router.navigate(['show-item'],{queryParams:{id:id}})
+	showItem(id) {
+		localStorage.setItem('pageIndex', this.pageIndex.toString())
+		localStorage.setItem('pageSize', this.pageSize.toString())
+		this.router.navigate(['show-item'], { queryParams: { id: id } })
 	}
 
-	deleteBook(id){
+	deleteBook(id) {
 		this.book_id = id
 		console.log(this.book_id);
 		this.onDelete = true
 	}
 
-	cancelDelete(){
+	cancelDelete() {
 		this.onDelete = false
 	}
 
-	confirmDelete(){
+	confirmDelete() {
 		this.onDelete = false
-		this.bookService.deleteBook(this.book_id).subscribe((res:any) => {
+		this.bookService.deleteBook(this.book_id).subscribe((res: any) => {
 			this.getBooks()
 			this.toastService.warning(res.message);
 		})
 	}
 
-	updateItem(id){
-		this.router.navigate(['edit-item'],{queryParams:{id:id}})
+	updateItem(id) {
+		localStorage.setItem('pageIndex', this.pageIndex.toString())
+		localStorage.setItem('pageSize', this.pageSize.toString())
+		this.router.navigate(['edit-item'], { queryParams: { id: id } })
 	}
 
-	addBook(){
+	addBook() {
 		this.router.navigate(['add-item'])
 	}
 
@@ -126,11 +162,11 @@ export class BookComponent implements OnInit {
 	// 		})
 	// 	}
 	// 	else this.pageSlice = this.books.slice(0,50)
-		
+
 	// }
-	
+
 	// async getVoltaire(){
-		
+
 	// 	let titles = []
 	// 	const response = await axios.get('assets/volt.txt')
 	// 	titles = response.data.split('|')
@@ -160,11 +196,11 @@ export class BookComponent implements OnInit {
 	// 				notes: '',
 	// 				user_id:localStorage.getItem('id')
 	// 			}
-				
+
 	// 			this.bookService.addBook(book).subscribe(res => res)
 	// 		})
-		
-		
+
+
 	// }
 
 }
