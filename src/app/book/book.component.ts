@@ -15,7 +15,7 @@ import { BookService } from '../services/book.service';
 })
 export class BookComponent implements OnInit {
 
-	form: any = FormGroup
+	searchForm: any = FormGroup
 	books: any = []
 	book_id: number
 	onDelete = false
@@ -23,13 +23,13 @@ export class BookComponent implements OnInit {
 
 	pageSlice: any = []
 	pageEvent: PageEvent;
-	localPageIndex:number = 0
+	localPageIndex: number = 0
 	pageIndex: number = 0
 	pageSize: number = 50
 	role: string
 	book: any = {}
 
-
+	inputSerche:string
 
 	yes = "yes"
 	savedContributors = []
@@ -40,7 +40,7 @@ export class BookComponent implements OnInit {
 	selectedTranslators = []
 	selectedAuthors = []
 	onAdd = false
-
+	isFounded=true
 
 
 	constructor(
@@ -55,6 +55,11 @@ export class BookComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		this.searchForm = this.formBuilder.group(
+			{
+				title: [''],
+			})
+
 		this.getBooks()
 		if (localStorage.getItem('pageIndex')) {
 			this.pageIndex = parseInt(localStorage.getItem('pageIndex'))
@@ -68,40 +73,29 @@ export class BookComponent implements OnInit {
 	getBooks() {
 		this.bookService.getBooks().subscribe(res => {
 			this.books = res
-			console.log(this.books);
 			this.pageSlice = this.books.slice(0, 50)
-			if (this.pageIndex > 0 ){
-				console.log('page index ',this.pageIndex, 'page size ',this.pageSize);
+			if (this.pageIndex > 0) {
 				const startIndex = this.pageIndex * this.pageSize
-				
-				console.log("start index", startIndex);
-				
+
 				let endIndex = startIndex + this.pageSize
-				// if (endIndex > this.books.length) {
-				// 	endIndex = this.books.length
-				// }
+				
 				this.pageSlice = this.books.slice(startIndex, endIndex)
-			
+
 			}
-			
-			// else this.pageSlice = this.books.slice(0, 50)
+
 		})
 	}
 
 	onPageChange(event: PageEvent) {
-		
-		console.log('page index ',this.pageIndex, 'page size ',this.pageSize);
+
 		this.pageIndex = event.pageIndex + this.localPageIndex
 		this.pageSize = event.pageSize
-		
+
 		let startIndex = this.pageIndex * this.pageSize
-		console.log('page index ',this.pageIndex, 'page size ',this.pageSize, "startIndex ",startIndex);
 		if (startIndex >= this.books.length) {
-			console.log('start index plus grand ', startIndex);
 			this.localPageIndex = 0
 			this.pageIndex = 1
 			startIndex = this.pageIndex * this.pageSize
-			console.log('après start index plus grand ', startIndex);
 		}
 		let endIndex = startIndex + this.pageSize
 		if (endIndex > this.books.length) {
@@ -111,12 +105,10 @@ export class BookComponent implements OnInit {
 	}
 
 	lastRecord(e) {
-		console.log(this.pageSize)
 		this.pageSlice = this.books.slice(this.books.length - this.pageSize, this.books.length)
 	}
 
 	firstRecord(e) {
-		console.log(this.pageSize)
 		this.pageSlice = this.books.slice(0, this.pageSize)
 	}
 
@@ -128,7 +120,6 @@ export class BookComponent implements OnInit {
 
 	deleteBook(id) {
 		this.book_id = id
-		console.log(this.book_id);
 		this.onDelete = true
 	}
 
@@ -154,53 +145,23 @@ export class BookComponent implements OnInit {
 		this.router.navigate(['add-item'])
 	}
 
-	// search(e){
-	// 	if (e.target.value){
-	// 		console.log(e.target.value);
-	// 		this.pageSlice = this.books.filter(book => {
-	// 			return book.publication_place === e.target.value
-	// 		})
-	// 	}
-	// 	else this.pageSlice = this.books.slice(0,50)
+	
+	findBook(){
+		if(this.searchForm.value.title){
+			// this.bookService.searchBook(this.inputSerche)
+			this.bookService.searchBook(this.searchForm.value.title)
+			.subscribe((res:any) => {
+				this.books = res
+				this.pageSlice = this.books.slice(0,7)
+				if (this.pageSlice.length === 0) this.isFounded = false
+			})
+		}
+	}
 
-	// }
-
-	// async getVoltaire(){
-
-	// 	let titles = []
-	// 	const response = await axios.get('assets/volt.txt')
-	// 	titles = response.data.split('|')
-	// 	console.log(titles);
-	// 		titles.forEach(title => {
-	// 			let book = {
-	// 				title:title,
-	// 				publisher:'',
-	// 				publication_place:'',
-	// 				publication_date:'',
-	// 				publisher_stated:'',
-	// 				publication_place_stated:'',
-	// 				publication_date_stated:'',
-	// 				type_document:'',
-	// 				multivolume:'',
-	// 				volume:1,
-	// 				format:'',
-	// 				source:'',
-	// 				marginalia:'',
-	// 				binding:'',
-	// 				library:'',
-	// 				cote:'',
-	// 				provenance:'',
-	// 				ferney:'',
-	// 				digital_voltaire:'',
-	// 				external_resource:'',
-	// 				notes: '',
-	// 				user_id:localStorage.getItem('id')
-	// 			}
-
-	// 			this.bookService.addBook(book).subscribe(res => res)
-	// 		})
-
-
-	// }
-
+	clearInput(){
+		this.searchForm.reset()
+		this.isFounded=true
+		this.getBooks()
+	}
+	
 }

@@ -7,9 +7,10 @@ mat-label{
     color: #949494;
 }
 
-h3{
+h3,li{
     font-weight: 400;
     color: #002147;
+    margin: 0;
 }
 
 button{
@@ -27,6 +28,7 @@ button{
     margin: 5px;
     width: 19%;
 }
+
 
 .card-note{
     width: 100%;

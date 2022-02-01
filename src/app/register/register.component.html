@@ -1,5 +1,5 @@
-<h2 class="title">List of users</h2>
 <div class="users mat-elevation-z8 p-3 mb-3">
+    <h2 class="title">List of users</h2>
     <div>
         <table>
 
@@ -49,8 +49,8 @@
 
 </div>
 <div *ngIf="onUpdate" class="users mat-elevation-z8 p-3 mt-3">
-    <h2 class="title">Update user</h2>
     <div>
+        <h2 class="title">Update user</h2>
         <mat-form-field class="w-100" appearance="fill">
             <mat-label>Email</mat-label>
             <input matInput value="{{email}}" placeholder="Email" disabled>
@@ -71,8 +71,8 @@
 </div>
 
 <form [formGroup]="form" *ngIf="onAddUser">
-    <h2 class="title">Add user</h2>
     <div class="register mat-elevation-z8 p-3 mt-3">
+        <h2 class="title">Add user</h2>
         <mat-form-field class="w-100" appearance="fill">
             <mat-label>Email</mat-label>
             <input matInput placeholder="Email" formControlName="email">

@@ -100,6 +100,11 @@ table {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    width: 80%;
+    background: white;
 }
 
 .buttons{
@@ -127,7 +132,7 @@ table {
     margin: 5px;
 }
 
-input,textarea, mat-select{
+/* input,textarea, mat-select{
     border:none;
     padding: 10px;
     box-sizing: border-box;
@@ -135,7 +140,7 @@ input,textarea, mat-select{
 
 input:focus, textarea:focus, mat-select:focus{
     outline: none;
-}
+} */
 
 .stated{
     border-bottom: 1px solid yellow;

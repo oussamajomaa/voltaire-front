@@ -1,6 +1,6 @@
 <div>
-    <h2 class="title">Display a book</h2>
     <div class="update-book container  mat-elevation-z8 p-3 rounded">
+        <h2 class="title">Displaying a book</h2>
 
         <div *ngIf="book">
             <div class="parent-card">
@@ -10,20 +10,30 @@
                     <h3>{{book.title}}</h3>
                 </div>
 
-                <div class="card" *ngFor="let contributor of contributors, let i = index">
-                    <mat-label>{{contributor.status}}</mat-label>
-                    <h3>{{contributor.name | titlecase}}</h3>
+                <!-- ##################################################"" -->
+                <div class="card card-note w-100">
+                    <mat-label>Contributors</mat-label>
+                    <mat-chip-list>
+                        <mat-chip *ngFor="let contributor of contributors" >
+                            {{contributor.first_name | slice:0:30}} &#8594; &#160;<span style="color: red;"> {{contributor.status}}</span>
+                        </mat-chip>
+                    </mat-chip-list>
                 </div>
+                <!-- ##################################################"" -->
+
+                <!-- <div class="card" *ngFor="let contributor of contributors, let i = index">
+                    <h3>{{contributor.name | titlecase}} -- {{contributor.status}}</h3>
+                </div>-->
 
 
                 <div class=" card">
                     <mat-label>Publisher</mat-label>
                     <h3>{{book.publisher | titlecase}}</h3>
                 </div>
-                <div class=" card stated">
+                <!-- <div class=" card stated">
                     <mat-label>Publisher stated</mat-label>
                     <h3>{{book.publisher_stated | titlecase}}</h3>
-                </div>
+                </div> -->
 
                 <div class=" card">
                     <mat-label>Publication place</mat-label>
@@ -44,7 +54,7 @@
                 </div>
                 
                 <div class=" card">
-                    <mat-label>Type document</mat-label>
+                    <mat-label>Media</mat-label>
                     <h3>{{book.type_document}}</h3>
                 </div>
 
@@ -64,6 +74,7 @@
                     <mat-label>Source</mat-label>
                     <h3>{{book.source}}</h3>
                 </div>
+
                 <div class="card">
                     <mat-label>Marginalia</mat-label>
                     <h3>{{book.marginalia}}</h3>
@@ -87,24 +98,43 @@
                     <mat-label>Provenance</mat-label>
                     <h3>{{book.provenance}}</h3>
                 </div>
+
+
                 <div class="card">
                     <mat-label>Ferney</mat-label>
                     <h3>{{book.ferney}}</h3>
                 </div>
-                <div class="card">
-                    <mat-label>Digital Voltaire</mat-label>
-                    <h3>{{book.digital_voltaire}}</h3>
-                </div>
+
                 <div class="card">
                     <mat-label>External resource</mat-label>
                     <h3>{{book.external_resource}}</h3>
                 </div>
-
+                
+                <div class="card">
+                    <mat-label>Pot Pourri</mat-label>
+                    <h3>{{book.pot_pourri}}</h3>
+                </div>
+                
                 <div class="card">
                     <mat-label>User</mat-label>
                     <h3>{{book.email}}</h3>
                 </div>
 
+                <div class="card card-note w-100">
+                    <mat-label>Digital Voltaire</mat-label>
+                        <ul *ngFor="let digital of digitals" >
+                            <li><a [href]="transform(digital) " target="_blank">{{digital}}</a></li>
+                        </ul>
+                </div>
+
+                <div class="card card-note w-100">
+                    <mat-label>Classification</mat-label>
+                    <mat-chip-list>
+                        <mat-chip *ngFor="let classification of classifications" >
+                            {{classification.description}}
+                        </mat-chip>
+                    </mat-chip-list>
+                </div>
 
                 <div class="card card-note">
                     <mat-label>Notes</mat-label>

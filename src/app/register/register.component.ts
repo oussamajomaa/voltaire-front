@@ -19,6 +19,8 @@ export class RegisterComponent implements OnInit {
 	email:string
 	role: string
 	currentUser:string
+
+	
 	constructor(
 		private formBuilder: FormBuilder,
 		private authService: AuthService,
@@ -36,16 +38,19 @@ export class RegisterComponent implements OnInit {
 	initForm() {
 		this.form = this.formBuilder.group(
 			{
-				email: ['', Validators.required],
-				password: ['', Validators.required],
-				role: ['', Validators.required],
+				email: [''],
+				password: [''],
+				role: [''],
 			}
 		)
 	}
 
 	submit() {
 		const validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-		if (this.form.value.email && this.form.value.password && this.form.value.email.match(validRegex)) {
+		if (this.form.value.email && 
+			this.form.value.password && 
+			this.form.value.role &&
+			this.form.value.email.match(validRegex)) {
 			this.authService.register(this.form.value)
 				.subscribe((res:any) => {
 					if (res.status ==='200'){

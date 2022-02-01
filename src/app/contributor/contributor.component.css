@@ -5,7 +5,7 @@
 
 .contributor{
     
-    width: 40%;
+    width: 80%;
     margin: auto;
 }
 
@@ -40,6 +40,11 @@ table {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    width: 80%;
+    background: white;
 }
 
 .buttons{
@@ -48,7 +53,7 @@ table {
     justify-content: space-around;
 }
 
-@media (max-width:1000px){
+/* @media (max-width:1000px){
     .contributor{
         width: 60%;
     }
@@ -71,4 +76,14 @@ table {
     .contributor{
         width: 90%;
     }
+} */
+
+.input{
+    border:none;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.input:focus{
+    outline: 1px solid #002147;
 }

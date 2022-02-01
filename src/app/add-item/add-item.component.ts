@@ -1,9 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { BookService } from '../services/book.service';
 import { PageEvent } from '@angular/material/paginator';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+
+
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { Classification } from './classification';
 
 
 @Component({
@@ -12,6 +20,29 @@ import { Router } from '@angular/router';
 	styleUrls: ['./add-item.component.css']
 })
 export class AddItemComponent implements OnInit {
+	@ViewChild('authorInput') authorInput: ElementRef;
+	@ViewChild('translatorInput') translatorInput: ElementRef;
+	@ViewChild('copysteInput') copysteInput: ElementRef;
+
+	visible = true;
+	selectable = true;
+	removable = true;
+	addOnBlur = false;
+	separatorKeysCodes: number[] = [ENTER, COMMA]
+	authorCtrl = new FormControl()
+	translatorCtrl = new FormControl()
+	copysteCtrl = new FormControl()
+
+	filteredallAuthors: Observable<any[]>
+	filteredallTranslators: Observable<any[]>
+	filteredallCopystes: Observable<any[]>
+	allAuthors: any = []
+	allTranslators: any = []
+	allCopystes: any = []
+	allContributors: any = []
+
+
+
 
 	form: any = FormGroup
 	books: any = []
@@ -34,28 +65,30 @@ export class AddItemComponent implements OnInit {
 
 	// Variables
 
-	title=''
-	publisher=''
-	publication_place=''
-	publication_date=''
-	publisher_stated=''
-	publication_place_stated=''
-	publication_date_stated=''
-	type_document=''
-	multivolume=''
-	volume=1
-	format=''
-	source=''
-	marginalia=''
-	binding=''
-	library=''
-	cote=''
-	provenance=''
-	ferney=''
-	digital_voltaire=''
-	external_resource=''
-	notes=''
-
+	title = ''
+	publisher = ''
+	publication_place = ''
+	publication_date = ''
+	publication_place_stated = ''
+	publication_date_stated = ''
+	type_document = ''
+	multivolume = ''
+	volume = 1
+	format = ''
+	source = ''
+	marginalia = ''
+	binding = ''
+	library = ''
+	cote = ''
+	provenance = ''
+	ferney = ''
+	digital_voltaire = ''
+	external_resource = ''
+	pot_pourri = 0
+	classification = []
+	notes = ''
+	classificationControl = new FormControl()
+	classifications:any = []
 	// Variables
 
 
@@ -64,23 +97,110 @@ export class AddItemComponent implements OnInit {
 		private formBuilder: FormBuilder,
 		private bookService: BookService,
 		private toastService: ToastrService,
-		private router: Router
+		private router: Router,
 	) { }
 
 	ngOnInit(): void {
+		this.classifications = new Classification().librariesClassification
 		this.initForm()
-		this.getContributor()
+		// this.getContributor()
+		this.bookService.getContributors().subscribe((res: any) => {
+			this.allContributors = res
+
+			this.authors = res.filter(item => item.status === 'author')
+			this.translators = res.filter(item => item.status === 'translator')
+		})
+
+		this.filteredallAuthors = this.authorCtrl.valueChanges.pipe(
+			startWith(null),
+			map((author: string | null) => author ? this._filter(author) : this.allContributors.slice()));
+
+		this.filteredallTranslators = this.translatorCtrl.valueChanges.pipe(
+			startWith(null),
+			map((translator: string | null) => translator ? this._filter(translator) : this.allContributors.slice()));
+
+		this.filteredallCopystes = this.copysteCtrl.valueChanges.pipe(
+			startWith(null),
+			map((copyste: string | null) => copyste ? this._filter(copyste) : this.allContributors.slice()));
+	}
+
+
+	add(event: MatChipInputEvent, contributors: any[], ctrl: FormControl): void {
+		const value = (event.value || '').trim();
+		// Add our author
+		if (value) contributors.push(value)
+		// Clear the input value
+		event.chipInput!.clear();
+		ctrl.setValue(null);
+	}
+
+	addAuthor(event: MatChipInputEvent): void {
+		this.add(event, this.allAuthors, this.authorCtrl)
+	}
+
+	addTranslator(event: MatChipInputEvent): void {
+		this.add(event, this.allTranslators, this.translatorCtrl)
+	}
+
+	addCopyste(event: MatChipInputEvent): void {
+		this.add(event, this.allCopystes, this.copysteCtrl)
+	}
+
+	remove(contributor: any, contributors: any[]): void {
+		const index = contributors.indexOf(contributor);
+		if (index >= 0) contributors.splice(index, 1);
+	}
+
+
+	removeAuthor(contributor: any): void {
+		this.remove(contributor, this.allAuthors)
+	}
+
+	removeTranslator(contributor: any): void {
+		this.remove(contributor, this.allTranslators)
+	}
+
+	removeCopyste(contributor: any): void {
+		this.remove(contributor, this.allCopystes)
+	}
+
+	selectedContributor(event: MatAutocompleteSelectedEvent, contributors: any[], ctrl: FormControl, input: any): void {
+		contributors.push(event.option.value);
+		input.nativeElement.value = '';
+		ctrl.setValue(null);
+	}
+
+	selectedAuthor(event: MatAutocompleteSelectedEvent): void {
+		this.selectedContributor(event, this.allAuthors, this.authorCtrl, this.authorInput)
+	}
+
+	selectedTranslator(event: MatAutocompleteSelectedEvent): void {
+		this.selectedContributor(event, this.allTranslators, this.translatorCtrl, this.translatorInput)
+	}
+
+	selectedCopyste(event: MatAutocompleteSelectedEvent): void {
+		this.selectedContributor(event, this.allCopystes, this.copysteCtrl, this.copysteInput)
+	}
+
+	private _filter(value: any): any[] {
+		return this.allContributors.filter(contributor => (contributor.first_name.toLowerCase()).includes(value))
 	}
 
 	getContributor() {
-		this.bookService.getContributors().subscribe((res: any) => {
-			// this.contributors = res
-			this.authors = res.filter(item => item.status === 'author')
-			this.translators = res.filter(item => item.status === 'translator')
-			// console.log(this.authors);
-			// console.log(this.translators);
+		// this.bookService.getContributors().subscribe((res: any) => {
+		// 	// this.contributors = res
+		// 	this.authors = res.filter(item => item.status === 'author')
 
-		})
+		// 	this.allContributors = res
+		// 	console.log('all fr', this.allAuthors);
+
+		// 	this.translators = res.filter(item => item.status === 'translator')
+		// 	// console.log(this.authors);
+		// 	// console.log(this.translators);
+
+
+
+		// })
 	}
 
 
@@ -91,7 +211,6 @@ export class AddItemComponent implements OnInit {
 				publisher: [''],
 				publication_place: [''],
 				publication_date: [''],
-				publisher_stated: [''],
 				publication_place_stated: [''],
 				publication_date_stated: [''],
 				type_document: [''],
@@ -107,6 +226,7 @@ export class AddItemComponent implements OnInit {
 				ferney: [''],
 				digital_voltaire: [''],
 				external_resource: [''],
+				pot_pourri: ['0'],
 				notes: [''],
 			}
 		)
@@ -114,58 +234,83 @@ export class AddItemComponent implements OnInit {
 
 	submit() {
 		let book = {
-			title:this.title,
-			publisher:this.publisher,
-			publication_place:this.publication_place,
-			publication_date:this.publication_date,
-			publisher_stated:this.publisher_stated,
-			publication_place_stated:this.publication_place_stated,
-			publication_date_stated:this.publication_date_stated,
-			type_document:this.type_document,
-			multivolume:this.multivolume,
-			volume:this.volume,
-			format:this.format,
-			source:this.source,
-			marginalia:this.marginalia,
-			binding:this.binding,
-			library:this.library,
-			cote:this.cote,
-			provenance:this.provenance,
-			ferney:this.ferney,
-			digital_voltaire:this.digital_voltaire,
-			external_resource:this.external_resource,
+			title: this.title,
+			publisher: this.publisher,
+			publication_place: this.publication_place,
+			publication_date: this.publication_date,
+			publication_place_stated: this.publication_place_stated,
+			publication_date_stated: this.publication_date_stated,
+			type_document: this.type_document,
+			multivolume: this.multivolume,
+			volume: this.volume,
+			format: this.format,
+			source: this.source,
+			marginalia: this.marginalia,
+			binding: this.binding,
+			library: this.library,
+			cote: this.cote,
+			provenance: this.provenance,
+			ferney: this.ferney,
+			digital_voltaire: this.digital_voltaire,
+			external_resource: this.external_resource,
+			pot_pourri: this.pot_pourri,
+			// classification:this.classification,
 			notes: this.notes,
-			user_id:''
+			user_id: ''
 		}
-		this.contributors = this.selectedAuthors.concat(this.selectedTranslators)
-		console.log(this.contributors);
+		
+		// this.contributors = this.selectedAuthors.concat(this.selectedTranslators)
+		this.contributors = this.allAuthors.concat(this.allTranslators).concat(this.allCopystes)
 		if (book.multivolume === "") book.multivolume = "no"
 		if (book.multivolume === "no") book.volume = 1
-		// if (this.form.value.multivolume === "") this.form.value.multivolume = "no"
-		// if (this.form.value.multivolume === "no") this.form.value.volume = 1
-		// if (this.form.value.title) {
+
+
 		if (book.title) {
-			console.log(book);
-			
-			// this.form.value.user_id = localStorage.getItem('id')
 			book.user_id = localStorage.getItem('id')
-			// this.bookService.addBook(this.form.value)
 			this.bookService.addBook(book)
 				.subscribe((res: any) => {
+					// Get book_id after inserting a new book
 					this.book_id = res.book_id
+					
 					if (this.book_id) {
-						this.contributors.forEach(id => {
+						this.allAuthors.forEach(author => {
 							let item = {
 								book_id: this.book_id,
-								contributor_id: id
+								contributor_id: author.id,
+								status: "author"
+							}
+							this.bookService.addBookContributor(item).subscribe((res: any) => {								
+							})
+						})
+						this.allTranslators.forEach(translator => {
+							let item = {
+								book_id: this.book_id,
+								contributor_id: translator.id,
+								status: "translator"
 							}
 							this.bookService.addBookContributor(item).subscribe((res: any) => {
 							})
 						})
+						this.allCopystes.forEach(copyste => {
+							let item = {
+								book_id: this.book_id,
+								contributor_id: copyste.id,
+								status: "copyste"
+							}
+							this.bookService.addBookContributor(item).subscribe((res: any) => {
+							})
+						})
+
+						this.classification.forEach(element => {
+							let item = {
+								book_id: this.book_id,
+								description:element
+							}
+							this.bookService.addClassification(item).subscribe((res: any) => {})
+						});
 						this.toastService.success(res.message);
 					}
 				})
-			// this.form.reset()
 			this.router.navigate(['book'])
 		}
 		else {
@@ -178,13 +323,13 @@ export class AddItemComponent implements OnInit {
 	}
 
 
-	onPageChange(event: PageEvent) {
-		const startIndex = event.pageIndex * event.pageSize
-		let endIndex = startIndex + event.pageSize
-		if (endIndex > this.books.length) {
-			endIndex = this.books.length
-		}
-		this.pageSlice = this.books.slice(startIndex, endIndex)
-	}
+	// onPageChange(event: PageEvent) {
+	// 	const startIndex = event.pageIndex * event.pageSize
+	// 	let endIndex = startIndex + event.pageSize
+	// 	if (endIndex > this.books.length) {
+	// 		endIndex = this.books.length
+	// 	}
+	// 	this.pageSlice = this.books.slice(startIndex, endIndex)
+	// }
 
 }

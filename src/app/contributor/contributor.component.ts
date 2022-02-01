@@ -4,6 +4,7 @@ import { BookService } from '../services/book.service';
 import { ToastrService } from 'ngx-toastr';
 import { PageEvent } from '@angular/material/paginator';
 
+
 @Component({
 	selector: 'app-contributor',
 	templateUrl: './contributor.component.html',
@@ -11,27 +12,36 @@ import { PageEvent } from '@angular/material/paginator';
 })
 export class ContributorComponent implements OnInit {
 	form: any = FormGroup
+	searchForm:any = FormGroup
 	contributors = []
 	onAdd = false
 	onDelete = false
 	onUpdate = false
 
-	name: string
-	status: string
+	first_name: string
+	last_name: string
+	type: string
+	link_viaf: string
 	id:number
-
+	inputSerche:string
 	contributor:any
 
 	pageSlice:any = []
 	pageEvent: PageEvent;
 
+	allContributors = []
+
 	constructor(
 		private formBuilder: FormBuilder,
 		private bookService: BookService,
 		private toastService: ToastrService,
-	) { }
+	) {	}
 
 	ngOnInit(): void {
+		this.searchForm = this.formBuilder.group(
+			{
+				first_name: [''],
+			})
 		this.getContributor()
 		this.initForm()
 	}
@@ -39,8 +49,10 @@ export class ContributorComponent implements OnInit {
 	initForm() {
 		this.form = this.formBuilder.group(
 			{
-				name: ['', Validators.required],
-				status: ['', Validators.required],
+				first_name: ['', Validators.required],
+				last_name: [''],
+				type: [''],
+				link_viaf: ['']
 			}
 		)
 	}
@@ -48,11 +60,8 @@ export class ContributorComponent implements OnInit {
 	getContributor() {
 		this.bookService.getContributors().subscribe((res: any) => {
 			this.contributors = res
-			console.log(this.contributors);
-			
-			this.pageSlice = this.contributors.slice(0,7)
-			console.log(this.pageSlice);
-			
+			this.allContributors = res
+			this.pageSlice = this.contributors.slice(0,7)			
 		})
 	}
 
@@ -66,7 +75,8 @@ export class ContributorComponent implements OnInit {
 	}
 
 	submit() {
-		if (this.form.value.name && this.form.value.status) {
+		if (!this.form.value.type) this.form.value.type = ""		
+		if (this.form.value.first_name) {
 			this.bookService.addContributor(this.form.value)
 				.subscribe((res: any) => {
 					this.onAdd = false
@@ -77,10 +87,12 @@ export class ContributorComponent implements OnInit {
 		}
 	}
 
-	updateContributor(id,name,status) {
-		this.id = id
-		this.name = name
-		this.status = status
+	updateContributor(contributor) {
+		this.id = contributor.id
+		this.first_name = contributor.first_name
+		this.last_name = contributor.last_name
+		this.type = contributor.type
+		this.link_viaf = contributor.link_viaf
 		this.onUpdate = true
 	}
 
@@ -90,14 +102,13 @@ export class ContributorComponent implements OnInit {
 	}
 
 	addContributor() {
+		this.initForm()
 		this.onAdd = true
 	}
 
 	cancelAddContributor() {
 		this.onAdd = false
 	}
-
-
 
 	confirmDelete() {
 		this.bookService.deleteContributor(this.id).subscribe((res:any) => {
@@ -111,14 +122,15 @@ export class ContributorComponent implements OnInit {
 		this.onDelete = false
 	}
 
-
-
 	confirmUpdate() {
+		if (!this.type) this.type = ""
 		this.contributor = {
-			name:this.name,
-			status:this.status,
+			first_name:this.first_name,
+			last_name:this.last_name,
+			type:this.type,
+			link_viaf:this.link_viaf,
 			id:this.id
-		}
+		}		
 		this.bookService.updateContributor(this.contributor).subscribe((res:any) => {
 			this.toastService.warning(res.message);
 			this.getContributor()
@@ -129,6 +141,20 @@ export class ContributorComponent implements OnInit {
 
 	cancelUpdate() {
 		this.onUpdate = false
+	}
+
+
+	findContributor(){
+		this.bookService.searchContributor(this.searchForm.value.first_name)
+		.subscribe((res:any) => {
+			this.contributors = res
+			this.pageSlice = this.contributors.slice(0,7)
+		})
+	}
+
+	clearInput(){
+		this.searchForm.reset()
+		this.getContributor()
 	}
 
 }

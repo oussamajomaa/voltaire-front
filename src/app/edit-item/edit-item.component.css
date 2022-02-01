@@ -9,8 +9,7 @@ mat-label{
 
 input,textarea, mat-select{
     border:none;
-    padding: 10px;
-    box-sizing: border-box;
+    padding: 3px;
 }
 
 input:focus, textarea:focus, mat-select:focus{

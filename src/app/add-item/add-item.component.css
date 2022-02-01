@@ -39,7 +39,7 @@
 .parent-card{
     display: flex;
     flex-wrap: wrap;
-    justify-content:space-between
+    justify-content: space-between;
 }
 
 .card{
@@ -55,7 +55,7 @@
 
 input,textarea, mat-select{
     border:none;
-    padding: 10px;
+    padding: 5px;
     box-sizing: border-box;
 }
 

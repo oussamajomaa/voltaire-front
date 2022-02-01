@@ -24,18 +24,11 @@ export class AuthService {
 	}
 
 	login(user) {
-		
-
-		console.log('get user ', user);
 		return this.http.post(`${environment.url}/login`, user)
-		.subscribe((res:any) => {
-			console.log(res);
-			
+		.subscribe((res:any) => {			
 			if (res.token) {
-				console.log(res)
 				localStorage.setItem('token', res['token']);
 				const payload = jwt_decode(res['token'])
-				console.log('payload', payload);
 				this.authState.next(true)
 				localStorage.setItem('role', payload['role']);
 				localStorage.setItem('email', payload['email']);

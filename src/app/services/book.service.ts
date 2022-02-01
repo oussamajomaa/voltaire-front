@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 	providedIn: 'root'
 })
 export class BookService {
-
+	
 	constructor(
 		private http: HttpClient
 	) { }
@@ -53,5 +53,21 @@ export class BookService {
 
 	updateContributor(contributor){
 		return this.http.patch(`${environment.url}/edit-contributor`,contributor)	
+	}
+
+	searchContributor(first_name){
+		return this.http.get(`${environment.url}/search-contributor`,{params:{first_name:first_name}})
+	}
+
+	searchBook(title){
+		return this.http.get(`${environment.url}/search-book`,{params:{title:title}})
+	}
+
+	addClassification(item){
+		return this.http.post(`${environment.url}/add-classification`,item)
+	}
+
+	getClassification(id){
+		return this.http.get(`${environment.url}/get-classification`,{params:{id:id}})
 	}
 }
