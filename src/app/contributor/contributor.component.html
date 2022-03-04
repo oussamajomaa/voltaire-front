@@ -21,20 +21,19 @@
         <table>
 
             <tr>
-                <th class="col-3">First Name</th>
                 <th class="col-3">Last Name</th>
-                <th class="col-1">Type</th>
-                <th class="col-4">Link VIAF</th>
-                <th class="col-1 text-center">Actions</th>
+                <th class="col-3">First Name</th>
+                <th class="col-4">Authority link</th>
+                <th class="col-2 text-center">Actions</th>
             </tr>
 
             <tr *ngFor="let contributor of pageSlice">
-                <td class="col-3">{{contributor.first_name | titlecase | slice:0:40}}</td>
-                <td class="col-3">{{contributor.last_name | titlecase | slice:0:40}}</td>
-                <td class="col-1">{{contributor.type | titlecase}}</td>
+                <td class="col-3">{{contributor.last_name  | slice:0:35}}</td>
+                <td class="col-3">{{contributor.first_name  | slice:0:35}}</td>
+               
                 <td class="col-4">{{contributor.link_viaf}}</td>
 
-                <td class="col-1 actions text-center">
+                <td class="col-2 actions text-center">
                     <mat-icon (click)="updateContributor(contributor)" class="primary-btn" matTooltip="update">edit
                     </mat-icon>
                     <mat-icon (click)="deleteContributor(contributor.id)" style="margin-right: 10px;" color="warn"
@@ -88,19 +87,10 @@
             </mat-form-field>
         </div>
         <div class="row">
+            
             <mat-form-field class="col" appearance="fill">
-                <mat-label>Select type</mat-label>
-                <mat-select [(ngModel)]="type">
-                    <mat-option>-- None --</mat-option>
-                    <mat-option value="nommé">nommé</mat-option>
-                    <mat-option value="non nommé">non nommé</mat-option>
-                    <mat-option value="anonyme">anonyme</mat-option>
-                    <mat-option value="pseudonyme">pseudonyme</mat-option>
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field class="col" appearance="fill">
-                <mat-label>Link VIAF</mat-label>
-                <input matInput [(ngModel)]="link_viaf" placeholder="Link VIAF">
+                <mat-label>Authority link</mat-label>
+                <input matInput [(ngModel)]="link_viaf" placeholder="Authority link">
             </mat-form-field>
         </div>
         <div class="buttons">
@@ -129,20 +119,11 @@
         </div>
 
         <div class="row">
-            <mat-form-field class="col" appearance="fill">
-                <mat-label>Select type</mat-label>
-                <mat-select formControlName="type">
-                    <mat-option>-- None --</mat-option>
-                    <mat-option value="nommé">nommé</mat-option>
-                    <mat-option value="non nommé">non nommé</mat-option>
-                    <mat-option value="anonyme">anonyme</mat-option>
-                    <mat-option value="pseudonyme">pseudonyme</mat-option>
-                </mat-select>
-            </mat-form-field>
+            
 
             <mat-form-field class="col" appearance="fill">
-                <mat-label>Link VIAF</mat-label>
-                <input matInput placeholder="Link VIAF" formControlName="link_viaf">
+                <mat-label>Authority link</mat-label>
+                <input matInput placeholder="Authority link" formControlName="link_viaf">
             </mat-form-field>
         </div>
 

@@ -20,7 +20,6 @@ export class ContributorComponent implements OnInit {
 
 	first_name: string
 	last_name: string
-	type: string
 	link_viaf: string
 	id:number
 	inputSerche:string
@@ -51,7 +50,6 @@ export class ContributorComponent implements OnInit {
 			{
 				first_name: ['', Validators.required],
 				last_name: [''],
-				type: [''],
 				link_viaf: ['']
 			}
 		)
@@ -74,8 +72,7 @@ export class ContributorComponent implements OnInit {
 		this.pageSlice = this.contributors.slice(startIndex,endIndex)
 	}
 
-	submit() {
-		if (!this.form.value.type) this.form.value.type = ""		
+	submit() {	
 		if (this.form.value.first_name) {
 			this.bookService.addContributor(this.form.value)
 				.subscribe((res: any) => {
@@ -91,7 +88,6 @@ export class ContributorComponent implements OnInit {
 		this.id = contributor.id
 		this.first_name = contributor.first_name
 		this.last_name = contributor.last_name
-		this.type = contributor.type
 		this.link_viaf = contributor.link_viaf
 		this.onUpdate = true
 	}
@@ -123,11 +119,9 @@ export class ContributorComponent implements OnInit {
 	}
 
 	confirmUpdate() {
-		if (!this.type) this.type = ""
 		this.contributor = {
 			first_name:this.first_name,
 			last_name:this.last_name,
-			type:this.type,
 			link_viaf:this.link_viaf,
 			id:this.id
 		}		

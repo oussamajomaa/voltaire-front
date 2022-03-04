@@ -3,6 +3,7 @@ import { BookService } from '../services/book.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { DomSanitizer } from '@angular/platform-browser';
+import { Location } from '@angular/common';
 
 
 
@@ -24,7 +25,8 @@ export class ShowItemComponent implements OnInit {
 		private bookService: BookService,
 		private router: Router,
 		private route: ActivatedRoute,
-		private domSanitizer: DomSanitizer
+		private domSanitizer: DomSanitizer,
+		private location: Location
 	) { }
 
 	public transform(value: any, prefix = '') {
@@ -62,7 +64,9 @@ export class ShowItemComponent implements OnInit {
 	}
 
 	retunToHome(){
+
 		this.router.navigateByUrl('book')
+		// console.log(this.location)
 	}
 
 }

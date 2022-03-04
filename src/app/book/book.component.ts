@@ -1,10 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import axios from 'axios';
 import { BookService } from '../services/book.service';
 
 
@@ -61,12 +60,15 @@ export class BookComponent implements OnInit {
 			})
 
 		this.getBooks()
+		
 		if (localStorage.getItem('pageIndex')) {
 			this.pageIndex = parseInt(localStorage.getItem('pageIndex'))
 			this.localPageIndex = parseInt(localStorage.getItem('pageIndex'))
 		}
 		localStorage.removeItem('pageIndex')
-		if (localStorage.getItem('pageSize')) this.pageSize = parseInt(localStorage.getItem('pageSize'))
+		if (localStorage.getItem('pageSize')) {
+			this.pageSize = parseInt(localStorage.getItem('pageSize'))
+		}
 		localStorage.removeItem('pageSize')
 	}
 

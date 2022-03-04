@@ -32,3 +32,8 @@ h1,h2,h3,h4,h5,h6,p,a,span,input,label,textarea,select,button{font-family: 'Mont
 
 }
 
+.warning{
+  color:black;
+  background-color: #FFC107;
+}
+

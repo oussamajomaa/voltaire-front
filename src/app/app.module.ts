@@ -25,6 +25,7 @@ import { ContributorComponent } from './contributor/contributor.component';
 import { BookComponent } from './book/book.component';
 
 import { MaterialModule } from './material.module';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { MaterialModule } from './material.module';
     AboutComponent,
     EditItemComponent,
     ContributorComponent,
-    BookComponent
+    BookComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

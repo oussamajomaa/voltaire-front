@@ -119,9 +119,18 @@
                      [(ngModel)]="book.publication_date_stated" value="{{book.publication_date_stated}}">
                 </div>
                 
-                <div class=" card">
+                <!-- <div class=" card">
                     <mat-label>Media</mat-label>
                     <input matInput [(ngModel)]="book.type_document" value="{{book.type_document}}">
+                </div> -->
+
+                <div class="card">
+                    <mat-label>Media</mat-label>
+                    <mat-select [(ngModel)]="book.type_document">
+                        <mat-option value="Print">Print</mat-option>
+                        <mat-option value="Manuscript">Manuscript</mat-option>
+                        <mat-option value="Other">Other</mat-option>
+                    </mat-select>
                 </div>
 
                 <div class="card">
@@ -132,13 +141,10 @@
                     </mat-select>
                 </div>
                 <div class="card">
-                    <mat-label>Volume</mat-label>
+                    <mat-label>Volumes</mat-label>
                     <input matInput type="number" min="1" [(ngModel)]="book.volume" value="{{book.volume}}">
                 </div>
-                <div class="card">
-                    <mat-label>Format</mat-label>
-                    <input matInput [(ngModel)]="book.format" value="{{book.format}}">
-                </div>
+               
                 <div class="card">
                     <mat-label>Source</mat-label>
                     <input matInput [(ngModel)]="book.source" value="{{book.source}}">
@@ -148,10 +154,7 @@
                     <input matInput [(ngModel)]="book.marginalia" value="{{book.marginalia}}">
 
                 </div>
-                <div class="card">
-                    <mat-label>Binding</mat-label>
-                    <input matInput [(ngModel)]="book.binding" value="{{book.binding}}">
-                </div>
+                
 
 
                 <div class="card">
@@ -159,7 +162,7 @@
                     <input matInput [(ngModel)]="book.library" value="{{book.library}}">
                 </div>
                 <div class="card">
-                    <mat-label>Cote</mat-label>
+                    <mat-label>Shelfmark</mat-label>
                     <input matInput [(ngModel)]="book.cote" value="{{book.cote}}">
                 </div>
                 <div class="card">
@@ -177,8 +180,8 @@
                 </div>
 
                 <div class="card">
-                    <mat-label>Pot Pourri</mat-label>
-                    <input matInput [(ngModel)]="book.pot_pourri" value="{{book.pot_pourri}}">
+                    <mat-label>Pot-Pourri</mat-label>
+                    <input matInput [(ngModel)]="book.pot_pourri" value="{{book.pot_pourri}}" type="number" min="0">
                 </div>
 
 

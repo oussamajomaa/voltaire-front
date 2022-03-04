@@ -73,21 +73,19 @@ export class AddItemComponent implements OnInit {
 	publication_date_stated = ''
 	type_document = ''
 	multivolume = ''
-	volume = 1
-	format = ''
+	volume:number
 	source = ''
 	marginalia = ''
-	binding = ''
 	library = ''
 	cote = ''
 	provenance = ''
 	ferney = ''
 	digital_voltaire = ''
 	external_resource = ''
-	pot_pourri = 0
+	pot_pourri:number
 	classification = []
 	notes = ''
-	classificationControl = new FormControl()
+	// classificationControl = new FormControl()
 	classifications:any = []
 	// Variables
 
@@ -106,15 +104,16 @@ export class AddItemComponent implements OnInit {
 		// this.getContributor()
 		this.bookService.getContributors().subscribe((res: any) => {
 			this.allContributors = res
-
-			this.authors = res.filter(item => item.status === 'author')
-			this.translators = res.filter(item => item.status === 'translator')
+			
+			// this.authors = res.filter(item => item.status === 'author')
+			// this.translators = res.filter(item => item.status === 'translator')
 		})
 
 		this.filteredallAuthors = this.authorCtrl.valueChanges.pipe(
 			startWith(null),
 			map((author: string | null) => author ? this._filter(author) : this.allContributors.slice()));
 
+			
 		this.filteredallTranslators = this.translatorCtrl.valueChanges.pipe(
 			startWith(null),
 			map((translator: string | null) => translator ? this._filter(translator) : this.allContributors.slice()));
@@ -132,10 +131,12 @@ export class AddItemComponent implements OnInit {
 		// Clear the input value
 		event.chipInput!.clear();
 		ctrl.setValue(null);
+		
 	}
 
 	addAuthor(event: MatChipInputEvent): void {
 		this.add(event, this.allAuthors, this.authorCtrl)
+		
 	}
 
 	addTranslator(event: MatChipInputEvent): void {
@@ -168,6 +169,8 @@ export class AddItemComponent implements OnInit {
 		contributors.push(event.option.value);
 		input.nativeElement.value = '';
 		ctrl.setValue(null);
+		console.log(contributors);
+		
 	}
 
 	selectedAuthor(event: MatAutocompleteSelectedEvent): void {
@@ -216,10 +219,8 @@ export class AddItemComponent implements OnInit {
 				type_document: [''],
 				multivolume: ['0'],
 				volume: ['1'],
-				format: [''],
 				source: [''],
 				marginalia: [''],
-				binding: [''],
 				library: [''],
 				cote: [''],
 				provenance: [''],
@@ -243,10 +244,8 @@ export class AddItemComponent implements OnInit {
 			type_document: this.type_document,
 			multivolume: this.multivolume,
 			volume: this.volume,
-			format: this.format,
 			source: this.source,
 			marginalia: this.marginalia,
-			binding: this.binding,
 			library: this.library,
 			cote: this.cote,
 			provenance: this.provenance,
@@ -263,7 +262,9 @@ export class AddItemComponent implements OnInit {
 		this.contributors = this.allAuthors.concat(this.allTranslators).concat(this.allCopystes)
 		if (book.multivolume === "") book.multivolume = "no"
 		if (book.multivolume === "no") book.volume = 1
-
+		if (!book.pot_pourri) book.pot_pourri = 0
+		
+		
 
 		if (book.title) {
 			book.user_id = localStorage.getItem('id')
