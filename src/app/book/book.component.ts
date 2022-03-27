@@ -154,7 +154,7 @@ export class BookComponent implements OnInit {
 			this.bookService.searchBook(this.searchForm.value.title)
 			.subscribe((res:any) => {
 				this.books = res
-				this.pageSlice = this.books.slice(0,7)
+				this.pageSlice = this.books.slice(0,50)
 				if (this.pageSlice.length === 0) this.isFounded = false
 			})
 		}

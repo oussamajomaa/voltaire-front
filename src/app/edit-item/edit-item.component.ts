@@ -87,6 +87,9 @@ export class EditItemComponent implements OnInit {
 		// get all contributors
 		this.bookService.getContributors().subscribe((res: any) => {
 			this.allContributors = res
+			this.allContributors.map(contributor => {
+				return contributor.name = contributor.last_name + ' ' +contributor.first_name
+			})
 		})
 
 		// get all contributors for a specific book
@@ -167,7 +170,7 @@ export class EditItemComponent implements OnInit {
 
 
 	private _filter(value: any): any[] {
-		return this.allContributors.filter(contributor => (contributor.first_name.toLowerCase()).includes(value))
+		return this.allContributors.filter(contributor => (contributor.name.toLowerCase()).includes(value))
 	}
 
 	getOneBook() {

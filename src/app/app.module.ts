@@ -40,7 +40,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     EditItemComponent,
     ContributorComponent,
     BookComponent,
-    NotFoundComponent
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,

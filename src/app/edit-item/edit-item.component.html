@@ -14,7 +14,7 @@
                 <mat-chip-list #chipList>
                     <mat-chip *ngFor="let author of allAuthors;let indx=index;" [selectable]="selectable"
                         [removable]="removable" (removed)="removeAuthor(author)">
-                        {{author.first_name | slice:0:30}}
+                        {{author.last_name | slice:0:100}} {{author.first_name | slice:0:100}}
                         <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                     </mat-chip>
                     <input matInput placeholder="Authors..." #authorInput [formControl]="authorCtrl"
@@ -24,7 +24,7 @@
                 </mat-chip-list>
                 <mat-autocomplete #author="matAutocomplete" (optionSelected)="selectedAuthor($event)">
                     <mat-option *ngFor="let author of filteredallAuthors | async" [value]="author">
-                        {{author.first_name | slice:0:100}}
+                        {{author.last_name | slice:0:100}} {{author.first_name | slice:0:100}}
                     </mat-option>
                 </mat-autocomplete>
             </div>
@@ -35,7 +35,7 @@
                 <mat-chip-list #chipList>
                     <mat-chip *ngFor="let translator of allTranslators;let indx=index;" [selectable]="selectable"
                         [removable]="removable" (removed)="removeTranslator(translator)">
-                        {{translator.first_name | slice:0:30}}
+                        {{translator.last_name | slice:0:100}} {{translator.first_name | slice:0:100}}
                         <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                     </mat-chip>
                     <input matInput placeholder="Translator..." #translatorInput [formControl]="translatorCtrl"
@@ -45,7 +45,7 @@
                 </mat-chip-list>
                 <mat-autocomplete #translator="matAutocomplete" (optionSelected)="selectedTranslator($event)">
                     <mat-option *ngFor="let translator of filteredallTranslators | async" [value]="translator">
-                        {{translator.first_name | slice:0:100}}
+                        {{translator.last_name | slice:0:100}} {{translator.first_name | slice:0:100}}
                     </mat-option>
                 </mat-autocomplete>
             </div>
@@ -55,7 +55,7 @@
                 <mat-chip-list #chipList>
                     <mat-chip *ngFor="let copyste of allCopystes;let indx=index;" [selectable]="selectable"
                         [removable]="removable" (removed)="removeCopyste(copyste)">
-                        {{copyste.first_name | slice:0:30}}
+                        {{copyste.last_name | slice:0:100}} {{copyste.first_name | slice:0:100}}
                         <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                     </mat-chip>
                     <input matInput placeholder="Copyist..." #copysteInput [formControl]="copysteCtrl"
@@ -65,7 +65,7 @@
                 </mat-chip-list>
                 <mat-autocomplete #copyste="matAutocomplete" (optionSelected)="selectedCopyste($event)">
                     <mat-option *ngFor="let copyste of filteredallCopystes | async" [value]="copyste">
-                        {{copyste.first_name | slice:0:100}}
+                        {{copyste.last_name | slice:0:100}} {{copyste.first_name | slice:0:100}}
                     </mat-option>
                 </mat-autocomplete>
             </div>

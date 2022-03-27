@@ -104,11 +104,12 @@ export class AddItemComponent implements OnInit {
 		// this.getContributor()
 		this.bookService.getContributors().subscribe((res: any) => {
 			this.allContributors = res
-			
-			// this.authors = res.filter(item => item.status === 'author')
-			// this.translators = res.filter(item => item.status === 'translator')
+			this.allContributors.map(contributor => {
+				return contributor.name = contributor.last_name + ' ' +contributor.first_name
+			})
 		})
-
+		
+		
 		this.filteredallAuthors = this.authorCtrl.valueChanges.pipe(
 			startWith(null),
 			map((author: string | null) => author ? this._filter(author) : this.allContributors.slice()));
@@ -135,8 +136,7 @@ export class AddItemComponent implements OnInit {
 	}
 
 	addAuthor(event: MatChipInputEvent): void {
-		this.add(event, this.allAuthors, this.authorCtrl)
-		
+		this.add(event, this.allAuthors, this.authorCtrl)	
 	}
 
 	addTranslator(event: MatChipInputEvent): void {
@@ -168,9 +168,7 @@ export class AddItemComponent implements OnInit {
 	selectedContributor(event: MatAutocompleteSelectedEvent, contributors: any[], ctrl: FormControl, input: any): void {
 		contributors.push(event.option.value);
 		input.nativeElement.value = '';
-		ctrl.setValue(null);
-		console.log(contributors);
-		
+		ctrl.setValue(null);	
 	}
 
 	selectedAuthor(event: MatAutocompleteSelectedEvent): void {
@@ -186,7 +184,7 @@ export class AddItemComponent implements OnInit {
 	}
 
 	private _filter(value: any): any[] {
-		return this.allContributors.filter(contributor => (contributor.first_name.toLowerCase()).includes(value))
+		return this.allContributors.filter(contributor => contributor.name.toLowerCase().includes(value))
 	}
 
 	getContributor() {
