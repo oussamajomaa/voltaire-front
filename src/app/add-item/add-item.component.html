@@ -3,179 +3,100 @@
     <div class="container mat-elevation-z8 p-3 rounded">
         <h2 class="title">Adding a book</h2>
         <div class="parent-card">
-            <!--<div class="card">
-                <input matInput placeholder="Title" formControlName="title">
-            </div>
-
-            <div class="card">
-                <mat-select multiple placeholder="Choose author" [(ngModel)]="selectedAuthors"
-                    [ngModelOptions]="{standalone: true}">
-                    <mat-option *ngFor="let contributor of authors" value="{{contributor.id}}">{{contributor.name}}
-                    </mat-option>
-                </mat-select>
-            </div>
-            <div class="card">
-                <mat-select placeholder="Choose translator" multiple [(ngModel)]="selectedTranslators"
-                    [ngModelOptions]="{standalone: true}">
-                    <mat-option *ngFor="let contributor of translators" value="{{contributor.id}}">{{contributor.name}}
-                    </mat-option>
-                </mat-select>
-            </div>
-
-
-            <div class="card">
-                <input matInput placeholder="Publisher" formControlName="publisher">
-            </div>
-
-            <div class="card stated">
-                <input matInput placeholder="Publisher stated" formControlName="publisher_stated">
-            </div>
-
-            <div class="card">
-                <input matInput placeholder="Publication place" formControlName="publication_place">
-            </div>
-
-            <div class="card stated">
-                <input matInput placeholder="Publication place stated" formControlName="publication_place_stated">
-            </div>
-
-            <div class="card">
-                <input matInput placeholder="Publication date" type="number"
-                    oninput="javascript: if (this.value.length > 4) this.value = this.value.slice(0, 4);"
-                    formControlName="publication_date">
-            </div>
-
-            <div class="card stated">
-                <input matInput placeholder="Publication date stated" type="number"
-                    oninput="javascript: if (this.value.length > 4) this.value = this.value.slice(0, 4);"
-                    formControlName="publication_date_stated">
-            </div>
-
-
-
-            <div class="card">
-                <input matInput placeholder="Type document" formControlName="type_document">
-            </div>
-
-            <div class="card">
-                <mat-select placeholder="Multi volume">
-                    <mat-option value="yes">Yes</mat-option>
-                    <mat-option value="no">No</mat-option>
-                </mat-select>
-            </div>
-            <div class="card">
-                <input matInput type="number" min="1" placeholder="Volume" formControlName="volume">
-            </div>
-
-            <div class="card">
-                <input matInput placeholder="Format" formControlName="format">
-            </div>
-
-            <div class="card">
-                <input matInput placeholder="Source" formControlName="source">
-            </div>
-
-            <div class="card">
-                <input matInput placeholder="Marginalia" formControlName="marginalia">
-            </div>
-
-            <div class="card">
-                <input matInput placeholder="Binding" formControlName="binding">
-            </div>
-
-            <div class="card">
-                <input matInput placeholder="Library" formControlName="library">
-            </div>
-
-            <div class="card">
-                <input matInput placeholder="Cote" formControlName="cote">
-            </div>
-
-            <div class="card">
-                <input matInput placeholder="Provenance" formControlName="provenance">
-            </div>
-
-            <div class="card">
-                <input matInput placeholder="Ferney" formControlName="ferney">
-            </div>
-
-            <div class="card">
-                <input matInput placeholder="Digital Voltaire" formControlName="digital_voltaire">
-            </div>
-
-            <div class="card">
-                <input matInput placeholder="External resource" formControlName="external_resource">
-            </div>
-
-            <div class="card card-note w-100">
-                <textarea matInput placeholder="Notes" rows="5" formControlName="notes"></textarea>
-            </div>-->
-
+            
+            
+            
             <div class="card card-note ">
                 <input matInput placeholder="Title" [(ngModel)]="title">
             </div>
 
-            <!-- -->
+            <!--trois select2
+            <div class="card card-note ">
+                <select multiple style="width:100%;" class="select2" style="border: none;" id="author">
+                    <option 
+                        *ngFor="let author of allContributors" 
+                        value="{{author.id}}">{{author.last_name | slice:0:100}} {{author.first_name | slice:0:100}}
+                    </option>
+                </select>
+            </div>
+            <div class="card card-note ">
+                <select multiple style="width:100%;" class="select2" style="border: none;" id="translator">
+                    <option 
+                        *ngFor="let author of allContributors" 
+                        value="{{author.id}}">{{author.last_name | slice:0:100}} {{author.first_name | slice:0:100}}
+                    </option>
+                </select>
+            </div>
+            <div class="card card-note ">
+                <select multiple style="width:100%;" class="select2" style="border: none;" id="copyist">
+                    <option 
+                        *ngFor="let author of allContributors" 
+                        value="{{author.id}}">{{author.last_name | slice:0:100}} {{author.first_name | slice:0:100}}
+                    </option>
+                </select>
+            </div>-->
+
+           
             <div class="card card-note">
                 <mat-chip-list #chipList>
                     <mat-chip *ngFor="let author of allAuthors;let indx=index;" [selectable]="selectable"
                         [removable]="removable" (removed)="removeAuthor(author)">
-                        {{author.last_name  | slice:0:30}} {{author.first_name | slice:0:30}}
+                        {{author.last_name | slice:0:30}} {{author.first_name | slice:0:30}}
                         <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                     </mat-chip>
-                    <input matInput placeholder="Authors..." #authorInput [formControl]="authorCtrl"
+                    <input matInput placeholder="Authors... min 3 characters" #authorInput [formControl]="authorCtrl"
                         [matAutocomplete]="author" [matChipInputFor]="chipList"
                         [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
                         (matChipInputTokenEnd)="addAuthor($event)">
                 </mat-chip-list>
                 <mat-autocomplete #author="matAutocomplete" (optionSelected)="selectedAuthor($event)">
                     <mat-option *ngFor="let author of filteredallAuthors | async" [value]="author">
-                        {{author.last_name  | slice:0:100}} {{author.first_name  | slice:0:100}}
+                        {{author.last_name | slice:0:100}} {{author.first_name | slice:0:100}}
                     </mat-option>
                 </mat-autocomplete>
             </div>
 
-            <!-- -->
+           
 
             <div class="card card-note">
                 <mat-chip-list #chipList>
                     <mat-chip *ngFor="let translator of allTranslators;let indx=index;" [selectable]="selectable"
                         [removable]="removable" (removed)="removeTranslator(translator)">
-                        {{translator.last_name  | slice:0:30}} {{translator.first_name | slice:0:30}}
+                        {{translator.last_name | slice:0:30}} {{translator.first_name | slice:0:30}}
                         <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                     </mat-chip>
-                    <input matInput placeholder="Translator..." #translatorInput [formControl]="translatorCtrl"
+                    <input matInput placeholder="Translator... min 3 characters" #translatorInput [formControl]="translatorCtrl"
                         [matAutocomplete]="translator" [matChipInputFor]="chipList"
                         [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
                         (matChipInputTokenEnd)="addTranslator($event)">
                 </mat-chip-list>
                 <mat-autocomplete #translator="matAutocomplete" (optionSelected)="selectedTranslator($event)">
                     <mat-option *ngFor="let translator of filteredallTranslators | async" [value]="translator">
-                        {{translator.last_name  | slice:0:100}} {{translator.first_name | slice:0:100}}
+                        {{translator.last_name | slice:0:100}} {{translator.first_name | slice:0:100}}
                     </mat-option>
                 </mat-autocomplete>
             </div>
-            <!-- -->
+            
 
             <div class="card card-note">
                 <mat-chip-list #chipList>
                     <mat-chip *ngFor="let copyste of allCopystes;let indx=index;" [selectable]="selectable"
                         [removable]="removable" (removed)="removeCopyste(copyste)">
-                        {{copyste.last_name  | slice:0:30}} {{copyste.first_name | slice:0:30}}
+                        {{copyste.last_name | slice:0:30}} {{copyste.first_name | slice:0:30}}
                         <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                     </mat-chip>
-                    <input matInput placeholder="Copyist..." #copysteInput [formControl]="copysteCtrl"
+                    <input matInput placeholder="Copyist... min 3 characters" #copysteInput [formControl]="copysteCtrl"
                         [matAutocomplete]="copyste" [matChipInputFor]="chipList"
                         [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
                         (matChipInputTokenEnd)="addCopyste($event)">
                 </mat-chip-list>
                 <mat-autocomplete #copyste="matAutocomplete" (optionSelected)="selectedCopyste($event)">
                     <mat-option *ngFor="let copyste of filteredallCopystes | async" [value]="copyste">
-                        {{copyste.last_name  | slice:0:100}} {{copyste.first_name | slice:0:100}}
+                        {{copyste.last_name | slice:0:100}} {{copyste.first_name | slice:0:100}}
                     </mat-option>
                 </mat-autocomplete>
             </div>
-            <!-- -->
+           
 
             <!--<div class="card">
                 <mat-select multiple placeholder="Choose author" [(ngModel)]="selectedAuthors"
@@ -238,7 +159,7 @@
             </div>
 
             <div class="card">
-                <input matInput type="number" min="1" placeholder="Volumes" [(ngModel)]="volume">
+                <input matInput type="number" min="0" placeholder="Volumes" [(ngModel)]="volume">
             </div>
 
 
@@ -276,16 +197,14 @@
                 <input matInput placeholder="Pot-Pourri" [(ngModel)]="pot_pourri" type="number" min="0">
             </div>
 
-            
+
             <div class="card card-note w-100">
                 <textarea matInput placeholder="Digital Voltaire" [(ngModel)]="digital_voltaire"></textarea>
             </div>
 
             <div class="card w-100">
-                <mat-select placeholder="Choose classification" 
-                    multiple
-                    [(ngModel)]="classification" >
-                    <mat-optgroup *ngFor="let group of classifications" >
+                <mat-select placeholder="Choose classification" multiple [(ngModel)]="classification">
+                    <mat-optgroup *ngFor="let group of classifications">
                         <mat-label><strong>{{group.title}}</strong></mat-label>
                         <mat-option *ngFor="let class of group.sub_titles" [value]="class">
                             {{class}}

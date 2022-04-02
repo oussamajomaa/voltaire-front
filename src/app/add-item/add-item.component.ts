@@ -9,10 +9,10 @@ import { Router } from '@angular/router';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { map, filter, distinctUntilChanged, debounceTime,startWith } from 'rxjs/operators';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Classification } from './classification';
-
+import * as jquery from 'jquery';
 
 @Component({
 	selector: 'app-add-item',
@@ -53,7 +53,7 @@ export class AddItemComponent implements OnInit {
 	pageEvent: PageEvent;
 
 	savedContributors = []
-	contributors = []
+	contributors:any = []
 
 	book_id: number
 	contibutorStatus: string
@@ -89,7 +89,9 @@ export class AddItemComponent implements OnInit {
 	classifications:any = []
 	// Variables
 
-
+	select2allAuthors:any= []
+	select2allTranslators:any= []
+	select2allCopyists:any= []
 
 	constructor(
 		private formBuilder: FormBuilder,
@@ -109,21 +111,49 @@ export class AddItemComponent implements OnInit {
 			})
 		})
 		
+		// jquery('#author').select2({
+		// 	minimumInputLength: 3,
+		// 	placeholder:"select an author",
+		// })
+		// jquery('#translator').select2({
+		// 	minimumInputLength: 3,
+		// 	placeholder:"select a translator",
+		// })
+		// jquery('#copyist').select2({
+		// 	minimumInputLength: 3,
+		// 	placeholder:"select a copyist",
+		// })
+		
+		
 		
 		this.filteredallAuthors = this.authorCtrl.valueChanges.pipe(
-			startWith(null),
+			filter(res => {
+				return res !== null && res.length > 2
+			  }),
+			  distinctUntilChanged(),
 			map((author: string | null) => author ? this._filter(author) : this.allContributors.slice()));
 
-			
 		this.filteredallTranslators = this.translatorCtrl.valueChanges.pipe(
-			startWith(null),
+			filter(res => {
+				return res !== null && res.length > 2
+			  }),
+			  distinctUntilChanged(),
 			map((translator: string | null) => translator ? this._filter(translator) : this.allContributors.slice()));
-
+			
 		this.filteredallCopystes = this.copysteCtrl.valueChanges.pipe(
-			startWith(null),
+			filter(res => {
+				return res !== null && res.length > 2
+			  }),
+			  distinctUntilChanged(),
 			map((copyste: string | null) => copyste ? this._filter(copyste) : this.allContributors.slice()));
 	}
 
+	onSelectAuthor(event:any){
+		console.log(event.target.value);
+		
+		this.allAuthors = jquery('#author').val()
+		console.log(this.allAuthors);
+	}
 
 	add(event: MatChipInputEvent, contributors: any[], ctrl: FormControl): void {
 		const value = (event.value || '').trim();
@@ -216,7 +246,7 @@ export class AddItemComponent implements OnInit {
 				publication_date_stated: [''],
 				type_document: [''],
 				multivolume: ['0'],
-				volume: ['1'],
+				volume: ['0'],
 				source: [''],
 				marginalia: [''],
 				library: [''],
@@ -255,11 +285,46 @@ export class AddItemComponent implements OnInit {
 			notes: this.notes,
 			user_id: ''
 		}
+
+
+		this.select2allAuthors = jquery('#author').val()
+		this.select2allTranslators = jquery('#translator').val()
+		this.select2allCopyists = jquery('#copyist').val()
 		
+		
+	
+		console.log(this.select2allAuthors)
+		console.log(this.select2allTranslators)
+		console.log(this.select2allCopyists)
+
+		this.select2allAuthors.map(id => {
+			this.allContributors.map(item => {
+				if (item.id === parseInt(id)){
+					this.allAuthors.push(item)
+				}
+			})
+		})
+		this.select2allTranslators.map(id => {
+			this.allContributors.map(item => {
+				if (item.id === parseInt(id)){
+					this.allTranslators.push(item)
+				}
+			})
+		})
+		this.select2allCopyists.map(id => {
+			this.allContributors.map(item => {
+				if (item.id === parseInt(id)){
+					this.allCopystes.push(item)
+				}
+			})
+		})
+		console.log(this.allAuthors);
+		console.log(this.allTranslators);
+		console.log(this.allCopystes);
 		// this.contributors = this.selectedAuthors.concat(this.selectedTranslators)
-		this.contributors = this.allAuthors.concat(this.allTranslators).concat(this.allCopystes)
+		// this.contributors = this.allAuthors.concat(this.allTranslators).concat(this.allCopystes)
 		if (book.multivolume === "") book.multivolume = "no"
-		if (book.multivolume === "no") book.volume = 1
+		if (book.multivolume === "no") book.volume = 0
 		if (!book.pot_pourri) book.pot_pourri = 0
 		
 		

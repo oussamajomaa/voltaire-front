@@ -26,6 +26,8 @@ import { BookComponent } from './book/book.component';
 
 import { MaterialModule } from './material.module';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { NgSelect2Module } from 'ng-select2';
+
 
 @NgModule({
   declarations: [
@@ -55,7 +57,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
       easing:'ease-in',
       positionClass:"toast-top-center"
     }),
-    MaterialModule
+    MaterialModule,
+    NgSelect2Module
     
   ],
   providers: [
