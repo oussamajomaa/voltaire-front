@@ -41,7 +41,7 @@
         <div style="overflow-y:auto; height:50vh;" class="  p-3 rounded mb-2">
             <table>
 
-                <tr *ngFor="let book of pageSlice">
+                <tr *ngFor="let book of pageSlice; let i = index" id="{{book.id}}">
 
                     <td class="" *ngIf="book.title.length >= 60" style="width: 45%;">
                         {{book.title | slice:0:60}}.....
@@ -50,10 +50,10 @@
                         {{book.title | slice:0:60}}.
                     </td>
                     <td class="" style="width: 20%;">
-                        {{book.publisher | titlecase}}
+                        {{book.publisher }}
                     </td>
                     <td class="" style="width: 10%;">
-                        {{book.publication_date | titlecase}}
+                        {{book.publication_date }}
                     </td>
                     <td class="" style="width: 15%;">
                         {{book.publication_place}}
@@ -109,3 +109,4 @@
         <!-- delete message -->
     </div>
 </div>
+

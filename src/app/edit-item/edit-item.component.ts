@@ -7,11 +7,10 @@ import { ToastrService } from 'ngx-toastr';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { Observable } from 'rxjs';
-import { map, filter, distinctUntilChanged, debounceTime,startWith } from 'rxjs/operators';
+import { map, filter, distinctUntilChanged, debounceTime,startWith, switchMap, tap } from 'rxjs/operators';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { FormControl } from '@angular/forms';
 import { Classification } from '../add-item/classification';
-import * as jquery from 'jquery';
 
 
 @Component({
@@ -41,30 +40,16 @@ export class EditItemComponent implements OnInit {
 	allTranslators: any = []
 	allCopystes: any = []
 	allContributors: any = []
-
 	classifications: any = []
 	descriptions = []
-
 	inputAuthor = ""
-
-	// MatPaginator Output
-	// pageEvent: PageEvent;
-	// multi: any
 	book_id: number
-
-	// translators = []
-	// authors = []
-	// selectedTranslators = []
-	// selectedAuthors = []
-
 	book: any
-
-	// contributors = []
 	selectedContributors = []
-
 	select2allAuthors: any = []
 	select2allTranslators: any = []
 	select2allCopyists: any = []
+	isSearching:boolean
 
 	ids = []
 	constructor(
@@ -84,10 +69,7 @@ export class EditItemComponent implements OnInit {
 			res.map(item => {
 				this.descriptions.push(item.description)
 			})
-		})
-
-		console.log(this.inputAuthor);
-		
+		})		
 
 
 		// get list objects of classifications
@@ -115,9 +97,8 @@ export class EditItemComponent implements OnInit {
 		this.filteredallAuthors = this.authorCtrl.valueChanges.pipe(
 			filter(res => {
 				return res !== null && res.length > 2
-			  }),
-			  distinctUntilChanged(),
-			map((author: string | null) => author ? this._filter(author) : this.allContributors.slice()));
+			  }),	
+			map((author: string | null) => author ? this._filter(author) : this.allContributors.slice()))
 
 		this.filteredallTranslators = this.translatorCtrl.valueChanges.pipe(
 			filter(res => {
@@ -132,47 +113,31 @@ export class EditItemComponent implements OnInit {
 			  }),
 			  distinctUntilChanged(),
 			map((copyste: string | null) => copyste ? this._filter(copyste) : this.allContributors.slice()));
+	}
 
-		
-		
-		// jquery('#author').select2({
-		// 	minimumInputLength: 3,
-		// 	placeholder: "select an author",
-		// })
 
-		
-		// jquery('#translator').select2({
-		// 	minimumInputLength: 3,
-		// 	placeholder: "select a translator",
-		// })
-		// jquery('#copyist').select2({
-		// 	minimumInputLength: 3,
-		// 	placeholder: "select a copyist",
-		// })
-		
-		
-	
+
+	changeInputAuthor(){
+		if (this.authorInput.nativeElement.value.length < 3)
+		console.log(this.authorInput.nativeElement.value)
+		console.log(this.inputAuthor);
 	}
 
 	// add a new contributor to a list
 	add(event: MatChipInputEvent, contributors: any[], ctrl: FormControl): void {
-		
-		console.log(event.value.length > 2)
-			const value = (event.value || '').trim();
+		const value = (event.value || '').trim();
 			// Add our author
-			if (value) contributors.push(value)
-			// Clear the input value
-			event.chipInput!.clear();
-			ctrl.setValue(null);
+		if (value) {
+			contributors.push(value)
+		}
+		// Clear the input value
+		event.chipInput!.clear();
+		ctrl.setValue(null);
 		
 	}
 
 	addAuthor(event: MatChipInputEvent): void {
-		console.log(event.value.length)
-		console.log(this.inputAuthor);
-		if (event.value.length < 3){
-			this.add(event, this.allAuthors, this.authorCtrl)
-		}
+		this.add(event, this.allAuthors, this.authorCtrl)
 	}
 
 	addTranslator(event: MatChipInputEvent): void {
@@ -208,6 +173,8 @@ export class EditItemComponent implements OnInit {
 		input.nativeElement.value = '';
 		ctrl.setValue(null);
 	}
+
+
 
 	selectedAuthor(event: MatAutocompleteSelectedEvent): void {
 		this.selectedContributor(event, this.allAuthors, this.authorCtrl, this.authorInput)
@@ -303,9 +270,7 @@ export class EditItemComponent implements OnInit {
 				// temporairement dans des list
 				this.allAuthors = res.filter(item => item.status === 'author')
 				this.allTranslators = res.filter(item => item.status === 'translator')
-				this.allCopystes = res.filter(item => item.status === 'copyste')
-				console.log(this.allAuthors);
-				
+				this.allCopystes = res.filter(item => item.status === 'copyste')				
 			})
 	}
 

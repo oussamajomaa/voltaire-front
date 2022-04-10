@@ -3,11 +3,7 @@
         <h2 *ngIf="book" class="title">Editing the book titled: <span class="book-title">{{book.title |
                 slice:0:60}}...</span></h2>
 
-        <div class="card card-note w-100" *ngIf="book">
-            <mat-label>Title</mat-label>
-            <input matInput placeholder="Title" [(ngModel)]="book.title" value="{{book.title}}"
-                (input)="valuechange($event)">
-        </div>
+       
         <!--trois select2
         
         <div class="card card-note" >
@@ -38,8 +34,12 @@
         <div class="parent-card" *ngIf="book">
 
 
-           
-            <div class="card card-note w-100" *ngIf="book">
+            <div class="card card-note w-100" >
+                <mat-label>Title</mat-label>
+                <input matInput placeholder="Title" [(ngModel)]="book.title" value="{{book.title}}"
+                    (input)="valuechange($event)">
+            </div>
+            <div class="card card-note w-100" >
               
                 <mat-chip-list #chipList>
                     <mat-chip *ngFor="let author of allAuthors;let indx=index;" [selectable]="selectable"
@@ -49,15 +49,17 @@
                     </mat-chip>
                     <input 
                         matInput 
+                        (change)="changeInputAuthor()"
                         placeholder="Authors... min 3 characters" 
                         #authorInput 
                         [formControl]="authorCtrl"
-                        [(ngModel)]="inputAuthor"
                         [matAutocomplete]="author" 
                         [matChipInputFor]="chipList"
                         [matChipInputSeparatorKeyCodes]="separatorKeysCodes" 
                         [matChipInputAddOnBlur]="addOnBlur"
-                        (matChipInputTokenEnd)="addAuthor($event)">
+                        (matChipInputTokenEnd)="addAuthor($event)"
+                        
+                        >
                 </mat-chip-list>
                 <mat-autocomplete
                     #author="matAutocomplete" 
@@ -70,7 +72,7 @@
 
             
 
-            <div class="card card-note w-100" *ngIf="book">
+            <div class="card card-note w-100" >
                 <mat-chip-list #chipList>
                     <mat-chip *ngFor="let translator of allTranslators;let indx=index;" [selectable]="selectable"
                         [removable]="removable" (removed)="removeTranslator(translator)">
@@ -78,6 +80,7 @@
                         <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                     </mat-chip>
                     <input 
+
                         matInput 
                         placeholder="Translator...min 3 characters" 
                         #translatorInput 
@@ -98,7 +101,7 @@
             </div>
           
 
-            <div class="card card-note w-100" *ngIf="book">
+            <div class="card card-note w-100" >
                 <mat-chip-list #chipList>
                     <mat-chip *ngFor="let copyste of allCopystes;let indx=index;" [selectable]="selectable"
                         [removable]="removable" (removed)="removeCopyste(copyste)">
@@ -142,15 +145,20 @@
 
             <div class=" card">
                 <mat-label>Publication date</mat-label>
-                <input matInput type="number"
+                <!--<input matInput type="number"
                     oninput="javascript: if (this.value.length > 4) this.value = this.value.slice(0, 4);"
-                    [(ngModel)]="book.publication_date" value="{{book.publication_date}}">
+                    [(ngModel)]="book.publication_date" value="{{book.publication_date}}">-->
+                <input 
+                    matInput
+                    [(ngModel)]="book.publication_date" 
+                    value="{{book.publication_date}}">
             </div>
             <div class=" card stated">
                 <mat-label>Publication date stated</mat-label>
-                <input matInput type="number"
-                    oninput="javascript: if (this.value.length > 4) this.value = this.value.slice(0, 4);"
-                    [(ngModel)]="book.publication_date_stated" value="{{book.publication_date_stated}}">
+                <input 
+                    matInput
+                    [(ngModel)]="book.publication_date_stated" 
+                    value="{{book.publication_date_stated}}">
             </div>
 
             <!-- <div class=" card">

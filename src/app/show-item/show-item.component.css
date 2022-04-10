@@ -10,6 +10,7 @@ mat-label{
 h3,li{
     font-weight: 400;
     color: #002147;
+    padding: 0;
     margin: 0;
 }
 

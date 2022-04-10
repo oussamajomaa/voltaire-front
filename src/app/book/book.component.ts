@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , AfterViewInit, ViewChild, ElementRef} from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
@@ -13,7 +13,7 @@ import { BookService } from '../services/book.service';
 	styleUrls: ['./book.component.css']
 })
 export class BookComponent implements OnInit {
-
+	@ViewChild('row') row:ElementRef;
 	searchForm: any = FormGroup
 	books: any = []
 	book_id: number
@@ -54,16 +54,34 @@ export class BookComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		
 		this.searchForm = this.formBuilder.group(
 			{
 				title: [''],
 			})
 
 		this.getBooks()
+
+		
+		if (localStorage.getItem('rowID')){
+			// let rowID = localStorage.getItem('rowID')
+			let rowID = localStorage.getItem('rowID')
+			let row
+			setTimeout(function(){
+				row = document.getElementById(rowID)
+				console.log(row);
+				row.style.background = '#FF6600'
+				row.style.color = '#fff'
+				row.scrollIntoView();
+			},1500)
+			
+		}
+		localStorage.removeItem('rowID')
 		
 		if (localStorage.getItem('pageIndex')) {
 			this.pageIndex = parseInt(localStorage.getItem('pageIndex'))
 			this.localPageIndex = parseInt(localStorage.getItem('pageIndex'))
+			console.log(this.pageIndex, this.localPageIndex, localStorage.getItem('pageSize'));
 		}
 		localStorage.removeItem('pageIndex')
 		if (localStorage.getItem('pageSize')) {
@@ -89,7 +107,6 @@ export class BookComponent implements OnInit {
 	}
 
 	onPageChange(event: PageEvent) {
-
 		this.pageIndex = event.pageIndex + this.localPageIndex
 		this.pageSize = event.pageSize
 
@@ -138,6 +155,7 @@ export class BookComponent implements OnInit {
 	}
 
 	updateItem(id) {
+		localStorage.setItem('rowID', id)
 		localStorage.setItem('pageIndex', this.pageIndex.toString())
 		localStorage.setItem('pageSize', this.pageSize.toString())
 		this.router.navigate(['edit-item'], { queryParams: { id: id } })

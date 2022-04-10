@@ -131,14 +131,16 @@
             </div>
 
             <div class="card">
-                <input matInput placeholder="Publication date" type="number"
+                <!--<input matInput placeholder="Publication date" type="number"
                     oninput="javascript: if (this.value.length > 4) this.value = this.value.slice(0, 4);"
+                    [(ngModel)]="publication_date">-->
+                <input 
+                    matInput placeholder="Publication date"
                     [(ngModel)]="publication_date">
             </div>
 
             <div class="card stated">
-                <input matInput placeholder="Publication date stated" type="number"
-                    oninput="javascript: if (this.value.length > 4) this.value = this.value.slice(0, 4);"
+                <input matInput placeholder="Publication date stated"
                     [(ngModel)]="publication_date_stated">
             </div>
 
