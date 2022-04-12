@@ -86,7 +86,7 @@ table {
   }
 
   tr:hover{
-    background: rgb(243, 252, 123);
+    background: #0059ff31;
 }
 
   .actions .mat-icon{

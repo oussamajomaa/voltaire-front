@@ -14,7 +14,10 @@
         <form [formGroup]="searchForm">
             <div class="w-100">
                 <mat-form-field class="w-50">
-                    <input matInput formControlName="title" placeholder="search a book" >
+                    <input matInput 
+                        formControlName="title" 
+                        placeholder="search a book" 
+                        >
                 </mat-form-field>
                     <button mat-icon-button (click)="findBook()">
                         <mat-icon>search</mat-icon>
@@ -90,8 +93,13 @@
                     <mat-icon class="first-last" matTooltip="Last" (click)="lastRecord($event)">last_page</mat-icon>
                 </div>
                 <div >
-                    <mat-paginator [length]="books.length" [pageSize]="pageSize" class=" rounded"
-                        [pageSizeOptions]="[50,100,150,200,250,300]" (page)="onPageChange($event)">
+                    <mat-paginator 
+                        [length]="books.length" 
+                        [pageSize]="pageSize" 
+                        class=" rounded"
+                        [pageSizeOptions]="[50,100,150,200,250,300]" 
+                        
+                        (page)="onPageChange($event)">
                     </mat-paginator>
                 </div>
             </div>

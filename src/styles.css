@@ -37,3 +37,12 @@ h1,h2,h3,h4,h5,h6,p,a,span,input,label,textarea,select,button{font-family: 'Mont
   background-color: #FFC107;
 }
 
+.success{
+  color:white;
+  background-color: #1E7E34;
+}
+
+.success:hover{
+  background-color: #1E7E34d0;
+}
+

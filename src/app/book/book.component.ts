@@ -41,6 +41,9 @@ export class BookComponent implements OnInit {
 	onAdd = false
 	isFounded=true
 
+	rowID:number
+	title:string
+
 
 	constructor(
 		private formBuilder: FormBuilder,
@@ -63,25 +66,11 @@ export class BookComponent implements OnInit {
 		this.getBooks()
 
 		
-		if (localStorage.getItem('rowID')){
-			// let rowID = localStorage.getItem('rowID')
-			let rowID = localStorage.getItem('rowID')
-			let row
-			setTimeout(function(){
-				row = document.getElementById(rowID)
-				console.log(row);
-				row.style.background = '#FF6600'
-				row.style.color = '#fff'
-				row.scrollIntoView();
-			},1500)
-			
-		}
-		localStorage.removeItem('rowID')
+		
 		
 		if (localStorage.getItem('pageIndex')) {
 			this.pageIndex = parseInt(localStorage.getItem('pageIndex'))
 			this.localPageIndex = parseInt(localStorage.getItem('pageIndex'))
-			console.log(this.pageIndex, this.localPageIndex, localStorage.getItem('pageSize'));
 		}
 		localStorage.removeItem('pageIndex')
 		if (localStorage.getItem('pageSize')) {
@@ -96,13 +85,39 @@ export class BookComponent implements OnInit {
 			this.pageSlice = this.books.slice(0, 50)
 			if (this.pageIndex > 0) {
 				const startIndex = this.pageIndex * this.pageSize
-
 				let endIndex = startIndex + this.pageSize
-				
 				this.pageSlice = this.books.slice(startIndex, endIndex)
-
+			}
+			// récupérer le mot de recherche s'il existe dans le localstorage
+			if (localStorage.getItem('search')){
+				// assigner la valeur a l'input de recherche
+				this.searchForm = this.formBuilder.group(
+					{
+						title: [localStorage.getItem('search')],
+					})
+				// récupéere l'id du livre et filtrer la liste des livres
+				this.book_id = parseInt(localStorage.getItem('rowID'))
+				this.pageSlice = this.books.filter(item => {
+					if (item.id === this.book_id)
+					return item
+				})
+				localStorage.removeItem('search')
 			}
 
+			if (localStorage.getItem('rowID')){
+				
+				// hilight le livre édité
+				let rowID = localStorage.getItem('rowID')
+				let row
+				setTimeout(function(){
+					row = document.getElementById(rowID)
+					if (row){
+						row.style.background = '#ff660031'
+						row.scrollIntoView();
+					}
+				},1000)
+				localStorage.removeItem('rowID')
+			}
 		})
 	}
 
@@ -132,6 +147,7 @@ export class BookComponent implements OnInit {
 	}
 
 	showItem(id) {
+		localStorage.setItem('rowID', id)
 		localStorage.setItem('pageIndex', this.pageIndex.toString())
 		localStorage.setItem('pageSize', this.pageSize.toString())
 		this.router.navigate(['show-item'], { queryParams: { id: id } })
@@ -155,9 +171,16 @@ export class BookComponent implements OnInit {
 	}
 
 	updateItem(id) {
+		// si l'input de recherche est n'est pas vide, on ajoute sa valeur au localstorage
+		if(this.searchForm.value.title){
+			localStorage.setItem('search', this.searchForm.value.title)
+		}
+		// ajouter l'id du livre au localstorage
 		localStorage.setItem('rowID', id)
+		// ajouter le numéro et le size de la page au localstorage
 		localStorage.setItem('pageIndex', this.pageIndex.toString())
 		localStorage.setItem('pageSize', this.pageSize.toString())
+		// naviguer vers la route 'edit-item'
 		this.router.navigate(['edit-item'], { queryParams: { id: id } })
 	}
 
@@ -167,7 +190,7 @@ export class BookComponent implements OnInit {
 
 	
 	findBook(){
-		if(this.searchForm.value.title){
+		if(this.searchForm.value.title){			
 			// this.bookService.searchBook(this.inputSerche)
 			this.bookService.searchBook(this.searchForm.value.title)
 			.subscribe((res:any) => {
@@ -183,5 +206,24 @@ export class BookComponent implements OnInit {
 		this.isFounded=true
 		this.getBooks()
 	}
+
+	// search(event){
+		// 	// if(event.target.value.length >2){
+		// 		console.log(event.target.value);
+		// 		this.bookService.searchBook(event.target.value)
+		// 		.subscribe((res:any) => {
+		// 			this.books = res
+		// 			if (this.books.length > 0)
+		// 			this.pageSlice = this.books.slice(0,50)
+		// 			else {
+		// 				this.pageSlice = []
+		// 				this.isFounded = false
+		// 			}
+		// 			// if (this.pageSlice.length === 0) this.isFounded = false
+		// 		})
+				
+		// 	// }
+			
+		// }
 	
 }
