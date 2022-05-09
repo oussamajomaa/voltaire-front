@@ -74,4 +74,46 @@ export class BookService {
 	getClassification(id){
 		return this.http.get(`${environment.url}/get-classification`,{params:{id:id}})
 	}
+
+	getChartContributor() {
+		return this.http.get(`${environment.url}/chart-contributor`)
+	}
+
+	getChartBC() {
+		return this.http.get(`${environment.url}/chart-book-contributor`)
+	}
+
+	getChartBooks(){
+		return this.http.get(`${environment.url}/chart-book`)
+	}
+
+	getChartClassification(){
+		return this.http.get(`${environment.url}/chart-classification`)
+	}
+
+	// Cette methode va regrouper la liste selon le nom du fichier
+	groupBy(list:any, keyGetter:any) {
+		const map = new Map();
+		list.forEach((item:any) => {
+			const key = keyGetter(item);
+			const collection = map.get(key);
+			if (!collection) {
+				map.set(key, [item]);
+			} else {
+				collection.push(item);
+			}
+		});
+		return map;
+	}
+
+	// Sort list of elements
+	sortList(list:[]) {
+		list.sort((a: any, b: any) => {
+			if (a > b) return 1
+			if (a < b) return -1
+			return 0
+		})
+	}
+	
+	
 }

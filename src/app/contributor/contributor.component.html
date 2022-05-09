@@ -31,7 +31,11 @@
                 <td class="col-3">{{contributor.last_name  | slice:0:35}}</td>
                 <td class="col-3">{{contributor.first_name  | slice:0:35}}</td>
                
-                <td class="col-4">{{contributor.link_viaf}}</td>
+                <td class="col-4">
+                    <a href="{{contributor.link_viaf}}" target="_blank" style="text-decoration: none; color: #794531;">
+                        {{contributor.link_viaf}}
+                    </a>
+                </td>
 
                 <td class="col-2 actions text-center">
                     <mat-icon (click)="updateContributor(contributor)" class="primary-btn" matTooltip="update">edit

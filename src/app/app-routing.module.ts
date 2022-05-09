@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AboutComponent } from './about/about.component';
 import { AddItemComponent } from './add-item/add-item.component';
 import { BookComponent } from './book/book.component';
+import { ChartsComponent } from './charts/charts.component';
 import { ContributorComponent } from './contributor/contributor.component';
 import { EditItemComponent } from './edit-item/edit-item.component';
 import { HomeComponent } from './home/home.component';
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path:'edit-item', component:EditItemComponent},
   {path:'show-item', component:ShowItemComponent},
   {path:'contributor', component:ContributorComponent},
+  {path: 'chart', component:ChartsComponent},
   {path:'login', component:LoginComponent},
   {path:'register', component:RegisterComponent, canActivate:[AuthGuard]},
   {path:'about', component:AboutComponent},

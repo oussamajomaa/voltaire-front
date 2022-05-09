@@ -1,7 +1,7 @@
 
 
 	<div style="position: fixed; width:100%;">
-		<mat-toolbar color="primary" >
+		<mat-toolbar color="primary" style="height: 64px;">
 			<div fxShow="true" fxHide.gt-sm="true">
 				<button mat-icon-button (click)="sidenav.toggle()">
 					<mat-icon>menu</mat-icon>
@@ -16,6 +16,7 @@
 				<a routerLink="home" class="menu-h" routerLinkActive="active" >Home</a>
 				<a routerLink="book" routerLinkActive="active" class="menu-h">Books</a>
 				<a routerLink="contributor" routerLinkActive="active" class="menu-h">Contributors</a>
+				<a routerLink="chart" routerLinkActive="active" class="menu-h">Graphs</a>
 				<a *ngIf="role==='supervisor'" routerLink="register" routerLinkActive="active" class="menu-h">Users</a>
 				<!--<a routerLink="about" routerLinkActive="active" class="menu-h">About</a>-->
 				
@@ -46,6 +47,11 @@
 						<mat-icon>school</mat-icon>
 						<a routerLink="contributor"  routerLinkActive="active1" (click)="sidenav.toggle()">Contributors</a>
 					</div>
+					<div class="menu-v">
+						<mat-icon>pie_chart</mat-icon>
+						<a routerLink="chart"  routerLinkActive="active1" (click)="sidenav.toggle()">Graphs</a>
+					</div>
+					
 					<div class="menu-v" *ngIf="role==='supervisor'">
 						<mat-icon>person</mat-icon>
 						<a   routerLink="register" routerLinkActive="active1" (click)="sidenav.toggle()" >Users</a>

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -27,6 +27,10 @@ import { BookComponent } from './book/book.component';
 import { MaterialModule } from './material.module';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { NgSelect2Module } from 'ng-select2';
+import { ChartsComponent } from './charts/charts.component';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { NgxEchartsModule } from 'ngx-echarts';
+
 
 
 @NgModule({
@@ -43,6 +47,8 @@ import { NgSelect2Module } from 'ng-select2';
     ContributorComponent,
     BookComponent,
     NotFoundComponent,
+    ChartsComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -58,13 +64,17 @@ import { NgSelect2Module } from 'ng-select2';
       positionClass:"toast-top-center"
     }),
     MaterialModule,
-    NgSelect2Module
+    NgSelect2Module,
+    NgxSliderModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts'),
+    }),
     
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     // {provide: LocationStrategy, useClass: HashLocationStrategy},
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

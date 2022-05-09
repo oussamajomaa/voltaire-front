@@ -211,7 +211,7 @@ export class EditItemComponent implements OnInit {
 
 
 		if (this.book.multivolume === "") this.book.multivolume = "no"
-		if (this.book.multivolume === "no") this.book.volume = 0
+		if (this.book.multivolume === "no") this.book.volume = 1
 		if (this.book.title) {
 			this.book.user_update = localStorage.getItem('id')
 			this.book.update_date = new Date().toLocaleString().slice(0, 10)

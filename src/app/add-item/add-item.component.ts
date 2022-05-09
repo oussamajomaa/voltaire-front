@@ -269,7 +269,7 @@ export class AddItemComponent implements OnInit {
 		}
 
 		if (book.multivolume === "") book.multivolume = "no"
-		if (book.multivolume === "no") book.volume = 0
+		if (book.multivolume === "no") book.volume = 1
 		if (!book.pot_pourri) book.pot_pourri = 0
 		
 		if (book.title) {
