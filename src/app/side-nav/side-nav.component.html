@@ -16,7 +16,7 @@
 				<a routerLink="home" class="menu-h" routerLinkActive="active" >Home</a>
 				<a routerLink="book" routerLinkActive="active" class="menu-h">Books</a>
 				<a routerLink="contributor" routerLinkActive="active" class="menu-h">Contributors</a>
-				<a routerLink="chart" routerLinkActive="active" class="menu-h">Graphs</a>
+				<a routerLink="chart" routerLinkActive="active" class="menu-h">Visualization</a>
 				<a *ngIf="role==='supervisor'" routerLink="register" routerLinkActive="active" class="menu-h">Users</a>
 				<!--<a routerLink="about" routerLinkActive="active" class="menu-h">About</a>-->
 				
@@ -49,7 +49,7 @@
 					</div>
 					<div class="menu-v">
 						<mat-icon>pie_chart</mat-icon>
-						<a routerLink="chart"  routerLinkActive="active1" (click)="sidenav.toggle()">Graphs</a>
+						<a routerLink="chart"  routerLinkActive="active1" (click)="sidenav.toggle()">Visualization</a>
 					</div>
 					
 					<div class="menu-v" *ngIf="role==='supervisor'">

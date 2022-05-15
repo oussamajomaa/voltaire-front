@@ -91,9 +91,23 @@ export class ChartsComponent implements AfterViewInit {
 	}
 
 	ngAfterViewInit(): void {
-		this.bookService.getChartBC().subscribe((res: any) => this.bc = res)
+		this.bookService.getChartBC().subscribe((res: any) => {
+			res.map(item => {
+				item.full_name = (item.first_name + " " +item.last_name).trim()
+				return item
+			})
+			this.bc = res
+			
+		})
 		this.bookService.getChartClassification().subscribe((res: any) => this.classification = res)
-		this.bookService.getChartContributor().subscribe((res: any) => this.contributors = res)
+		// this.bookService.getChartContributor().subscribe((res: any) => {
+		// 	res.map(item => {
+		// 		item.full_name = (item.first_name + " " +item.last_name).trim()
+		// 		return item
+		// 	})
+		// 	this.contributors = res
+			
+		// })
 		this.bookService.getChartBooks().subscribe((res: any) => {
 			// this.books_dates = res.filter(book => {
 			// 	return book.publication_date != null
@@ -246,8 +260,8 @@ export class ChartsComponent implements AfterViewInit {
 			this.titleFilter = 'Select a role'
 			this.text = 'Contributor role'
 		}
-		if (params === 'first_name') {
-			data = this.bookService.groupBy(tableBC, item => item.first_name)
+		if (params === 'full_name') {
+			data = this.bookService.groupBy(tableBC, item => item.full_name)
 			this.title = 'Chart of books according to the contributor name'
 			this.titleFilter = 'Select a contributor'
 			this.text = 'Contributor name'
