@@ -1,133 +1,106 @@
 export class Classification {
-    librariesClassification = [
+	librariesClassification = [
 		{
-			title:"Belles-Lettres",
-			sub_titles:[
-				"Bibliographie",
-				"Grammaires & dictionnaires",
+			title: "Belles-Lettres",
+			sub_titles: [
+				"Grammaire",
 				"Philologie",
 				"Poétique",
-				"Polygraphes anciens & modernes",
+				"Poésie italienne",
+				"Poésie espagnole, hollandaise et anglaise",
+				"Théâtre français",
+				"Poésie dramatique étrangère",
+				"Théâtre italien",
+				"Théâtre de la Foire",
+				"Mythologie",
+				"Polygraphie",
+				"Epistolaires",
 				"Rhétorique",
 				"Romans"
 			]
 		},
 		{
-			title:"Histoire",
-			sub_titles:[
-				"Atlas",
-				"Cartes géographiques",
+			title: "Histoire",
+			sub_titles: [
+				"Histoire Moderne",
 				"Chronologie",
-				"Franc-maçonnerie",
 				"Géographie",
-				"Histoire Asiatique",
+				"Histoire de l'Asie",
 				"Histoire d'Afrique",
 				"Histoire de l'Amérique",
-				"Histoire de la Grèce asiatique",
 				"Histoire de France",
-				"Histoire de France sous des règnes particulières",
-				"Histoire des Villes & Provinces de France",
-				"Histoire générale de France",
-				"Préliminaires de l’Histoire de France",
 				"Histoire ecclésiastique",
-				"Actes des Martyrs, passions, & martyrologes",
-				"Histoire des conciles",
-				"Histoire des Inquisitions",
-				"Histoire des ordres militaires & de Chevalerie",
-				"Histoire des Papes, &c.",
-				"Histoire ecclésiastique générale",
-				"Histoire générale des Religions, sectes & hérésies",
-				"Histoire monastique",
-				"Histoire européen divers",
 				"Histoire d’Allemagne",
-				"Histoire d’Angleterre, d’Ecosse & d’Irlande",
-				"Histoire d'Espagne & de Portugal",
+				"Histoire d’Angleterre",
+				"Histoire d'Espagne",
+				"Histoire de Portugal",
 				"Histoire d’Italie",
 				"Histoire des Pays Septentrionaux",
 				"Histoire des Pays-Bas",
-				"Histoire des Provinces-Unies des Pays-Bas",
-				"Histoire des Suisses, &c.",
 				"Histoire Orientale",
-				"Histoire profane",
-				"Histoire Byzantine",
-				"Histoire des juifs",
-				"Histoire des monarchies anciennes, &c.",
-				"Histoire Grecque",
-				"Histoire Romaine",
-				"Histoire universelle & particulière",
-				"Voyages"
+				"Histoire des Turcs",
+
+				"Histoire profane des monarchies anciennes",
+
+				"Histoire universelle",
+				"Voyages",
+				"Paralipomènes historiques",
+				"Antiquités",
+				"Histoire littéraire",
+				"Vies des hommes illustres"
+
 			]
 		},
 		{
-			title:"Jurisprudence",
-			sub_titles:[
-				"Ancien Droit des Grecs & des Romains",
+			title: "Jurisprudence",
+			sub_titles: [
 				"Droit canonique",
-				"Droit civil, Droit de la Nature & des Gens, & droit public",
-				"Droit étranger",
-				"Droit français",
-				"Œuvres héraldiques, Généalogiques &c."
+				"Droit civil",
+				
 			]
 		},
 		{
-			title:"Arts et sciences",
-			sub_titles:[
-				"Art pyrotechnique, de la Fonderie, de la Verrerie, &c.",
+			title: "Sciences et Arts",
+			sub_titles: [
 				"Arts",
 				"Architecture",
-				"Art de la peinture",
-				"Art gymnastique, de la chasse, de la Pêche",
+				"Art du dessin et de la peinture",
 				"Art militaire",
-				"Arts mécaniques, vulgairement appelés Métiers",
-				"Dictionnaires des Arts, &c.",
-				"Jeux",
+				"Arts mécaniques, appelés Métiers",
+
 				"Histoire naturelle",
-				"Agriculture & Botanique, &c.",
-				"Histoire naturelle des animaux, oiseaux, poissons, insectes, &c.",
-				"Histoire naturelle des choses extraordinaires, monstres, prodiges, &c.",
-				"Histoire naturelle des différents pays",
-				"Histoire naturelle des Elémens, Métaux, Minéraux, Pierres, &c.",
-				"Mélanges d'histoire naturelle",
+				"Agriculture",
+				"Botanique",
+				"Histoire naturelle des animaux",
+				
+				"Histoire naturelle des Eléments",
 				"Mathématique",
-				"Astrologie",
-				"Astronomie",
-				"Géométrie",
-				"Optique, Statique, Hydraulique, Mécanique & Musique",
-				"Médecine, Chirurgie",
-				"Chirurgie & anatomie",
-				"Chymie",
-				"Introductions, Cours, & Dictionnaires de Médecine",
-				"Médecins anciens & modernes, &c.",
-				"Pharmacie",
-				"Traités de la santé, des moyens de se prolonger la vie, &c.",
-				"Traités singuliers de Pathologie, ou des Maladies &c.",
-				"Métaphysique",
-				"De Dieu, de son existence, de sa providence",
-				"De l’ me, de son immortalité, de l’esprit de l’homme",
-				"Traité des Esprits, de la Cabale, de la Mage, des Démons",
+				
+				"Médecine",
+				
 				"Philosophie",
-				"Commerce, Finances, Monnaies",
-				"Économique",
-				"Logique et morale",
-				"Philosophes anciens",
-				"Philosophes modernes",
+				"Économie",
+				
 				"Politique",
 				"Physique",
-				"Théologie",
-				"Ascétiques",
-				"Catéchétiques",
-				"Diverses œuvres théologiques",
-				"La Sainte Bible & commentaires",
-				"Liturgies & conciles",
-				"Théologie hétérodoxe",
-				"Théologie parénétique, ou des sermons",
-				"Théologie polémique",
-				"Vies des Saints"
+				
 			]
 		},
 		{
-			title:"Undetermined",
-			sub_titles:[
+			title: "Théologie",
+			sub_titles: [
+
+				"Écriture Sainte",
+				"Liturgies",
+				"Conciles",
+				"Saints Pères",
+				"Théologiens",
+				
+			]
+		},
+		{
+			title: "Undetermined",
+			sub_titles: [
 				"Uncategorizable",
 				"Unknown"
 			]

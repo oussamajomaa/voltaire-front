@@ -66,6 +66,7 @@ export class AddItemComponent implements OnInit {
 
 	title = ''
 	publisher = ''
+	publisher_stated = ''
 	publication_place = ''
 	publication_date = ''
 	publication_place_stated = ''
@@ -222,6 +223,7 @@ export class AddItemComponent implements OnInit {
 			{
 				title: ['', Validators.required],
 				publisher: [''],
+				publisher_stated: [''],
 				publication_place: [''],
 				publication_date: [''],
 				publication_place_stated: [''],
@@ -247,6 +249,7 @@ export class AddItemComponent implements OnInit {
 		let book = {
 			title: this.title,
 			publisher: this.publisher,
+			publisher_stated: this.publisher_stated,
 			publication_place: this.publication_place,
 			publication_date: this.publication_date,
 			publication_place_stated: this.publication_place_stated,
