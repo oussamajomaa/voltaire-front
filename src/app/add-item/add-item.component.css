@@ -1,0 +1,87 @@
+.title{
+    text-align: center;
+    color:#002147;
+}
+
+.radio-class{
+    display: flex;
+    padding: 5px;
+    padding-left: 12px;
+    background-color: #F0F0F0;
+    border-bottom: rgb(163, 163, 163) 1px solid;
+}
+
+.radio-class:hover{
+    border-bottom: rgb(0, 0, 0) 2px solid;;
+}
+
+.radio-class .radio-select{
+    display: flex;
+    flex-direction: column;
+}
+
+.radio-class mat-label{
+    color: rgba(0,0,0,.6);
+    margin-right: 15px;
+}
+
+
+
+.radio-label label{
+    margin-left: 10px;
+}
+
+
+
+ /* ********************************* */
+
+
+.parent-card{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.card{
+    margin: 5px;
+    width: 19%;
+}
+
+.card-note{
+    width: 100%; 
+    padding: 5px;
+    margin: 5px;
+}
+
+input,textarea, mat-select{
+    border:none;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+input:focus, textarea:focus, mat-select:focus{
+    outline: 1px solid #002147;
+}
+
+.stated{
+    border-bottom: 1px solid yellow;
+}
+
+@media (max-width:1000px){
+    .card{
+        width: 30%;
+    }
+}
+
+@media (max-width:768px){
+    .card{
+        width: 47%;
+    }
+}
+
+@media (max-width:460px){
+    .card{
+        width: 99%;
+    }
+}
+

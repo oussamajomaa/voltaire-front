@@ -1,0 +1,148 @@
+<div class="container mat-elevation-z8 p-3 mb-3" style="position: relative;">
+    <h2 class="title">List of contributors</h2>
+    
+     <!-- Searching a contributor -->
+     <form [formGroup]="searchForm">
+        <div class="w-100">
+            <mat-form-field class="w-50">
+                <input matInput formControlName="first_name" placeholder="search a contributor" >
+            </mat-form-field>
+                <button mat-icon-button (click)="findContributor()">
+                    <mat-icon>search</mat-icon>
+                </button>
+                <button type="button" mat-icon-button (click)="clearInput()">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </div>
+        </form>
+    <!-- END Searching a contributor -->
+
+    <div>
+        <table>
+
+            <tr>
+                <th class="col-3">Last Name</th>
+                <th class="col-3">First Name</th>
+                <th class="col-3">Authority link</th>
+                <th class="col-1">Notes</th>
+                <th class="col-2 text-center">Actions</th>
+            </tr>
+
+            <tr *ngFor="let contributor of pageSlice">
+                <td class="col-3">{{contributor.last_name  | slice:0:35}}</td>
+                <td class="col-3">{{contributor.first_name  | slice:0:35}}</td>
+               
+                <td class="col-3">
+                    <a href="{{contributor.link_viaf}}" target="_blank" style="text-decoration: none; color: #794531;">
+                        {{contributor.link_viaf}}
+                    </a>
+                </td>
+                <td class="col-1">{{contributor.notes  | slice:0:35}}</td>
+                <td class="col-2 actions text-center">
+                    <mat-icon (click)="updateContributor(contributor)" class="primary-btn" matTooltip="update">edit
+                    </mat-icon>
+                    <mat-icon (click)="deleteContributor(contributor.id)" style="margin-right: 10px;" color="warn"
+                        matTooltip="delete">delete</mat-icon>
+                </td>
+
+            </tr>
+        </table>
+
+    </div>
+    <div>
+        <button *ngIf="!onAdd" mat-mini-fab style="background: #002147;" (click)="addContributor()"
+            matTooltip="new contributor">
+            <mat-icon>add</mat-icon>
+        </button>
+        <button *ngIf="onAdd" mat-mini-fab style="background: #002147;" (click)="cancelAddContributor()"
+            matTooltip="cancel">
+            <mat-icon>keyboard_arrow_up</mat-icon>
+        </button>
+    </div>
+
+    <!-- Pagination -->
+    <div class="">
+        <mat-paginator [length]="contributors.length" [pageSize]="7" [pageSizeOptions]="[7,14,21,28,35]"
+            (page)="onPageChange($event)">
+        </mat-paginator>
+    </div>
+
+    <div class="msg mat-elevation-z8 " *ngIf="onDelete">
+        <h3>Are you sur to delete this contributor?</h3>
+        <div class="buttons">
+            <button mat-raised-button color="warn" (click)="confirmDelete()">Yes</button>
+            <button mat-raised-button (click)="cancelDelete()" class="primary">Cancel</button>
+        </div>
+    </div>
+</div>
+
+
+<!-- Form to update contributor -->
+<div *ngIf="onUpdate" class="container mat-elevation-z8 p-3 mt-3">
+    <h2 class="title">Update contributor</h2>
+    <div>
+        <div class="row">
+            <mat-form-field class="col" appearance="fill">
+                <mat-label>First Name</mat-label>
+                <input matInput [(ngModel)]="first_name" placeholder="First name">
+            </mat-form-field>
+            <mat-form-field class="col" appearance="fill">
+                <mat-label>Last Name</mat-label>
+                <input matInput [(ngModel)]="last_name" placeholder="Last name">
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field class="col" appearance="fill">
+                <mat-label>Authority link</mat-label>
+                <input matInput [(ngModel)]="link_viaf" placeholder="Authority link">
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field class="col" appearance="fill">
+                <mat-label>Notes</mat-label>
+                <textarea matInput [(ngModel)]="notes" placeholder="Notes"></textarea>
+            </mat-form-field>
+        </div>
+        <div class="buttons">
+            <button mat-raised-button color="warn" (click)="confirmUpdate()">Update</button>
+            <button mat-raised-button (click)="cancelUpdate()" class="primary">Cancel</button>
+        </div>
+    </div>
+</div>
+<!-- End form updating contributor -->
+
+
+<!-- Form to add a contributor -->
+<form [formGroup]="form" *ngIf="onAdd">
+    <div class="container mat-elevation-z8 p-3 mt-3">
+        <h2 class="title">Add contributor</h2>
+        <div class="row">
+            <mat-form-field class="col" appearance="fill">
+                <mat-label>First Name</mat-label>
+                <input matInput placeholder="First Name" formControlName="first_name">
+            </mat-form-field>
+
+            <mat-form-field class="col" appearance="fill">
+                <mat-label>Last Name</mat-label>
+                <input matInput placeholder="Last Name" formControlName="last_name">
+            </mat-form-field>
+        </div>
+
+        <div class="row">
+            <mat-form-field class="col" appearance="fill">
+                <mat-label>Authority link</mat-label>
+                <input matInput placeholder="Authority link" formControlName="link_viaf">
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field class="col" appearance="fill">
+                <mat-label>Notes</mat-label>
+                <textarea matInput placeholder="Notes" formControlName="notes"></textarea>
+            </mat-form-field>
+        </div>
+        
+
+        <button mat-raised-button (click)="submit()" class="mt-3 primary">Submit</button>
+    </div>
+</form>
+<!-- End form adding contributor -->

@@ -1,0 +1,101 @@
+body{
+    padding: 0;
+    margin: 0;
+    background: white;
+  }
+  
+  .companyName{
+    font-size: 150%;
+  }
+  /* div {
+    overflow: inherit;
+  } */
+  a{
+    text-decoration: none;
+  
+    white-space: normal;
+  }
+  
+
+  .example-icon {
+    padding: 0 14px;
+  }
+  
+  .example-spacer {
+    flex: 1 1 auto;
+    
+  }
+
+  .mat-sidenav-content{
+    padding: 1%;
+    position: relative;
+    padding-bottom: 100px;
+  }
+
+  .mat-toolbar{
+    background: #002147;
+    padding: 10px;
+  }
+
+  .mat-toolbar a{
+    color: white;
+  }
+
+  /* .mat-toolbar a :hover{
+    color: yellow;
+  } */
+
+  .mat-sidenav{
+   
+    color: #002147;
+    width: 40%;
+    
+    
+  }
+  
+  .mat-sidenav-container a{
+    text-align: left;
+  }
+  
+  .active{
+    border-bottom: solid 3px rgb(255, 102, 0);
+  }
+
+  .active1{
+    border-bottom: solid 3px rgb(255, 102, 0);
+  }
+
+  .menu-v{
+    padding-left: 30px;
+    margin-top: 20px;
+    font-weight: bolder;
+    display: flex;
+    align-items: center;
+  }
+  
+  .menu-v .mat-icon{
+    margin-right: 10px;
+  }
+
+  .menu-v a{
+    color: #002147;
+  }
+
+  .menu-h{
+    margin-right: 30px;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .logout{
+    display: flex;
+    align-items: center;
+  }
+
+.menu{
+  margin:auto;
+  display: flex;
+  align-items: center;
+}
+
+

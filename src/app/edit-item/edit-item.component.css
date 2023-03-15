@@ -1,0 +1,88 @@
+.title{
+    text-align: center;
+    color:#002147;
+}
+
+mat-label{
+    color: #002147;
+}
+
+input,textarea, mat-select{
+    border:none;
+    padding: 3px;
+}
+
+input:focus, textarea:focus, mat-select:focus{
+    outline: 1px solid #002147;
+}
+
+.book-title{
+    font-style: italic;
+    background: #002147;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    
+}
+
+
+h3{
+    font-weight: 400;
+    padding: 0;
+    margin: 0;
+}
+
+button{
+    margin: 5px;
+}
+
+.parent-card{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:space-between
+}
+
+input{
+   width: 99%;
+}
+.card{
+    padding: 5px;
+    margin: 5px;
+    width: 19%;
+    background: #F0F0F0;
+}
+
+.card-note{
+    width: 100%; 
+    padding: 5px;
+    margin: 5px;
+}
+
+input,select,textarea{
+    background: #F0F0F0;
+    /* border: 1px solid #dbd9d9; */
+}
+
+.stated{
+    border-bottom: 1px solid yellow;
+}
+
+@media (max-width:1000px){
+    .card{
+        width: 30%;
+    }
+}
+
+@media (max-width:768px){
+    .card{
+        width: 47%;
+    }
+}
+
+@media (max-width:460px){
+    .card{
+        width: 99%;
+    }
+}
+
+

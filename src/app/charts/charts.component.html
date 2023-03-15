@@ -1,0 +1,204 @@
+<div>
+    <!-- <div class="divBurger" (click)="onClickMenu()" #menu>
+        <span class="burger"></span>
+        <span class="burger"></span>
+        <span class="burger"></span>
+    </div> -->
+    <div class="sidenav p-3 slide" #sidenav>
+        <!-- <button class="close-menu" (click)="onCloseMenu()" #close>X</button> -->
+        <!-- LOGO -->
+        <!-- <div class="sidebar-header text-center my-3">
+            <a class="nav-link" routerLink="" (click)="onButtonClick('')">
+                <img src="assets/vfobtic.png" alt="" width="100">
+                <h5 class="text-center mt-3 text-light">Voltaire Foundation</h5>
+            </a>
+        </div> -->
+
+        <!-- divider -->
+        <!-- <div class="my-4" style="border-top: #818181 1px solid;"></div> -->
+
+        <!-- Six buttons to select a criterion -->
+        <label for="selectChart" class="text-light">Click to select a criterion</label>
+        <button class="btn secondary m-1 " style="width: 100px; height:80px; font-size:13px;"
+            [ngClass]="{'danger':params === 'publication_place'}" (click)="onButtonClick('publication_place')">
+            Publication place
+        </button>
+        <button class="btn secondary m-1 " style="width: 100px; height:80px; font-size:13px;"
+            [ngClass]="{'danger':params === 'publication_date'}" (click)="onButtonClick('publication_date')">
+            Publication date
+        </button>
+        <button class="btn secondary m-1 " style="width: 100px; height:80px; font-size:13px;"
+            [ngClass]="{'danger':params === 'full_name'}" (click)="onButtonClick('full_name')">
+            Contributor name
+        </button>
+        <button class="btn secondary m-1 " style="width: 100px; height:80px; font-size:13px;"
+            [ngClass]="{'danger':params === 'status'}" (click)="onButtonClick('status')">
+            Contributor role
+        </button>
+        <button class="btn secondary m-1 " style="width: 100px; height:80px; font-size:13px;"
+            [ngClass]="{'danger':params === 'classification'}" (click)="onButtonClick('classification')">
+            Book classification
+        </button>
+        <button class="btn secondary m-1 " style="width: 100px; height:80px; font-size:13px;"
+            (click)="onButtonClick('')">
+            Clear
+        </button>
+
+        <!-- divider -->
+        <div class="my-4" style="border-top: #818181 1px solid;"></div>
+
+        <label class="text-light">Click to select chart type</label>
+        <!-- Section chart type -->
+        <div class="d-flex justify-content-around mb-2">
+            <button class="secondary btn text-center" [ngClass]="{'warning':typeChart === 'line'}"
+                style="width: 100px; height:80px; font-size:13px;" [disabled]="!params" (click)="selectType('line')">
+                <img src="assets/line.png" width="30" alt=""><br>
+                <span>Line</span>
+            </button>
+            <button class="secondary btn text-center" [ngClass]="{'warning':typeChart === 'bar'}"
+                style="width: 100px; height:80px; font-size:13px;" [disabled]="!params" (click)="selectType('bar')">
+                <img src="assets/bar.png" width="30" alt=""><br>
+                <span>Bar</span>
+            </button>
+        </div>
+        <div class="d-flex justify-content-around mb-2">
+            <button class="secondary btn text-center" [ngClass]="{'warning':typeChart === 'area'}"
+                style="width: 100px; height:80px; font-size:13px;" [disabled]="!params" (click)="selectType('area')">
+                <img src="assets/area.png" width="30" alt=""><br>
+                <span>Area</span>
+            </button>
+            <button class="secondary btn text-center" [ngClass]="{'warning':typeChart === 'pie'}"
+                style="width: 100px; height:80px; font-size:13px;" [disabled]="!params" (click)="selectType('pie')">
+                <img src="assets/pie.png" width="30" alt=""><br>
+                <span>Pie</span>
+            </button>
+        </div>
+        <div class="d-flex justify-content-around mb-2">
+            <button class="secondary btn text-center" [ngClass]="{'warning':typeChart === 'polar'}"
+                style="width: 100px; height:80px; font-size:13px;" [disabled]="!params" (click)="selectType('polar')">
+                <img src="assets/polar.png" width="30" alt=""><br>
+                <span>RoseType</span>
+            </button>
+            <button class="secondary btn text-center" [ngClass]="{'warning':typeChart === 'funnel'}"
+                style="width: 100px; height:80px; font-size:13px;" [disabled]="!params" (click)="selectType('funnel')">
+                <img src="assets/funnel.png" width="30" alt=""><br>
+                <span>Funnel</span>
+            </button>
+        </div>
+
+
+        <!-- <div *ngIf="params">
+            <label for="selectChart" class="text-light">Select chart type</label>
+            <select name="" id="selectChart" class="w-100 rounded p-2" [(ngModel)]="typeChart">
+                <option value="Line">Line</option>
+                <option value="Bar">Bar</option>
+                <option value="Area">Area</option>
+                <option value="Pie">Pie</option>
+                <option value="Polar bar">Polar bar</option>
+                <option value="Funnel">Funnel</option>
+            </select>
+        </div> -->
+    </div>
+
+    <div class="content pt-5" #content>
+        <div *ngIf="!typeChart" class="px-5">
+            <h2 class="text-center"><strong>Visualization of Voltaire's library database</strong></h2><br>
+            <h4><strong>Project</strong></h4>
+            <p>This project allows you to statistically visualize the database of Voltaire's library. The visualization
+                is
+                based on three pillars:</p>
+
+            <ul>
+                <li><strong>Qualitative data:</strong> that correspond to categories like:
+                    <ul>
+                        <li>contributor name</li>
+                        <li>contributor role</li>
+                        <li>publication place</li>
+                        <li>publication date</li>
+                        <li>Volume number</li>
+
+                    </ul>
+                </li>
+                <li><strong>Quantitative data:</strong> that corresponds to the number of books by each category
+                    mentioned
+                    above:
+                    <ul>
+                        <li>Number of books per contributor</li>
+                        <li>Number of books by place of publication</li>
+                        <li>Number of books by date of publication</li>
+                        <li>Number of contributors per role</li>
+                    </ul>
+                </li>
+                <li><strong>Chrononical pillar:</strong> to filter data between two dates</li>
+            </ul>
+
+            <h4><strong>Type of chart</strong></h4>
+            <p>We have chosen six types of visualization that are the most readable and understandable:</p>
+            <ul>
+                <li>Line</li>
+                <li>Bar</li>
+                <li>Area</li>
+                <li>Pie</li>
+                <li>Polar bar</li>
+                <li>Funnel</li>
+            </ul>
+            <h4><strong>Usage</strong></h4>
+            <p>
+                We choose a criterion, then we select the type of graph. Once the graph was displayed, a years slider
+                appeared to choose a year interval. in addition, a multiple drop-down list containing data according to
+                the
+                chosen criterion is activated to add another filter.
+            </p>
+
+        </div>
+        <div class="p-3">
+            <div *ngIf="typeChart">
+                <h3 class="text-center">{{title}}</h3>
+
+                <!--  Slider section -->
+                <div style="margin-bottom:10px">
+                    <h6 class="mb-2">Select a range of years</h6>
+                    <ngx-slider [(ngModel)]="sliderValues" [(value)]="sliderValue" [(highValue)]="highValue"
+                        [options]="sliderOptions" (mouseup)="onChangeDate()">
+                    </ngx-slider>
+                </div>
+
+                <!--  Graph section -->
+                <div class="">
+                    <div class="col" *ngIf="typeChart === 'pie'">
+                        <div echarts [options]="optionPie" class="border p-1 m-1 bg-light shadow"
+                            style="height: 600px; width:auto;"></div>
+                    </div>
+                    <div class="col" *ngIf="typeChart === 'polar'">
+                        <div echarts [options]="optionPolarRadialBar" class="border p-1 m-1 bg-light shadow"
+                            style="height: 600px; width:auto;"></div>
+                    </div>
+                    <div class="col" *ngIf="typeChart === 'bar'">
+                        <div echarts [options]="optionBar" class="border p-1 m-1 bg-light shadow"
+                            style="height: 600px; width:auto;"></div>
+                    </div>
+                    <div class="col" *ngIf="typeChart === 'area'">
+                        <div echarts [options]="optionArea" class="border p-1 m-1 bg-light shadow"
+                            style="height: 600px; width:auto;"></div>
+                    </div>
+                    <div class="col" *ngIf="typeChart === 'line'">
+                        <div echarts [options]="optionLine" class="border p-1 m-1 bg-light shadow"
+                            style="height: 600px; width:auto;"></div>
+                    </div>
+                    <div class="col" *ngIf="typeChart === 'funnel'">
+                        <div echarts [options]="optionFunnel" class="border p-1 m-1 bg-light shadow"
+                            style="height: 600px; width:auto;"></div>
+                    </div>
+                </div>
+            </div>
+
+                <div class="" [ngClass]="{'invisible': !typeChart}" style="margin-top: 20px; ">
+                    {{titleFilter}}
+                    <select class="js-example-basic-single mx-3" name="state" multiple>
+                        <option *ngFor="let item of dataObject" value="{{item.name}}">{{item.name}}</option>
+                    </select>
+                    <button class="primary btn mt-3" (click)="executeFilter()">Executer</button>
+                </div>
+            </div>
+        </div>
+    </div>

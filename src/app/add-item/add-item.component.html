@@ -1,0 +1,268 @@
+<!--<form [formGroup]="form">-->
+<div>
+    <div class="container mat-elevation-z8 p-3 rounded">
+        <h2 class="title">Adding a book</h2>
+        <div class="parent-card">
+            
+            
+            
+            <div class="card card-note ">
+                <input matInput placeholder="Title" [(ngModel)]="title">
+            </div>
+
+            <!--trois select2
+            <div class="card card-note ">
+                <select multiple style="width:100%;" class="select2" style="border: none;" id="author">
+                    <option 
+                        *ngFor="let author of allContributors" 
+                        value="{{author.id}}">{{author.last_name | slice:0:100}} {{author.first_name | slice:0:100}}
+                    </option>
+                </select>
+            </div>
+            <div class="card card-note ">
+                <select multiple style="width:100%;" class="select2" style="border: none;" id="translator">
+                    <option 
+                        *ngFor="let author of allContributors" 
+                        value="{{author.id}}">{{author.last_name | slice:0:100}} {{author.first_name | slice:0:100}}
+                    </option>
+                </select>
+            </div>
+            <div class="card card-note ">
+                <select multiple style="width:100%;" class="select2" style="border: none;" id="copyist">
+                    <option 
+                        *ngFor="let author of allContributors" 
+                        value="{{author.id}}">{{author.last_name | slice:0:100}} {{author.first_name | slice:0:100}}
+                    </option>
+                </select>
+            </div>-->
+
+           
+            <div class="card card-note">
+                <mat-chip-list #chipList>
+                    <mat-chip *ngFor="let author of allAuthors;let indx=index;" [selectable]="selectable"
+                        [removable]="removable" (removed)="removeAuthor(author)">
+                        {{author.last_name | slice:0:30}} {{author.first_name | slice:0:30}}
+                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                    </mat-chip>
+                    <input matInput placeholder="Authors... min 3 characters" #authorInput [formControl]="authorCtrl"
+                        [matAutocomplete]="author" [matChipInputFor]="chipList"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                        (matChipInputTokenEnd)="addAuthor($event)">
+                </mat-chip-list>
+                <mat-autocomplete #author="matAutocomplete" (optionSelected)="selectedAuthor($event)">
+                    <mat-option *ngFor="let author of filteredallAuthors | async" [value]="author">
+                        {{author.last_name | slice:0:100}} {{author.first_name | slice:0:100}}
+                    </mat-option>
+                </mat-autocomplete>
+            </div>
+
+           
+
+            <div class="card card-note">
+                <mat-chip-list #chipList>
+                    <mat-chip *ngFor="let translator of allTranslators;let indx=index;" [selectable]="selectable"
+                        [removable]="removable" (removed)="removeTranslator(translator)">
+                        {{translator.last_name | slice:0:30}} {{translator.first_name | slice:0:30}}
+                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                    </mat-chip>
+                    <input matInput placeholder="Translator... min 3 characters" #translatorInput [formControl]="translatorCtrl"
+                        [matAutocomplete]="translator" [matChipInputFor]="chipList"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                        (matChipInputTokenEnd)="addTranslator($event)">
+                </mat-chip-list>
+                <mat-autocomplete #translator="matAutocomplete" (optionSelected)="selectedTranslator($event)">
+                    <mat-option *ngFor="let translator of filteredallTranslators | async" [value]="translator">
+                        {{translator.last_name | slice:0:100}} {{translator.first_name | slice:0:100}}
+                    </mat-option>
+                </mat-autocomplete>
+            </div>
+            
+
+            <div class="card card-note">
+                <mat-chip-list #chipList>
+                    <mat-chip *ngFor="let copyste of allCopystes;let indx=index;" [selectable]="selectable"
+                        [removable]="removable" (removed)="removeCopyste(copyste)">
+                        {{copyste.last_name | slice:0:30}} {{copyste.first_name | slice:0:30}}
+                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                    </mat-chip>
+                    <input matInput placeholder="Copyist... min 3 characters" #copysteInput [formControl]="copysteCtrl"
+                        [matAutocomplete]="copyste" [matChipInputFor]="chipList"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                        (matChipInputTokenEnd)="addCopyste($event)">
+                </mat-chip-list>
+                <mat-autocomplete #copyste="matAutocomplete" (optionSelected)="selectedCopyste($event)">
+                    <mat-option *ngFor="let copyste of filteredallCopystes | async" [value]="copyste">
+                        {{copyste.last_name | slice:0:100}} {{copyste.first_name | slice:0:100}}
+                    </mat-option>
+                </mat-autocomplete>
+            </div>
+
+            <div class="card card-note">
+                <mat-chip-list #chipList>
+                    <mat-chip *ngFor="let editor of allEditors;let indx=index;" [selectable]="selectable"
+                        [removable]="removable" (removed)="removeEditor(editor)">
+                        {{editor.last_name | slice:0:30}} {{editor.first_name | slice:0:30}}
+                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                    </mat-chip>
+                    <input matInput placeholder="Editor... min 3 characters" #editorInput [formControl]="editorCtrl"
+                        [matAutocomplete]="editor" [matChipInputFor]="chipList"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                        (matChipInputTokenEnd)="addEditor($event)">
+                </mat-chip-list>
+                <mat-autocomplete #editor="matAutocomplete" (optionSelected)="selectedEditor($event)">
+                    <mat-option *ngFor="let editor of filteredallEditors | async" [value]="editor">
+                        {{editor.last_name | slice:0:100}} {{editor.first_name | slice:0:100}}
+                    </mat-option>
+                </mat-autocomplete>
+            </div>
+           
+
+            <!--<div class="card">
+                <mat-select multiple placeholder="Choose author" [(ngModel)]="selectedAuthors"
+                    [ngModelOptions]="{standalone: true}">
+                    <mat-option *ngFor="let contributor of authors" value="{{contributor.id}}">{{contributor.name}}
+                    </mat-option>
+                </mat-select>
+            </div>
+            <div class="card">
+                <mat-select placeholder="Choose translator" multiple [(ngModel)]="selectedTranslators"
+                    [ngModelOptions]="{standalone: true}">
+                    <mat-option *ngFor="let contributor of translators" value="{{contributor.id}}">{{contributor.name}}
+                    </mat-option>
+                </mat-select>
+            </div>-->
+
+
+            <div class="card">
+                <input matInput placeholder="Publisher" [(ngModel)]="publisher">
+            </div>
+            <div class="card">
+                <input matInput placeholder="Publisher stated" [(ngModel)]="publisher_stated">
+            </div>
+
+            <!--<div class="card stated">
+                <input matInput placeholder="Publisher stated" [(ngModel)]="publisher_stated">
+            </div>-->
+
+            <div class="card">
+                <input matInput placeholder="Publication place" [(ngModel)]="publication_place">
+            </div>
+
+            <div class="card stated">
+                <input matInput placeholder="Publication place stated" [(ngModel)]="publication_place_stated">
+            </div>
+
+            <div class="card">
+                <!--<input matInput placeholder="Publication date" type="number"
+                    oninput="javascript: if (this.value.length > 4) this.value = this.value.slice(0, 4);"
+                    [(ngModel)]="publication_date">-->
+                <input 
+                    matInput placeholder="Publication date"
+                    [(ngModel)]="publication_date">
+            </div>
+
+            <div class="card stated">
+                <input matInput placeholder="Publication date stated"
+                    [(ngModel)]="publication_date_stated">
+            </div>
+
+
+            <div class="card">
+                <mat-select placeholder="Media" [(ngModel)]="type_document">
+                    <mat-option value="Periodicals">Periodicals</mat-option>
+                    <mat-option value="Print">Print</mat-option>
+                    <mat-option value="Manuscript">Manuscript</mat-option>
+                    <mat-option value="Other">Other</mat-option>
+                </mat-select>
+            </div>
+
+            <div class="card">
+                <mat-select placeholder="Status" [(ngModel)]="status">
+                    <mat-option value="In VL">In VL</mat-option>
+                    <mat-option value="Was in VL">Was in VL</mat-option>
+                    <mat-option value="V involvement">V involvement</mat-option>
+                    <mat-option value="Conjectural">Conjectural</mat-option>
+                    <mat-option value="Never in VL">Never in VL</mat-option>
+                </mat-select>
+            </div>
+
+            <div class="card">
+                <mat-select placeholder="Multi volume" [(ngModel)]="multivolume">
+                    <mat-option value="yes">Yes</mat-option>
+                    <mat-option value="no">No</mat-option>
+                </mat-select>
+            </div>
+
+            <div class="card">
+                <input matInput type="number" min="0" placeholder="Volumes" [(ngModel)]="volume">
+            </div>
+
+            <div class="card">
+                <input matInput type="number" min="0" placeholder="Vol Number" [(ngModel)]="vol_number">
+            </div>
+
+
+            <div class="card">
+                <input matInput placeholder="Source" [(ngModel)]="source">
+            </div>
+
+            <div class="card">
+                <input matInput placeholder="Marginalia" [(ngModel)]="marginalia">
+            </div>
+
+
+            <div class="card">
+                <input matInput placeholder="Library" [(ngModel)]="library">
+            </div>
+
+            <div class="card">
+                <input matInput placeholder="Shelfmark" [(ngModel)]="cote">
+            </div>
+
+            <div class="card">
+                <input matInput placeholder="Provenance" [(ngModel)]="provenance">
+            </div>
+
+
+            <div class="card">
+                <input matInput placeholder="Ferney" [(ngModel)]="ferney">
+            </div>
+
+            <div class="card">
+                <input matInput placeholder="External resource" [(ngModel)]="external_resource">
+            </div>
+
+            <div class="card">
+                <input matInput placeholder="Pot-Pourri" [(ngModel)]="pot_pourri" type="number" min="0">
+            </div>
+
+
+            <div class="card card-note w-100">
+                <textarea matInput placeholder="Digital Voltaire" [(ngModel)]="digital_voltaire"></textarea>
+            </div>
+
+            <div class="card w-100">
+                <mat-select placeholder="Choose classification" multiple [(ngModel)]="classification">
+                    <mat-optgroup *ngFor="let group of classifications">
+                        <mat-label><strong>{{group.title}}</strong></mat-label>
+                        <mat-option *ngFor="let class of group.sub_titles" [value]="class">
+                            {{class}}
+                        </mat-option>
+                    </mat-optgroup>
+                </mat-select>
+            </div>
+
+
+
+
+            <div class="card card-note w-100">
+                <textarea matInput placeholder="Notes" [(ngModel)]="notes"></textarea>
+            </div>
+        </div>
+        <div class="d-flex justify-content-around">
+            <button mat-raised-button type="submit" (click)="submit()" class="m-2 primary">Submit</button>
+            <button mat-raised-button color="warn" routerLink="/book" class="m-2">Cancel</button>
+        </div>
+    </div>
+    <!--</form>-->
+</div>

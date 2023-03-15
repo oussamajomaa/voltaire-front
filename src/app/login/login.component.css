@@ -1,0 +1,38 @@
+.title{
+    text-align: center;
+    color: #002147;
+}
+
+.login{
+
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 30%;
+    margin-top: 10%;
+}
+
+@media (max-width:1000px){
+    .login{
+        width: 60%;
+    }
+}
+
+@media (max-width:768px){
+    .login{
+        width: 90%;
+    }
+}
+
+
+@media (max-width:1000px){
+    .login{
+        width: 60%;
+    }
+}
+
+@media (max-width:768px){
+    .login{
+        width: 90%;
+    }
+}

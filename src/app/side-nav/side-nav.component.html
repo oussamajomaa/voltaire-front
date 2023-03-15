@@ -1,0 +1,78 @@
+
+
+	<div style="position: fixed; width:100%;">
+		<mat-toolbar color="primary" style="height: 64px;">
+			<div fxShow="true" fxHide.gt-sm="true">
+				<button mat-icon-button (click)="sidenav.toggle()">
+					<mat-icon>menu</mat-icon>
+				</button>
+			</div>
+			<a mat-button routerLink="/" class="companyName">
+				<img src="assets/img/vfobtic.png" width="100" alt="">
+				
+			</a>
+			
+			<div fxShow="true" fxHide.lt-md="true" class="menu">
+				<a routerLink="home" class="menu-h" routerLinkActive="active" >Home</a>
+				<a routerLink="book" routerLinkActive="active" class="menu-h">Books</a>
+				<a routerLink="contributor" routerLinkActive="active" class="menu-h">Contributors</a>
+				<a routerLink="chart" routerLinkActive="active" class="menu-h">Visualization</a>
+				<a *ngIf="role==='supervisor'" routerLink="register" routerLinkActive="active" class="menu-h">Users</a>
+				<!--<a routerLink="about" routerLinkActive="active" class="menu-h">About</a>-->
+				
+				
+			</div>
+			
+		 
+			
+			<!--<mat-icon fxShow="true" fxHide.lt-md="true">person</mat-icon>-->
+			<span fxShow="true" fxHide.lt-md="true" class="mx-2 logout" style="font-size: 12px;">{{email}}</span>
+			<button mat-icon-button (click)="authService.logout()" matTooltip="logout" fxShow="true" fxHide.lt-md="true"><mat-icon>logout</mat-icon></button>
+			
+		</mat-toolbar>
+
+		
+		<mat-sidenav-container style="height: 100vh;">
+			<mat-sidenav color="primary" #sidenav fxLayout="column" mode="over" opened="false" fxHide.gt-md="true">
+				<div fxLayout="column" class="">
+					<div class="menu-v">
+						<mat-icon>home</mat-icon>
+						<a routerLink="home"  routerLinkActive="active1" (click)="sidenav.toggle()" >Home</a>
+					</div>
+					<div class="menu-v">
+						<mat-icon>book</mat-icon>
+						<a routerLink="book"  routerLinkActive="active1" (click)="sidenav.toggle()">Books</a>
+					</div>
+					<div class="menu-v">
+						<mat-icon>school</mat-icon>
+						<a routerLink="contributor"  routerLinkActive="active1" (click)="sidenav.toggle()">Contributors</a>
+					</div>
+					<div class="menu-v">
+						<mat-icon>pie_chart</mat-icon>
+						<a routerLink="chart"  routerLinkActive="active1" (click)="sidenav.toggle()">Visualization</a>
+					</div>
+					
+					<div class="menu-v" *ngIf="role==='supervisor'">
+						<mat-icon>person</mat-icon>
+						<a   routerLink="register" routerLinkActive="active1" (click)="sidenav.toggle()" >Users</a>
+					</div>
+					<!--<div class="menu-v">
+						<mat-icon>info</mat-icon>
+						<a   routerLink="about" routerLinkActive="active1" (click)="sidenav.toggle()" >About</a>
+					</div>-->
+					<div class="menu-v">
+						<mat-icon>logout</mat-icon>
+						<a (click)="authService.logout()"  routerLink="login" routerLinkActive="active1" (click)="sidenav.toggle()" >Logout</a>
+					</div>
+					<hr>
+					<div class="menu-v">
+						<h3>{{email}}</h3>
+					</div>
+				</div>
+			</mat-sidenav>
+			<mat-sidenav-content>
+				<router-outlet></router-outlet>
+			</mat-sidenav-content>
+		</mat-sidenav-container>
+	</div>
+

@@ -1,0 +1,177 @@
+<div *ngIf="pageSlice.length === 0 && isFounded" class="spinner"></div>
+<div *ngIf="!isFounded" class="container mat-elevation-z8 p-3 rounded">
+    <h2>Not Found</h2>
+    <button mat-button class="primary" (click)="clearInput()">
+        <mat-icon>arrow_back</mat-icon> Back
+    </button>
+</div>
+
+<div class="   mat-elevation-z8 p-3 rounded" *ngIf="pageSlice.length != 0" style="position: relative;">
+    <div class="mb-1">
+        <h2 class="title">List of books</h2>
+        <div class="search">
+            <h3>Search by</h3>
+            <div class="d-flex ">
+                <div class="type-search">
+                    <input type="radio" name="searchType" id="title" [checked]="isTitle"  (click)="searchByTitle()">
+                    <label for="title">Title</label>
+                </div>
+                <div class="type-search">
+                    <input type="radio" name="searchType" id="source" [checked]="isSource" (click)="searchBySource()">
+                    <label for="source">Source</label>
+                </div>
+                <div class="type-search">
+                    <input type="radio" name="searchType" id="classification" [checked]="isClassification"  (click)="searchByClassification()">
+                    <label for="classification">Classification</label>
+                </div>
+                <div class="type-search">
+                    <input type="radio" name="searchType" id="notes" [checked]="isNotes"  (click)="searchByNotes()">
+                    <label for="notes">Notes</label>
+                </div>
+            </div>
+            <!-- Searching a book -->
+            <form [formGroup]="searchForm" (ngSubmit)="findBook()">
+                <div class="w-100">
+                    <mat-form-field class="w-50" >
+                        <input matInput formControlName="title" placeholder="search by {{placeHolder}}">
+                    </mat-form-field>
+                   
+                    
+                    <button mat-icon-button  type="submit" >
+                        <mat-icon>search</mat-icon>
+                    </button>
+                    <button type="button" mat-icon-button (click)="clearInput()">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </div>
+            </form>
+            <!-- END Searching a book -->
+            
+            
+        </div>
+
+
+        <div class="p-1 py-3 rounded mat-elevation-z8 " style="background: #002147;">
+            <table class="w-100">
+                <tr class="head ">
+                    <th class="titre" style="position: relative">
+                        Title
+                        <div class="d-flex flex-column" style="position:absolute; left:40px; top:-6px">
+                            <mat-icon class="icon" (click)="sortTitleAsc()" [ngClass]="{'warning': sortTitleA}">arrow_drop_up</mat-icon>
+                            <mat-icon class="icon" (click)="sortTitleDesc()" [ngClass]="{'warning': sortTitleD}">arrow_drop_down</mat-icon>
+                        </div>
+                    </th>
+                    <th class="th">Publisher</th>
+                    <th class="th">Publication Date</th>
+                    <th class="th">Publication Place</th>
+                    <th class="th" style="position: relative">
+                        Source
+                        <div class="d-flex flex-column" style="position:absolute; left:60px; top:-6px">
+                            <mat-icon class="icon" (click)="sortSourceAsc()" [ngClass]="{'warning': sortSourceA}">arrow_drop_up</mat-icon>
+                            <mat-icon class="icon" (click)="sortSourceDesc()" [ngClass]="{'warning': sortSourceD}">arrow_drop_down</mat-icon>
+                        </div>
+                    </th>
+                    <th class="th">Classifications</th>
+                    <th class="titre" style="position: relative">
+                        Notes
+                        <div class="d-flex flex-column" style="position:absolute; left:60px; top:-6px">
+                            <mat-icon class="icon" (click)="sortNotesAsc()" [ngClass]="{'warning': sortNotesA}">arrow_drop_up</mat-icon>
+                            <mat-icon class="icon" (click)="sortNotesDesc()" [ngClass]="{'warning': sortNotesD}">arrow_drop_down</mat-icon>
+                        </div>
+                    </th>
+                    <th class="th" *ngIf="role === 'admin' || role === 'supervisor'">Actions</th>
+                </tr>
+            </table>
+        </div>
+        <div style="overflow:auto; height:50vh;" class="rounded mb-2 mat-elevation-z8 p-1">
+            <table class="w-100">
+
+                <tr *ngFor="let book of pageSlice; let i = index" id="{{book.id}}">
+
+                    <td class="titre" *ngIf="book.title.length >= 100" >
+                        {{book.title | slice:0:60}}.....
+                    </td>
+                    <td class="titre" *ngIf="book.title.length < 100" >
+                        {{book.title | slice:0:60}}.
+                    </td>
+                    <!-- <td class="titre">
+                        {{book.title}}.
+                    </td> -->
+                    <td class="td">
+                        {{book.publisher }}
+                    </td>
+                    <td class="td">
+                        {{book.publication_date }}
+                    </td>
+                    <td class="td">
+                        {{book.publication_place}}
+                    </td>
+
+                    <td class="td">
+                        {{book.source}}
+                    </td>
+                    <td class="td">
+                        <p *ngFor="let classification of book.classifications">
+                            - {{classification.description}}
+                        </p>
+                    </td>
+                    <td class="titre" *ngIf="book.notes.length >= 100" >
+                        {{book.notes | slice:0:60}}.....
+                    </td>
+                    <td class="titre" *ngIf="book.notes.length < 100" >
+                        {{book.notes | slice:0:60}}.
+                    </td>
+                    <!-- <td class="titre">
+                        {{book.notes}}
+                    </td> -->
+
+                    <td class="actions td" *ngIf="role === 'admin' || role === 'supervisor'">
+                        <mat-icon (click)="updateItem(book.id)" matTooltip="edit" class="primary-btn">edit</mat-icon>
+                        <mat-icon (click)="deleteBook(book.id)" matTooltip="delete" color="warn">delete</mat-icon>
+                        <mat-icon (click)="showItem(book.id)" matTooltip="show" class="green-btn">visibility</mat-icon>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <!--*************************************************************************************-->
+
+
+        <!--*************************************************************************************-->
+
+
+
+        <div class="my-2">
+            <button *ngIf="!onAdd" mat-mini-fab style="background: #002147;" (click)="addBook()" matTooltip="new book">
+                <mat-icon>add</mat-icon>
+            </button>
+
+        </div>
+
+        <!-- Pagination -->
+        <div class="p-1 rounded border">
+            <div class="pagination">
+                <div class="">
+                    <mat-icon class="first-last" matTooltip="First" (click)="firstRecord($event)">first_page</mat-icon>
+                    <mat-icon class="first-last" matTooltip="Last" (click)="lastRecord($event)">last_page</mat-icon>
+                </div>
+                <div>
+                    <mat-paginator [length]="books.length" [pageSize]="pageSize" class=" rounded"
+                        [pageSizeOptions]="[50,100,150,200,250,300]" (page)="onPageChange($event)">
+                    </mat-paginator>
+                </div>
+            </div>
+        </div>
+        <!-- END Pagination -->
+
+        <!-- delete message -->
+        <div class="msg mat-elevation-z8" *ngIf="onDelete">
+            <h3 class="">Are you sur to delete this item?</h3>
+            <div class="buttons">
+                <button mat-raised-button color="warn" (click)="confirmDelete()">Yes</button>
+                <button mat-raised-button (click)="cancelDelete()" class="primary">Cancel</button>
+            </div>
+        </div>
+        <!-- delete message -->
+    </div>
+</div>

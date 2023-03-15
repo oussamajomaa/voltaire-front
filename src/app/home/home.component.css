@@ -1,0 +1,110 @@
+.title{
+    text-align: center;
+    color:#002147;
+}
+
+div.scrollmenu {
+    background-color: #002147;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+div.scrollmenu h3 {
+    display: inline-block;
+    color: white;
+
+    padding: 14px;
+    width: 200px;
+
+  }
+
+div.scrollmenu-items{
+    background-color: #d8d8d8;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+div.scrollmenu-items h3 {
+    display: inline-block;
+    color: #002147;
+    width: 200px;
+
+  }
+
+h3{
+    margin: 0%;
+    padding: 0;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+  }
+  
+  th, td {
+    text-align: left;
+    padding: 16px;
+    white-space: nowrap;
+  }
+
+  th{
+      background: #002147;
+      color: white;
+      font-weight: 400;
+
+  }
+  
+  tr:nth-child(even){background-color: #f2f2f2}
+  .actions{
+      display: flex;;
+  }
+
+  .actions .mat-icon{
+      cursor: pointer;
+  }
+
+  .msg{
+    margin-top: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttons{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.radio-class{
+    display: flex;
+    padding: 5px;
+    padding-left: 12px;
+    background-color: #F0F0F0;
+    border-bottom: rgb(163, 163, 163) 1px solid;
+}
+
+.radio-class:hover{
+    border-bottom: rgb(0, 0, 0) 2px solid;;
+}
+
+.radio-class .radio-select{
+    display: flex;
+    flex-direction: column;
+}
+
+.radio-class mat-label{
+    color: rgba(0,0,0,.6);
+    margin-right: 15px;
+}
+
+
+
+.radio-label label{
+    margin-left: 10px;
+}
+
+
