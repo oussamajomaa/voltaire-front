@@ -195,6 +195,7 @@
             <div class="card">
                 <mat-label>Media</mat-label>
                 <mat-select [(ngModel)]="book.type_document">
+                    <mat-option value="">Select Media</mat-option>
                     <mat-option value="Periodicals">Periodicals</mat-option>
                     <mat-option value="Print">Print</mat-option>
                     <mat-option value="Manuscript">Manuscript</mat-option>
@@ -205,6 +206,7 @@
             <div class="card">
                 <mat-label>Status</mat-label>
                 <mat-select [(ngModel)]="book.status">
+                    <mat-option value="">Select Status</mat-option>
                     <mat-option value="In VL">In VL</mat-option>
                     <mat-option value="Was in VL">Was in VL</mat-option>
                     <mat-option value="V involvement">V involvement</mat-option>
